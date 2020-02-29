@@ -1,0 +1,47 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Mac", "BlazorApp.Mac\BlazorApp.Mac.csproj", "{24B7B3C4-958A-4559-BF5E-3E7FE6604EC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{196C67E9-3E9E-4D57-B977-11BF00073FC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWindow.Blazor.JS", "WebWindow.Blazor.JS\WebWindow.Blazor.JS.csproj", "{A64092D3-BF77-4531-88C0-2C2316D0B44F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWindow.Blazor", "WebWindow.Blazor\WebWindow.Blazor.csproj", "{E5989F93-0A61-467E-BE1D-208BCBE1327D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebView", "BlazorWebView\BlazorWebView.csproj", "{581141F6-5522-4B66-8404-4C376F42FB5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebView.Mac", "BlazorWebView.Mac\BlazorWebView.Mac.csproj", "{BA247A5F-A935-47F7-BEFF-3619512B64F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24B7B3C4-958A-4559-BF5E-3E7FE6604EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B7B3C4-958A-4559-BF5E-3E7FE6604EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B7B3C4-958A-4559-BF5E-3E7FE6604EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B7B3C4-958A-4559-BF5E-3E7FE6604EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196C67E9-3E9E-4D57-B977-11BF00073FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196C67E9-3E9E-4D57-B977-11BF00073FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196C67E9-3E9E-4D57-B977-11BF00073FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196C67E9-3E9E-4D57-B977-11BF00073FC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64092D3-BF77-4531-88C0-2C2316D0B44F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64092D3-BF77-4531-88C0-2C2316D0B44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64092D3-BF77-4531-88C0-2C2316D0B44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64092D3-BF77-4531-88C0-2C2316D0B44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5989F93-0A61-467E-BE1D-208BCBE1327D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5989F93-0A61-467E-BE1D-208BCBE1327D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5989F93-0A61-467E-BE1D-208BCBE1327D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5989F93-0A61-467E-BE1D-208BCBE1327D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581141F6-5522-4B66-8404-4C376F42FB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581141F6-5522-4B66-8404-4C376F42FB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581141F6-5522-4B66-8404-4C376F42FB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581141F6-5522-4B66-8404-4C376F42FB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA247A5F-A935-47F7-BEFF-3619512B64F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA247A5F-A935-47F7-BEFF-3619512B64F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA247A5F-A935-47F7-BEFF-3619512B64F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA247A5F-A935-47F7-BEFF-3619512B64F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
