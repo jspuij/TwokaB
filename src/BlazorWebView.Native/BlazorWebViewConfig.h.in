@@ -1,0 +1,3 @@
+// the configured options and settings for Tutorial
+#define BlazorWebViewNative_VERSION_MAJOR @BlazorWebViewNative_VERSION_MAJOR@
+#define BlazorWebViewNative_VERSION_MINOR @BlazorWebViewNative_VERSION_MINOR@

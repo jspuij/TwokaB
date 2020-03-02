@@ -4,10 +4,35 @@
     <OutputType>library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <NativeOutputDir>..\BlazorWebView.Native\build\x64\$(Configuration)\</NativeOutputDir>
+    <NativeAssetRuntimeIdentifier Condition="'$(OS)' == 'Windows_NT'">win-x64</NativeAssetRuntimeIdentifier>
+    <NativeAssetRuntimeIdentifier Condition="'$(OS)' != 'Windows_NT' AND '$(IsMacOS)' != 'true'">linux-x64</NativeAssetRuntimeIdentifier>
+    <NativeAssetRuntimeIdentifier Condition="'$(OS)' != 'Windows_NT' AND '$(IsMacOS)' == 'true'">osx-x64</NativeAssetRuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorWebView\BlazorWebView.csproj" />
+    <ProjectReference Include="..\BlazorWebView.Native\build\BlazorWebViewNative.vcxproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <_NativeLibraries Include="$(NativeOutputDir)BlazorWebViewNative.dll" Condition="Exists('$(NativeOutputDir)BlazorWebViewNative.dll')" />
+    <_NativeLibraries Include="$(NativeOutputDir)BlazorWebViewNative.so" Condition="Exists('$(NativeOutputDir)BlazorWebViewNative.so')" />
+    <_NativeLibraries Include="$(NativeOutputDir)BlazorWebViewNative.dylib" Condition="Exists('$(NativeOutputDir)BlazorWebViewNative.dylib')" />
+    <Content Include="@(_NativeLibraries)">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(Filename)%(Extension)</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes/$(NativeAssetRuntimeIdentifier)/native/%(Filename)%(Extension)</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <!--ItemGroup>
+    <NativeLibs Include="$(SolutionDir)\src\BlazorWebView.Native\build\**\*.dll" />
+    <None Include="@(NativeLibs)">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup-->
 
 </Project>

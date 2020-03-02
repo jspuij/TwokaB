@@ -4,33 +4,36 @@ using System.Windows.Controls;
 
 namespace BlazorWebView.Wpf
 {
-    public class BlazorWebView : FrameworkElement,  IBlazorWebView
+    public sealed class BlazorWebView : FrameworkElement,  IBlazorWebView, IDisposable
     {
+        BlazorWebViewNative innerView = new BlazorWebViewNative();
+
         public event EventHandler<string> OnWebMessageReceived;
+
+        public void Dispose()
+        {
+        }
 
         public void Initialize(Action<WebViewOptions> configure)
         {
-            throw new NotImplementedException();
+            int i = innerView.Test();
         }
 
         public void Invoke(Action callback)
         {
-            throw new NotImplementedException();
         }
 
         public void NavigateToUrl(string url)
         {
-            throw new NotImplementedException();
         }
 
         public void SendMessage(string message)
         {
-            throw new NotImplementedException();
         }
 
         public void ShowMessage(string title, string message)
         {
-            throw new NotImplementedException();
         }
+
     }
 }
