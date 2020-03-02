@@ -26,6 +26,13 @@ namespace BlazorApp.Wpf
         public MainWindow()
         {
             InitializeComponent();
+
+            this.BlazorWebView.Loaded += BlazorWebView_Loaded;
+
+        }
+
+        private void BlazorWebView_Loaded(object sender, RoutedEventArgs e)
+        {
             ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
         }
     }

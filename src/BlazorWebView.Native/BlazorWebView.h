@@ -10,19 +10,23 @@ typedef const wchar_t* AutoString;
 #include <wil/com.h>
 // include WebView2 header
 #include <WebView2.h>
-#else
-#ifdef OS_LINUX
-#include <gtk/gtk.h>
-#endif
-typedef char* AutoString;
 #endif
 
 
 class BlazorWebView
 {
 private:
+#ifdef _WIN32
+    static HINSTANCE hInstance;
     HWND window;
+#endif
+
 public:
+#ifdef _WIN32
     BlazorWebView(HWND parent);
-    HWND GetHWND();
+    ~BlazorWebView();
+    HWND GetHWND(); 
+    static void Register(HINSTANCE hInstance);
+#endif
+
 };

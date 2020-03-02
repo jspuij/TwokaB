@@ -8,17 +8,31 @@ namespace BlazorWebView.Wpf
 {
     public sealed class BlazorWebView : HwndHost, IBlazorWebView
     {
+        #region Imports
         const string DllName = "BlazorWebViewNative";
 
-        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)] 
-        private static extern IntPtr BlazorWebViewNative_Ctor(HandleRef parent);
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+        static extern void BlazorWebViewNative_Register(IntPtr hInstance);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr BlazorWebViewNative_GetHWND(IntPtr blazorWebViewNative);
+        static extern IntPtr BlazorWebViewNative_Ctor(IntPtr parent);
 
-        private IntPtr blazorWebViewNative;
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr BlazorWebViewNative_GetHWND(IntPtr blazorWebView);
+
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+        static extern void BlazorWebViewNative_Dtor(IntPtr blazorWebView);
+        #endregion
+
+        private IntPtr blazorWebView;
 
         public event EventHandler<string> OnWebMessageReceived;
+
+        static BlazorWebView()
+        {
+            var hInstance = Marshal.GetHINSTANCE(typeof(BlazorWebView).Module);
+            BlazorWebViewNative_Register(hInstance);
+        }
 
         public void Initialize(Action<WebViewOptions> configure)
         {
@@ -42,17 +56,14 @@ namespace BlazorWebView.Wpf
 
         protected override HandleRef BuildWindowCore(HandleRef hwndParent)
         {
-            this.blazorWebViewNative = BlazorWebViewNative_Ctor(hwndParent);
-            var hwnd = BlazorWebViewNative_GetHWND(this.blazorWebViewNative);
-            if (hwnd == IntPtr.Zero)
-            {
-                
-            }
+            blazorWebView = BlazorWebViewNative_Ctor(hwndParent.Handle);
+            var hwnd = BlazorWebViewNative_GetHWND(blazorWebView);
             return new HandleRef(this, hwnd);
         }
 
         protected override void DestroyWindowCore(HandleRef hwnd)
         {
+            BlazorWebViewNative_Dtor(blazorWebView);
         }
     }
 }
