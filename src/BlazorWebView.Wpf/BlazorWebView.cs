@@ -22,6 +22,9 @@ namespace BlazorWebView.Wpf
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         static extern void BlazorWebViewNative_Dtor(IntPtr blazorWebView);
+
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+        static extern void BlazorWebViewNative_Initialize(IntPtr blazorWebView);
         #endregion
 
         private IntPtr blazorWebView;
@@ -36,6 +39,7 @@ namespace BlazorWebView.Wpf
 
         public void Initialize(Action<WebViewOptions> configure)
         {
+            BlazorWebViewNative_Initialize(this.blazorWebView);
         }
 
         public void Invoke(Action callback)
@@ -59,6 +63,10 @@ namespace BlazorWebView.Wpf
             blazorWebView = BlazorWebViewNative_Ctor(hwndParent.Handle);
             var hwnd = BlazorWebViewNative_GetHWND(blazorWebView);
             return new HandleRef(this, hwnd);
+        }
+        protected override IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            return base.WndProc(hwnd, msg, wParam, lParam, ref handled);
         }
 
         protected override void DestroyWindowCore(HandleRef hwnd)

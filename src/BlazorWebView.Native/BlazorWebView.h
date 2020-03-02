@@ -19,6 +19,8 @@ private:
 #ifdef _WIN32
     static HINSTANCE hInstance;
     HWND window;
+    wil::com_ptr<ICoreWebView2Host> webviewHost;
+    wil::com_ptr<ICoreWebView2> webviewWindow;
 #endif
 
 public:
@@ -26,6 +28,7 @@ public:
     BlazorWebView(HWND parent);
     ~BlazorWebView();
     HWND GetHWND(); 
+    void Initialize();
     static void Register(HINSTANCE hInstance);
 #endif
 

@@ -31,4 +31,9 @@ extern "C"
     {
         blazorWebView->~BlazorWebView();
     }
+
+    EXPORTED void BlazorWebViewNative_Initialize(BlazorWebView* blazorWebView)
+    {
+        blazorWebView->Initialize();
+    }
 }

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <_NativeLibraries Include="$(NativeOutputDir)BlazorWebViewNative.dll" Condition="Exists('$(NativeOutputDir)BlazorWebViewNative.dll')" />
+    <_NativeLibraries Include="$(NativeOutputDir)WebView2Loader.dll" Condition="Exists('$(NativeOutputDir)WebView2Loader.dll')" />
     <_NativeLibraries Include="$(NativeOutputDir)BlazorWebViewNative.so" Condition="Exists('$(NativeOutputDir)BlazorWebViewNative.so')" />
     <_NativeLibraries Include="$(NativeOutputDir)BlazorWebViewNative.dylib" Condition="Exists('$(NativeOutputDir)BlazorWebViewNative.dylib')" />
     <Content Include="@(_NativeLibraries)">
