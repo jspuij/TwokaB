@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 
 namespace BlazorWebView.Wpf
 {
-    public sealed class BlazorWebView : FrameworkElement,  IBlazorWebView, IDisposable
+    public sealed class BlazorWebView : HwndHost, IBlazorWebView
     {
-        BlazorWebViewNative innerView = new BlazorWebViewNative();
+        const string DllName = "BlazorWebViewNative";
+
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)] 
+        private static extern IntPtr BlazorWebViewNative_Ctor(HandleRef parent);
+
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr BlazorWebViewNative_GetHWND(IntPtr blazorWebViewNative);
+
+        private IntPtr blazorWebViewNative;
 
         public event EventHandler<string> OnWebMessageReceived;
 
-        public void Dispose()
-        {
-        }
-
         public void Initialize(Action<WebViewOptions> configure)
         {
-            int i = innerView.Test();
         }
 
         public void Invoke(Action callback)
@@ -35,5 +40,19 @@ namespace BlazorWebView.Wpf
         {
         }
 
+        protected override HandleRef BuildWindowCore(HandleRef hwndParent)
+        {
+            this.blazorWebViewNative = BlazorWebViewNative_Ctor(hwndParent);
+            var hwnd = BlazorWebViewNative_GetHWND(this.blazorWebViewNative);
+            if (hwnd == IntPtr.Zero)
+            {
+                
+            }
+            return new HandleRef(this, hwnd);
+        }
+
+        protected override void DestroyWindowCore(HandleRef hwnd)
+        {
+        }
     }
 }

@@ -10,8 +10,13 @@
 
 extern "C"
 {
-    EXPORTED int BlazorTest()
+    EXPORTED BlazorWebView* BlazorWebViewNative_Ctor(HWND parent)
     {
-        return 42;
+        return new BlazorWebView(parent);
+    }
+
+    EXPORTED HWND BlazorWebViewNative_GetHWND(BlazorWebView* blazorWebView)
+    {
+        return blazorWebView->GetHWND();
     }
 }

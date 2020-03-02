@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BlazorApp.Wpf": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
