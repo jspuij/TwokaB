@@ -97,7 +97,7 @@ namespace BlazorWebView.Wpf
                     responseStream.CopyTo(ms);
 
                     numBytes = (int)ms.Position;
-                    var buffer = Marshal.AllocHGlobal(numBytes);
+                    var buffer = Marshal.AllocCoTaskMem(numBytes);
                     Marshal.Copy(ms.GetBuffer(), 0, buffer, numBytes);
                     return buffer;
                 }

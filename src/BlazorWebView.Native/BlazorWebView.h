@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <wrl/event.h>
 #include <map>
+#include <list>
 #include <string>
 typedef const wchar_t* AutoString;
 #include <wrl.h>
@@ -27,6 +28,8 @@ private:
     wil::com_ptr<ICoreWebView2Host> webviewHost;
     wil::com_ptr<ICoreWebView2> webviewWindow;
     std::map<std::wstring, WebResourceRequestedCallback> schemeToRequestHandler;
+    std::list<EventRegistrationToken> webResourceRequestedTokens;
+    EventRegistrationToken webMessageReceivedToken;
 #endif
 
 public:

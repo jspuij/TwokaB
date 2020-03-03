@@ -88,9 +88,8 @@ void BlazorWebView::Initialize()
                         Settings->put_IsScriptEnabled(TRUE);
                         Settings->put_AreDefaultScriptDialogsEnabled(TRUE);
                         Settings->put_IsWebMessageEnabled(TRUE);
-
+                        
                         // Register interop APIs
-                        EventRegistrationToken webMessageToken;
                         webviewWindow->AddScriptToExecuteOnDocumentCreated(L"window.external = { sendMessage: function(message) { window.chrome.webview.postMessage(message); }, receiveMessage: function(callback) { window.chrome.webview.addEventListener(\'message\', function(e) { callback(e.data); }); } };", nullptr);
                         webviewWindow->add_WebMessageReceived(Callback<ICoreWebView2WebMessageReceivedEventHandler>(
                             [this](ICoreWebView2* webview, ICoreWebView2WebMessageReceivedEventArgs* args) -> HRESULT {
@@ -99,7 +98,8 @@ void BlazorWebView::Initialize()
                                 if (result != S_OK) { return result; }
                                 webMessageReceivedCallback(message.get());
                                 return S_OK;
-                            }).Get(), &webMessageToken);
+                            }).Get(), &this->webMessageReceivedToken);
+
 
                         // Register request handlers.
                         EventRegistrationToken webResourceRequestedToken;
@@ -142,6 +142,7 @@ void BlazorWebView::Initialize()
                             }
                         ).Get(), &webResourceRequestedToken);
 
+                        webResourceRequestedTokens.push_back(webResourceRequestedToken);
                         hwndToBlazorWebView[window] = this;
 
                         RefitContent();
@@ -197,7 +198,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 BlazorWebView::~BlazorWebView()
 {
-	DestroyWindow(window);
+    for (EventRegistrationToken token : this->webResourceRequestedTokens)
+    {
+        this->webviewWindow->remove_WebResourceRequested(token);
+    }
+    this->webviewWindow->remove_WebMessageReceived(this->webMessageReceivedToken);
+	DestroyWindow(this->window);
 }
 
 void BlazorWebView::AddCustomScheme(AutoString scheme, WebResourceRequestedCallback requestHandler)
