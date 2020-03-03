@@ -71,11 +71,7 @@ namespace BlazorWebView.Mac
         public void SendMessage(string message)
         {
             message = JsonConvert.ToString(message);
-            /*
-            NSString msg = (NSString)message;
-            var data = NSJsonSerialization.Serialize(msg, 0, out _);
-            string json = NSString.FromData(data, NSStringEncoding.UTF16LittleEndian);
-            json = json.Substring(1, json.Length - 1);*/
+           
             WKJavascriptEvaluationResult wKJavascriptEvaluationResult =
                 (o, e) =>
                 {
