@@ -25,7 +25,7 @@ if (WIN32)
           ../../packages/Microsoft.Windows.ImplementationLibrary.1.0.191107.2/build/native/Microsoft.Windows.ImplementationLibrary.targets
           ../../packages/Microsoft.Web.WebView2.0.9.430/build/native/Microsoft.Web.WebView2.targets
       )
-
+    target_link_libraries(BlazorWebViewNative shlwapi)
 endif (WIN32)
 
 target_include_directories(BlazorWebViewNative PUBLIC ${INCLUDES})

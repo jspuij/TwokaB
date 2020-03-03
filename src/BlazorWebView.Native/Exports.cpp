@@ -16,9 +16,9 @@ extern "C"
         BlazorWebView::Register(hInstance);
     }
 
-    EXPORTED BlazorWebView* BlazorWebViewNative_Ctor(HWND parent)
+    EXPORTED BlazorWebView* BlazorWebViewNative_Ctor(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback)
     {
-        return new BlazorWebView(parent);
+        return new BlazorWebView(parent, webMessageReceivedCallback);
     }
 
     EXPORTED HWND BlazorWebViewNative_GetHWND(BlazorWebView* blazorWebView)
@@ -35,5 +35,20 @@ extern "C"
     EXPORTED void BlazorWebViewNative_Initialize(BlazorWebView* blazorWebView)
     {
         blazorWebView->Initialize();
+    }
+
+    EXPORTED void BlazorWebViewNative_AddCustomScheme(BlazorWebView* instance, AutoString scheme, WebResourceRequestedCallback requestHandler)
+    {
+        instance->AddCustomScheme(scheme, requestHandler);
+    }
+
+    EXPORTED void BlazorWebViewNative_NavigateToUrl(BlazorWebView* blazorWebView, AutoString url)
+    {
+        blazorWebView->NavigateToUrl(url);
+    }
+
+    EXPORTED void BlazorWebViewNative_SendMessage(BlazorWebView* blazorWebView, AutoString message)
+    {
+        blazorWebView->SendWebMessage(message);
     }
 }

@@ -12,24 +12,34 @@ typedef const wchar_t* AutoString;
 #include <WebView2.h>
 #endif
 
+typedef void (*WebMessageReceivedCallback)(AutoString message);
+typedef void* (*WebResourceRequestedCallback)(AutoString url, int* outNumBytes, AutoString* outContentType);
+
 
 class BlazorWebView
 {
 private:
+    WebMessageReceivedCallback webMessageReceivedCallback;
 #ifdef _WIN32
     static HINSTANCE hInstance;
-    HWND window;
+    HWND window = 0;
+    wil::com_ptr<ICoreWebView2Environment> webviewEnvironment;
     wil::com_ptr<ICoreWebView2Host> webviewHost;
     wil::com_ptr<ICoreWebView2> webviewWindow;
+    std::map<std::wstring, WebResourceRequestedCallback> schemeToRequestHandler;
 #endif
 
 public:
 #ifdef _WIN32
-    BlazorWebView(HWND parent);
-    ~BlazorWebView();
+    BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback);
     HWND GetHWND(); 
-    void Initialize();
     static void Register(HINSTANCE hInstance);
+    void RefitContent();
 #endif
 
+    void Initialize();
+    ~BlazorWebView();
+    void AddCustomScheme(AutoString scheme, WebResourceRequestedCallback requestHandler);
+    void NavigateToUrl(AutoString url);
+    void SendWebMessage(AutoString message);
 };

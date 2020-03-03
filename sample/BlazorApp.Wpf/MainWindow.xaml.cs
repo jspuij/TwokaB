@@ -38,7 +38,7 @@ namespace BlazorApp.Wpf
             if (!initialized)
             {
                 initialized = true;
-                ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
+                run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
             }
         }
     }
