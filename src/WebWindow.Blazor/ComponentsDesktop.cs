@@ -256,7 +256,7 @@ namespace WebWindows.Blazor
         {
             // Read the BOM
             var bom = new byte[4];
-            var file = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            var file = File.OpenRead(filename);
             file.Read(bom, 0, 4);
             file.Position = 0;
 
