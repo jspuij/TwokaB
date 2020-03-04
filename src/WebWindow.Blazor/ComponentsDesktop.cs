@@ -9,7 +9,9 @@ using Microsoft.JSInterop.Infrastructure;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,19 +26,18 @@ namespace WebWindows.Blazor
         internal static DesktopRenderer DesktopRenderer { get; private set; }
         internal static IBlazorWebView BlazorWebView { get; private set; }
 
-        public static IDisposable Run<TStartup>(IBlazorWebView blazorWebView, string hostHtmlPath)
+        public static IDisposable Run<TStartup>(IBlazorWebView blazorWebView, string hostHtmlPath, ResolveWebResourceDelegate defaultResolveDelegate = null)
         {
             DesktopSynchronizationContext.UnhandledException += (sender, exception) =>
             {
                 UnhandledException(exception);
             };
 
-            BlazorWebView = blazorWebView;
-            BlazorWebView.Initialize(options =>
+            if (defaultResolveDelegate == null)
             {
                 var contentRootAbsolute = Path.GetDirectoryName(Path.GetFullPath(hostHtmlPath));
 
-                options.SchemeHandlers.Add(BlazorAppScheme, (string url, out string contentType) =>
+                defaultResolveDelegate = (string url, out string contentType, out Encoding encoding) =>
                 {
                     // TODO: Only intercept for the hostname 'app' and passthrough for others
                     // TODO: Prevent directory traversal?
@@ -47,13 +48,28 @@ namespace WebWindows.Blazor
                     }
 
                     contentType = GetContentType(appFile);
-                    return File.Exists(appFile) ? File.OpenRead(appFile) : null;
-                });
+
+                    if (!File.Exists(appFile))
+                    {
+                        encoding = Encoding.Default;
+                        return null;
+                    }
+
+                    return GetEncodingAndOpen(appFile, out encoding);
+                };
+            }
+
+            BlazorWebView = blazorWebView;
+            BlazorWebView.Initialize(options =>
+            {
+
+                options.SchemeHandlers.Add(BlazorAppScheme, defaultResolveDelegate);
 
                 // framework:// is resolved as embedded resources
-                options.SchemeHandlers.Add("framework", (string url, out string contentType) =>
+                options.SchemeHandlers.Add("framework", (string url, out string contentType, out Encoding encoding) =>
                 {
                     contentType = GetContentType(url);
+                    encoding = Encoding.UTF8;
                     return SupplyFrameworkFile(url);
                 });
             });
@@ -234,6 +250,27 @@ namespace WebWindows.Blazor
             {
                 this.action();
             }
+        }
+
+        public static Stream GetEncodingAndOpen(string filename, out Encoding encoding)
+        {
+            // Read the BOM
+            var bom = new byte[4];
+            var file = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            file.Read(bom, 0, 4);
+            file.Position = 0;
+
+            encoding = Encoding.UTF8;
+
+            // Analyze the BOM
+            if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) encoding = Encoding.UTF7;
+            if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) encoding = Encoding.UTF8;
+            if (bom[0] == 0xff && bom[1] == 0xfe) encoding = Encoding.Unicode; //UTF-16LE
+            if (bom[0] == 0xfe && bom[1] == 0xff) encoding = Encoding.BigEndianUnicode; //UTF-16BE
+            if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff) encoding = Encoding.UTF32;
+
+            // lets assume UTF8 is reasonably safe for web.
+            return file;
         }
     }
 }

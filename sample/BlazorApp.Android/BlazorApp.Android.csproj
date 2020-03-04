@@ -65,9 +65,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\FONT-LICENSE" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\ICON-LICENSE" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\README.md" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
+    <AndroidAsset Include="Assets\wwwroot\sample-data\weather.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
-    <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.xml">
@@ -109,6 +117,33 @@
       <Project>{7059edc1-60b1-4ef6-87a2-cef95b967dbb}</Project>
       <Name>BlazorWebView.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj">
+      <Project>{581141f6-5522-4b66-8404-4c376f42fb5c}</Project>
+      <Name>BlazorWebView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WebWindow.Blazor\WebWindow.Blazor.csproj">
+      <Project>{e5989f93-0a61-467e-be1d-208bcbe1327d}</Project>
+      <Name>WebWindow.Blazor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlazorApp\BlazorApp.csproj">
+      <Project>{196c67e9-3e9e-4d57-b977-11bf00073fc9}</Project>
+      <Name>BlazorApp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\wwwroot\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\wwwroot\css\site.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\wwwroot\css\bootstrap\bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

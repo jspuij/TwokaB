@@ -407,3 +407,4 @@ ASALocalRun/
 
 build/
 
+/sample/BlazorApp.Android/Assets/wwwroot

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace BlazorWebView
 {
@@ -12,5 +13,5 @@ namespace BlazorWebView
             = new Dictionary<string, ResolveWebResourceDelegate>();
     }
 
-    public delegate Stream ResolveWebResourceDelegate(string url, out string contentType);
+    public delegate Stream ResolveWebResourceDelegate(string url, out string contentType, out Encoding encoding);
 }

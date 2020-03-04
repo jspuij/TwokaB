@@ -30,6 +30,14 @@ namespace BlazorWebView.Android
             WebSettings webSettings = innerWebView.Settings;
             webSettings.JavaScriptEnabled = true;
 
+            var blazorWebViewClient = new BlazorWebViewClient();
+
+            innerWebView.SetWebViewClient(blazorWebViewClient);
+
+            foreach (var (schemeName, handler) in options.SchemeHandlers)
+            {
+                blazorWebViewClient.AddCustomScheme(schemeName, handler);
+            }
         }
 
         public void Invoke(Action callback)

@@ -3,6 +3,8 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
+using WebWindows.Blazor;
+using BlazorWebView.Android;
 
 namespace BlazorApp.Android
 {
@@ -13,8 +15,15 @@ namespace BlazorApp.Android
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+            SupportActionBar.Hide();
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+            var blazorWebView = (BlazorWebView.Android.BlazorWebView)this.SupportFragmentManager.FindFragmentById(Resource.Id.blazorWebView);
+
+            ComponentsDesktop.Run<Startup>(blazorWebView, "wwwroot/index.html", new AndroidAssetResolver(this.Assets, "wwwroot/index.html").Resolve);
+
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] global::Android.Content.PM.Permission[] grantResults)
         {

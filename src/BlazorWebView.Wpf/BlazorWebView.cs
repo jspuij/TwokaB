@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -80,7 +81,7 @@ namespace BlazorWebView.Wpf
             // in response to the constructor options.
             WebResourceRequestedCallback callback = (string url, out int numBytes, out string contentType) =>
             {
-                var responseStream = requestHandler(url, out contentType);
+                var responseStream = requestHandler(url, out contentType, out Encoding encoding);
                 if (responseStream == null)
                 {
                     // Webview should pass through request to normal handlers (e.g., network)

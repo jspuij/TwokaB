@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Foundation;
 using WebKit;
 
@@ -17,7 +18,7 @@ namespace BlazorWebView.iOS
         {
             var url = urlSchemeTask.Request.Url;
 
-            var stream = this.requestHandler(url.AbsoluteString, out string contentType);
+            var stream = this.requestHandler(url.AbsoluteString, out string contentType, out Encoding encoding);
 
             NSDictionary headers = new NSMutableDictionary();
             headers.SetValueForKey((NSString)contentType, (NSString)"Content-Type");
