@@ -22,13 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="upstream\aspnetcore\web.js\package.json" />
-    <Content Include="upstream\aspnetcore\web.js\src\tsconfig.json" />
-    <Content Include="upstream\aspnetcore\web.js\tests\tsconfig.json" />
-    <Content Include="upstream\aspnetcore\web.js\tsconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="dist\" />
   </ItemGroup>
 
