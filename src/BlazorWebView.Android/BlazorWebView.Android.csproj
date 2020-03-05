@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidAssetResolver.cs" />
+    <Compile Include="BlazorJavascriptInterface.cs" />
     <Compile Include="BlazorWebView.cs" />
     <Compile Include="BlazorWebViewClient.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

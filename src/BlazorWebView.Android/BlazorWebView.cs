@@ -20,6 +20,20 @@ namespace BlazorWebView.Android
     {
         private WebView innerWebView;
 
+        private const string InitScriptSource =
+         @"window.__receiveMessageCallbacks = [];
+	 		 window.__dispatchMessageCallback = function(message) {
+			 	window.__receiveMessageCallbacks.forEach(function(callback) { callback(message); });
+			 };
+			 window.external = {
+			 	sendMessage: function(message) {
+			 		webwindowinterop.PostMessage(message);
+			 	},
+			 	receiveMessage: function(callback) {
+			 		window.__receiveMessageCallbacks.push(callback);
+			 	}
+			 };";
+
         public event EventHandler<string> OnWebMessageReceived;
 
         public void Initialize(Action<WebViewOptions> configure)
@@ -29,8 +43,21 @@ namespace BlazorWebView.Android
 
             WebSettings webSettings = innerWebView.Settings;
             webSettings.JavaScriptEnabled = true;
+            innerWebView.AddJavascriptInterface(new BlazorJavascriptInterface(this), "webwindowinterop");
+
+            var resultCallBack = new ValueCallback<string>(s =>
+            {
+                if (!string.IsNullOrEmpty(s))
+                {
+                    Console.WriteLine(s);
+                }
+            });
 
             var blazorWebViewClient = new BlazorWebViewClient();
+            blazorWebViewClient.PageStarted += (s, e) =>
+            {
+                innerWebView.EvaluateJavascript(InitScriptSource, resultCallBack);
+            };
 
             innerWebView.SetWebViewClient(blazorWebViewClient);
 
@@ -38,6 +65,7 @@ namespace BlazorWebView.Android
             {
                 blazorWebViewClient.AddCustomScheme(schemeName, handler);
             }
+
         }
 
         public void Invoke(Action callback)
@@ -106,6 +134,11 @@ namespace BlazorWebView.Android
             {
                 callback(value as TValue);
             }
+        }
+
+        internal void OnReceiveWebMessage(string message)
+        {
+            this.OnWebMessageReceived?.Invoke(this, message);
         }
     }
 }

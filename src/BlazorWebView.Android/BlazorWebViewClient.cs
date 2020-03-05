@@ -10,12 +10,15 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Webkit;
+using Android.Graphics;
 
 namespace BlazorWebView.Android
 {
     public class BlazorWebViewClient : WebViewClient
     {
         private readonly IDictionary<string, ResolveWebResourceDelegate> schemeHandlers = new Dictionary<string, ResolveWebResourceDelegate>();
+
+        public event EventHandler PageStarted;
 
         public override bool ShouldOverrideUrlLoading(WebView view, IWebResourceRequest request)
         {
@@ -51,6 +54,12 @@ namespace BlazorWebView.Android
         internal void AddCustomScheme(string schemeName, ResolveWebResourceDelegate handler)
         {
             this.schemeHandlers.Add(schemeName, handler);
+        }
+
+        public override void OnPageStarted(WebView view, string url, Bitmap favicon)
+        {
+            base.OnPageStarted(view, url, favicon);
+            PageStarted?.Invoke(this, new EventArgs());
         }
     }
 }
