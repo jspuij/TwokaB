@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 
@@ -22,12 +23,34 @@ namespace BlazorWebView.Android
         public AndroidAssetResolver(AssetManager assetManager, string hostHtmlPath)
         {
             this.assetManager = assetManager;
-            this.hostHtmlPath = hostHtmlPath;
+
+            this.hostHtmlPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), hostHtmlPath);
+
+            var hostDirectory = Path.GetDirectoryName(this.hostHtmlPath);
+
+            Directory.CreateDirectory(hostDirectory);
+
+            using (var asset = assetManager.Open("wwwroot.zip"))
+            {
+                using (var zipFile = new ZipArchive(asset))
+                {
+                    foreach (var entry in zipFile.Entries)
+                    {
+                        var filename = Path.Combine(hostDirectory, entry.FullName);
+                        Directory.CreateDirectory(Path.GetDirectoryName(filename));
+                        using (var outputStream = File.Create(filename))
+                        using (var inputStream = entry.Open())
+                        {
+                            inputStream.CopyTo(outputStream);
+                        }
+                    }
+                }
+            }
         }
 
         public Stream Resolve(string url, out string contentType, out Encoding encoding)
          {
-            var contentRootAbsolute = Path.GetDirectoryName(Path.GetFullPath(hostHtmlPath));
+            var contentRootAbsolute = Path.GetDirectoryName(Path.GetFullPath(this.hostHtmlPath));
 
             // TODO: Only intercept for the hostname 'app' and passthrough for others
             // TODO: Prevent directory traversal?
@@ -45,15 +68,13 @@ namespace BlazorWebView.Android
                 {
                     appFile = appFile.Substring(1);
                 }
-                var stream = assetManager.Open(appFile);
+                var stream = File.OpenRead(appFile);
 
                 // Read the BOM
                 var bom = new byte[4];
 
                 stream.Read(bom, 0, 4);
-                // cannot seek.
-                stream.Close();
-                stream = assetManager.Open(appFile);
+                stream.Position = 0;
 
                 // lets assume UTF8 is reasonably safe for web.
                 encoding = Encoding.UTF8;

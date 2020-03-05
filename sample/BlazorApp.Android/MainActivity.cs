@@ -5,6 +5,9 @@ using Android.Runtime;
 using Android.Widget;
 using WebWindows.Blazor;
 using BlazorWebView.Android;
+using System.IO;
+using Java.Util.Zip;
+using System.IO.Compression;
 
 namespace BlazorApp.Android
 {
