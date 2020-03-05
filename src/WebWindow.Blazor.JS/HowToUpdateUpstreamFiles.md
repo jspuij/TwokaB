@@ -1,10 +1,12 @@
 ## Updating the upstream/aspnetcore/web.js directory
 
-The contents of this directory come from https://github.com/aspnet/AspNetCore repo. I didn't want to use a real git submodule because that's such a giant repo, and I only need a few files from it here. So instead I used the `git read-tree` technique described at https://stackoverflow.com/a/30386041
+The contents of this directory come from https://github.com/dotnet/aspnetcore/ repo. I didn't want to use a real git
+submodule because that's such a giant repo, and I only need a few files from it here. So instead I used the
+`git read-tree` technique described at https://stackoverflow.com/a/30386041
 
 One-time setup per working copy:
 
-    git remote add -t master --no-tags aspnetcore https://github.com/aspnet/AspNetCore.git
+    git remote add -t master --no-tags aspnetcore https://github.com/dotnet/aspnetcore.git
 
 Then, to update the contents of upstream/aspnetcore/web.js to the latest:
 
