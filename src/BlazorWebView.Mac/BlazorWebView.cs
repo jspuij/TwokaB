@@ -37,7 +37,6 @@ namespace BlazorWebView.Mac
         /// <summary>
         /// The initialization script for the callbacks.
         /// </summary>
-        /// </summary>
         private const string InitScriptSource =
             @"window.__receiveMessageCallbacks = [];
 	 		 window.__dispatchMessageCallback = function(message) {

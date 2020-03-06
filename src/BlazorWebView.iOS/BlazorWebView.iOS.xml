@@ -82,12 +82,20 @@
             <summary>
             Initialize the BlazorWebView.
             </summary>
-            <param name="configure">A delegate that is executed to configure the webvies.</param>
+            <param name="configure">A delegate that is executed to configure the webview.</param>
         </member>
         <member name="M:BlazorWebView.iOS.BlazorWebView.Initialize">
             <summary>
             Initializes this instance.
             </summary>
+        </member>
+        <member name="M:BlazorWebView.iOS.BlazorWebView.AddCustomScheme(WebKit.WKWebViewConfiguration,System.String,BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Adds a custom scheme handler to the collection of schemes to handle.
+            </summary>
+            <param name="webConfig">The webiew configuration.</param>
+            <param name="scheme">The scheme to use.</param>
+            <param name="requestHandler">The handler for the scheme.</param>
         </member>
         <member name="T:BlazorWebView.iOS.UrlSchemeHandler">
             <summary>
