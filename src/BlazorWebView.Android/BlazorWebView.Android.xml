@@ -85,10 +85,27 @@
             The initialization script for the callbacks.
             </summary>
         </member>
+        <member name="F:BlazorWebView.Android.BlazorWebView.ownerThreadId">
+            <summary>
+            The thread ID of the owner thread.
+            </summary>
+        </member>
         <member name="F:BlazorWebView.Android.BlazorWebView.innerWebView">
             <summary>
             The inner Android Webview.
             </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Android.BlazorWebView"/> class.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.#ctor(System.IntPtr,Android.Runtime.JniHandleOwnership)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Android.BlazorWebView"/> class.
+            </summary>
+            <param name="javaReference">A reference to a native java object.</param>
+            <param name="transfer">An enumeration indicating whether the ownership transfers.</param>
         </member>
         <member name="E:BlazorWebView.Android.BlazorWebView.OnWebMessageReceived">
             <summary>
@@ -148,6 +165,11 @@
             Invokes the Eventhandlers for <see cref="E:BlazorWebView.Android.BlazorWebView.OnWebMessageReceived"/>.
             </summary>
             <param name="message">The message.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
         </member>
         <member name="T:BlazorWebView.Android.BlazorWebView.ValueCallback`1">
             <summary>

@@ -20,6 +20,7 @@ namespace BlazorWebView.Android
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading;
     using global::Android.Content;
     using global::Android.OS;
     using global::Android.Runtime;
@@ -54,9 +55,33 @@ namespace BlazorWebView.Android
 			 };";
 
         /// <summary>
+        /// The thread ID of the owner thread.
+        /// </summary>
+        private int ownerThreadId;
+
+        /// <summary>
         /// The inner Android Webview.
         /// </summary>
         private WebView innerWebView;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BlazorWebView"/> class.
+        /// </summary>
+        public BlazorWebView()
+        {
+            this.Initialize();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BlazorWebView"/> class.
+        /// </summary>
+        /// <param name="javaReference">A reference to a native java object.</param>
+        /// <param name="transfer">An enumeration indicating whether the ownership transfers.</param>
+        public BlazorWebView(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
+        {
+            this.Initialize();
+        }
 
         /// <summary>
         /// Event that is fired when a web message is received from javascript.
@@ -105,7 +130,15 @@ namespace BlazorWebView.Android
         /// <param name="callback">The callback to execute.</param>
         public void Invoke(Action callback)
         {
-            this.Activity.RunOnUiThread(callback);
+            // If we're already on the UI thread, no need to dispatch
+            if (Thread.CurrentThread.ManagedThreadId == this.ownerThreadId)
+            {
+                callback();
+            }
+            else
+            {
+                this.Activity.RunOnUiThread(callback);
+            }
         }
 
         /// <summary>
@@ -186,6 +219,14 @@ namespace BlazorWebView.Android
         internal void OnReceiveWebMessage(string message)
         {
             this.OnWebMessageReceived?.Invoke(this, message);
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        private void Initialize()
+        {
+            this.ownerThreadId = Thread.CurrentThread.ManagedThreadId;
         }
 
         /// <summary>

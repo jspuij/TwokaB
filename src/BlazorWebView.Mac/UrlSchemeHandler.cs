@@ -1,10 +1,10 @@
-﻿using System;
-using System.Text;
-using Foundation;
-using WebKit;
-
-namespace BlazorWebView.Mac
+﻿namespace BlazorWebView.Mac
 {
+    using System;
+    using System.Text;
+    using Foundation;
+    using WebKit;
+
     public class UrlSchemeHandler : NSObject, IWKUrlSchemeHandler
     {
         private ResolveWebResourceDelegate requestHandler;
