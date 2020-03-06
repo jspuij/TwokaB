@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorApp</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorApp.Startup">
+            <summary>
+            Startup class. Adds services and configures components.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures and adds services to the servicecollection.
+            </summary>
+            <param name="services">The collection of services to add to.</param>
+        </member>
+        <member name="M:BlazorApp.Startup.Configure(WebWindows.Blazor.DesktopApplicationBuilder)">
+            <summary>
+            Configure the app.
+            </summary>
+            <param name="app">The application builder for apps.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorWebView</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorWebView.IBlazorWebView">
+            <summary>
+            Interface to be implemented by all platform specific BlazorWebView versions.
+            </summary>
+        </member>
+        <member name="E:BlazorWebView.IBlazorWebView.OnWebMessageReceived">
+            <summary>
+            Event that is fired when a web message is received from javascript.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.IBlazorWebView.Initialize(System.Action{BlazorWebView.WebViewOptions})">
+            <summary>
+            Initialize the BlazorWebView.
+            </summary>
+            <param name="configure">A delegate that is executed to configure the webvies.</param>
+        </member>
+        <member name="M:BlazorWebView.IBlazorWebView.Invoke(System.Action)">
+            <summary>
+            Invoke a callback on the UI thread.
+            </summary>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:BlazorWebView.IBlazorWebView.SendMessage(System.String)">
+            <summary>
+            Send a message to javascript.
+            </summary>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:BlazorWebView.IBlazorWebView.NavigateToUrl(System.String)">
+            <summary>
+            Navigate to the specified URL.
+            </summary>
+            <param name="url">The URL to navigate to.</param>
+        </member>
+        <member name="M:BlazorWebView.IBlazorWebView.ShowMessage(System.String,System.String)">
+            <summary>
+            Show a native dialog for the platform with the specified message.
+            </summary>
+            <param name="title">The title to show.</param>
+            <param name="message">The message to show.</param>
+        </member>
+        <member name="T:BlazorWebView.ResolveWebResourceDelegate">
+            <summary>
+            Delegate that can be executed when a web resource needs to be resolved.
+            </summary>
+            <param name="url">The url for the web resource.</param>
+            <param name="contentType">The content type of the web resource.</param>
+            <param name="encoding">The encoding of the resource.</param>
+            <returns>A stream with the content of the web resource.</returns>
+        </member>
+        <member name="T:BlazorWebView.WebViewOptions">
+            <summary>
+            The options for the webview.
+            </summary>
+        </member>
+        <member name="P:BlazorWebView.WebViewOptions.SchemeHandlers">
+            <summary>
+            Gets a dictionary of Http Scheme handlers.
+            </summary>
+        </member>
+    </members>
+</doc>

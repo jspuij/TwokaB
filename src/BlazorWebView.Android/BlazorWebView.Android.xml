@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorWebView.Android</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorWebView.Android.AndroidAssetResolver">
+            <summary>
+            Resolves an asset on the Android platform.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.AndroidAssetResolver.FileExtensionContentTypeProvider">
+            <summary>
+            Gets a file extension content type provider.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.AndroidAssetResolver.assetManager">
+            <summary>
+            The asset manager to use.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.AndroidAssetResolver.hostHtmlPath">
+            <summary>
+            The path to the index.html file on the "Host".
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.AndroidAssetResolver.#ctor(Android.Content.Res.AssetManager,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Android.AndroidAssetResolver"/> class.
+            </summary>
+            <param name="assetManager">The asset manager to use.</param>
+            <param name="hostHtmlPath">The path to the index.html file on the "Host".</param>
+        </member>
+        <member name="M:BlazorWebView.Android.AndroidAssetResolver.Resolve(System.String,System.String@,System.Text.Encoding@)">
+            <summary>
+            Resolve an asset specified by the given URL.
+            </summary>
+            <param name="url">The Url to resolve.</param>
+            <param name="contentType">The content type of the resource.</param>
+            <param name="encoding">The encoding of the resource.</param>
+            <returns>A stream with the resource data.</returns>
+        </member>
+        <member name="M:BlazorWebView.Android.AndroidAssetResolver.GetContentType(System.String)">
+            <summary>
+            Gets the content type for the url.
+            </summary>
+            <param name="url">The url to use.</param>
+            <returns>The content type.</returns>
+        </member>
+        <member name="M:BlazorWebView.Android.AndroidAssetResolver.ExpandAssets(Android.Content.Res.AssetManager)">
+            <summary>
+            Expands the assets from the resource zip file if required.
+            </summary>
+            <param name="assetManager">The asset manager to use.</param>
+        </member>
+        <member name="T:BlazorWebView.Android.BlazorJavascriptInterface">
+            <summary>
+            Defines a class that is the interface between Javascript and .Net.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.BlazorJavascriptInterface.blazorWebView">
+            <summary>
+            A reference to the parent BlazorWebView.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorJavascriptInterface.#ctor(BlazorWebView.Android.BlazorWebView)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Android.BlazorJavascriptInterface"/> class.
+            </summary>
+            <param name="blazorWebView">The blazor web view to use.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorJavascriptInterface.PostMessage(System.String)">
+            <summary>
+            The function that is called from javasript to post a message to .NET.
+            </summary>
+            <param name="message">The message to post.</param>
+        </member>
+        <member name="T:BlazorWebView.Android.BlazorWebView">
+            <summary>
+            An <see cref="T:BlazorWebView.IBlazorWebView"/> implementation for Android.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.BlazorWebView.InitScriptSource">
+            <summary>
+            The initialization script for the callbacks.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.BlazorWebView.innerWebView">
+            <summary>
+            The inner Android Webview.
+            </summary>
+        </member>
+        <member name="E:BlazorWebView.Android.BlazorWebView.OnWebMessageReceived">
+            <summary>
+            Event that is fired when a web message is received from javascript.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.Initialize(System.Action{BlazorWebView.WebViewOptions})">
+            <summary>
+            Initialize the BlazorWebView.
+            </summary>
+            <param name="configure">A delegate that is executed to configure the webvies.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.Invoke(System.Action)">
+            <summary>
+            Invoke a callback on the UI thread.
+            </summary>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.NavigateToUrl(System.String)">
+            <summary>
+            Navigate to the specified URL.
+            </summary>
+            <param name="url">The URL to navigate to.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.OnCreateView(Android.Views.LayoutInflater,Android.Views.ViewGroup,Android.OS.Bundle)">
+            <summary>
+            Called to have the fragment instantiate its user interface view.
+            This is optional, and non-graphical fragments can return null (which is the default implementation).
+            </summary>
+            <param name="inflater">
+            The LayoutInflater object that can be used to inflate any views in the fragment.
+            </param>
+            <param name="container">ViewGroup: If non-null, this is the parent view that the fragment's UI should
+            be attached to. The fragment should not add the view itself, but this can be used to generate the
+            LayoutParams of the view. This value may be null.
+            </param>
+            <param name="savedInstanceState">Bundle: If non-null, this fragment is being re-constructed from a
+            previous saved state as given here.</param>
+            <returns>Return the View for the fragment's UI, or null.</returns>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.SendMessage(System.String)">
+            <summary>
+            Send a message to javascript.
+            </summary>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.ShowMessage(System.String,System.String)">
+            <summary>
+            Show a native dialog for the platform with the specified message.
+            </summary>
+            <param name="title">The title to show.</param>
+            <param name="message">The message to show.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.OnReceiveWebMessage(System.String)">
+            <summary>
+            Method that is called when a message is received from javascript.
+            Invokes the Eventhandlers for <see cref="E:BlazorWebView.Android.BlazorWebView.OnWebMessageReceived"/>.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:BlazorWebView.Android.BlazorWebView.ValueCallback`1">
+            <summary>
+            A callback class to handle receiving a value and calling a callback.
+            </summary>
+            <typeparam name="TValue">The type of the value.</typeparam>
+        </member>
+        <member name="F:BlazorWebView.Android.BlazorWebView.ValueCallback`1.callback">
+            <summary>
+            The callback to call with the value.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.ValueCallback`1.#ctor(System.Action{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Android.BlazorWebView.ValueCallback`1"/> class.
+            </summary>
+            <param name="callback">The callback to call.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebView.ValueCallback`1.OnReceiveValue(Java.Lang.Object)">
+            <summary>
+            Method that is called when a value is received.
+            </summary>
+            <param name="value">The value to receive.</param>
+        </member>
+        <member name="T:BlazorWebView.Android.BlazorWebViewClient">
+            <summary>
+            A <see cref="T:Android.Webkit.WebViewClient"/> implementation to handle events that happen
+            on the inner Android <see cref="T:Android.Webkit.WebView"/>.
+            </summary>
+        </member>
+        <member name="E:BlazorWebView.Android.BlazorWebViewClient.PageStarted">
+            <summary>
+            Exposes an event that fires when the loading of a page is started, used to inject
+            the <see cref="T:BlazorWebView.Android.BlazorJavascriptInterface"/> object into the web view.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebViewClient.ShouldOverrideUrlLoading(Android.Webkit.WebView,Android.Webkit.IWebResourceRequest)">
+            <summary>
+            Give the host application a chance to take control when a URL is about to be loaded in the current WebView.
+            If a WebViewClient is not provided, by default WebView will ask Activity Manager to choose the proper
+            handler for the URL. If a WebViewClient is provided, returning true causes the current WebView to abort
+            loading the URL, while returning false causes the WebView to continue loading the URL as usual.
+            </summary>
+            <param name="view">The WebView that is initiating the callback.</param>
+            <param name="request">Object containing the details of the request.</param>
+            <returns>true to cancel the current load, otherwise return false.</returns>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebViewClient.ShouldInterceptRequest(Android.Webkit.WebView,Android.Webkit.IWebResourceRequest)">
+            <summary>
+            Notify the host application of a resource request and allow the application to return the data.
+            If the return value is null, the WebView will continue to load the resource as usual.
+            Otherwise, the return response and data will be used.
+            </summary>
+            <param name="view">The WebView that is requesting the resource.</param>
+            <param name="request">Object containing the details of the request.</param>
+            <returns>
+            A WebResourceResponse containing the response information or null
+            if the WebView should load the resource itself.
+            </returns>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebViewClient.OnPageStarted(Android.Webkit.WebView,System.String,Android.Graphics.Bitmap)">
+            <summary>
+            Notify the host application that a page has started loading. This method is called once for each main frame
+            load so a page with iframes or framesets will call onPageStarted one time for the main frame. This also
+            means that onPageStarted will not be called when the contents of an embedded frame changes, i.e. clicking
+            a link whose target is an iframe, it will also not be called for fragment navigations
+            (navigations to #fragment_id).
+            </summary>
+            <param name="view">The WebView that is initiating the callback.</param>
+            <param name="url">The url to be loaded.</param>
+            <param name="favicon">The favicon for this page if it already exists in the database.</param>
+        </member>
+        <member name="M:BlazorWebView.Android.BlazorWebViewClient.AddCustomScheme(System.String,BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Add a custom scheme with a handler to the webiew.
+            </summary>
+            <param name="schemeName">The scheme name to handle.</param>
+            <param name="handler">The handler for the scheme.</param>
+        </member>
+    </members>
+</doc>
