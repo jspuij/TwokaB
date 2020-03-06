@@ -91,7 +91,7 @@ namespace BlazorWebView.Android
         /// <summary>
         /// Initialize the BlazorWebView.
         /// </summary>
-        /// <param name="configure">A delegate that is executed to configure the webvies.</param>
+        /// <param name="configure">A delegate that is executed to configure the webview.</param>
         public void Initialize(Action<WebViewOptions> configure)
         {
             var options = new WebViewOptions();

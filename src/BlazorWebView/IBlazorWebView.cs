@@ -31,7 +31,7 @@ namespace BlazorWebView
         /// <summary>
         /// Initialize the BlazorWebView.
         /// </summary>
-        /// <param name="configure">A delegate that is executed to configure the webvies.</param>
+        /// <param name="configure">A delegate that is executed to configure the webview.</param>
         void Initialize(Action<WebViewOptions> configure);
 
         /// <summary>
