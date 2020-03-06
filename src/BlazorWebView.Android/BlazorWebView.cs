@@ -65,7 +65,6 @@ namespace BlazorWebView.Android
             {
                 blazorWebViewClient.AddCustomScheme(schemeName, handler);
             }
-
         }
 
         public void Invoke(Action callback)

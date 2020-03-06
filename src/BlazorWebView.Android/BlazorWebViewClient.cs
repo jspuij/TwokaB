@@ -58,8 +58,8 @@ namespace BlazorWebView.Android
 
         public override void OnPageStarted(WebView view, string url, Bitmap favicon)
         {
-            base.OnPageStarted(view, url, favicon);
             PageStarted?.Invoke(this, new EventArgs());
+            base.OnPageStarted(view, url, favicon);
         }
     }
 }

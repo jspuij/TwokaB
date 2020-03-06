@@ -30,6 +30,11 @@
     <None Include="upstream\**" Exclude="upstream\aspnetcore\web.js\node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <WebpackInputs Include="**\*.ts" Exclude="node_modules\**" />
+  </ItemGroup>
+
+
   <Target Name="EnsureNpmRestored" Condition="!Exists('node_modules')">
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec Command="npm install" />
