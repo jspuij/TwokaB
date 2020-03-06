@@ -41,5 +41,11 @@ namespace BlazorApp.Wpf
                 run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
             }
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            System.Environment.Exit(0);
+        }
     }
 }
