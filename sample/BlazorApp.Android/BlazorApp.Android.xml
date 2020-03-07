@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorApp.Android</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorApp.Android.MainActivity">
+            <summary>
+            Main activity for the app.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Android.MainActivity.OnRequestPermissionsResult(System.Int32,System.String[],Android.Content.PM.Permission[])">
+            <summary>
+            Executes when permissions are requested.
+            </summary>
+            <param name="requestCode">The request code.</param>
+            <param name="permissions">The requested permissions.</param>
+            <param name="grantResults">The grant results.</param>
+        </member>
+        <member name="M:BlazorApp.Android.MainActivity.OnCreate(Android.OS.Bundle)">
+            <summary>
+            Executes when the activity is created.
+            </summary>
+            <param name="savedInstanceState">Optional saved state in case the actvity is resumed.</param>
+        </member>
+    </members>
+</doc>

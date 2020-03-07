@@ -130,6 +130,7 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

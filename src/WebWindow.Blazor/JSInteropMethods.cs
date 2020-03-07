@@ -35,7 +35,7 @@ namespace WebWindows.Blazor
         /// </summary>
         /// <param name="eventDescriptor">The event descriptor.</param>
         /// <param name="eventArgsJson">The event arguments.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [JSInvokable(nameof(DispatchEvent))]
         public static async Task DispatchEvent(WebEventDescriptor eventDescriptor, string eventArgsJson)
         {

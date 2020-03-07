@@ -36,7 +36,7 @@ namespace BlazorWebView.iOS
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlSchemeHandler"/> class.
         /// </summary>
-        /// <param name="requestHandler">A reference to the requesthandler delegate</param>
+        /// <param name="requestHandler">A reference to the requesthandler delegate.</param>
         public UrlSchemeHandler(ResolveWebResourceDelegate requestHandler)
         {
             this.requestHandler = requestHandler;

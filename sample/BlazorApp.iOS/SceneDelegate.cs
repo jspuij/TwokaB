@@ -1,33 +1,66 @@
-﻿using System;
-using Foundation;
-using UIKit;
+﻿// <copyright file="SceneDelegate.cs" company="Steve Sanderson and Jan-Willem Spuij">
+// Copyright 2020 Steve Sanderson and Jan-Willem Spuij
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
 
 namespace NewSingleViewTemplate
 {
+    using System;
+    using Foundation;
+    using UIKit;
+
+    /// <summary>
+    /// The delegate for the scene.
+    /// </summary>
     [Register("SceneDelegate")]
     public class SceneDelegate : UIResponder, IUIWindowSceneDelegate
     {
-
+        /// <summary>
+        /// Gets or sets the window.
+        /// </summary>
         [Export("window")]
         public UIWindow Window { get; set; }
 
+        /// <summary>
+        /// Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
+        /// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
+        /// This delegate does not imply the connecting scene or session are new (see UIApplicationDelegate `GetConfiguration` instead).
+        /// </summary>
+        /// <param name="scene">The scene.</param>
+        /// <param name="session">The session.</param>
+        /// <param name="connectionOptions">The connection options.</param>
         [Export("scene:willConnectToSession:options:")]
         public void WillConnect(UIScene scene, UISceneSession session, UISceneConnectionOptions connectionOptions)
         {
-            // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-            // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-            // This delegate does not imply the connecting scene or session are new (see UIApplicationDelegate `GetConfiguration` instead).
         }
 
+        /// <summary>
+        /// Called as the scene is being released by the system.
+        /// This occurs shortly after the scene enters the background, or when its session is discarded.
+        /// Release any resources associated with this scene that can be re-created the next time the scene connects.
+        /// The scene may re-connect later, as its session was not neccessarily discarded (see UIApplicationDelegate `DidDiscardSceneSessions` instead).
+        /// </summary>
+        /// <param name="scene">The scene that got disconnected.</param>
         [Export("sceneDidDisconnect:")]
         public void DidDisconnect(UIScene scene)
         {
-            // Called as the scene is being released by the system.
-            // This occurs shortly after the scene enters the background, or when its session is discarded.
-            // Release any resources associated with this scene that can be re-created the next time the scene connects.
-            // The scene may re-connect later, as its session was not neccessarily discarded (see UIApplicationDelegate `DidDiscardSceneSessions` instead).
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scene"></param>
         [Export("sceneDidBecomeActive:")]
         public void DidBecomeActive(UIScene scene)
         {
@@ -35,6 +68,10 @@ namespace NewSingleViewTemplate
             // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scene"></param>
         [Export("sceneWillResignActive:")]
         public void WillResignActive(UIScene scene)
         {

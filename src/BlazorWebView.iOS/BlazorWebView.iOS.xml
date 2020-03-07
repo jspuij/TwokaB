@@ -111,7 +111,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:BlazorWebView.iOS.UrlSchemeHandler"/> class.
             </summary>
-            <param name="requestHandler">A reference to the requesthandler delegate</param>
+            <param name="requestHandler">A reference to the requesthandler delegate.</param>
         </member>
         <member name="M:BlazorWebView.iOS.UrlSchemeHandler.StartUrlSchemeTask(WebKit.WKWebView,WebKit.IWKUrlSchemeTask)">
             <summary>
