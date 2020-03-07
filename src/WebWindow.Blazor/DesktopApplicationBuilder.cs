@@ -35,10 +35,22 @@ namespace WebWindows.Blazor
             this.Entries = new List<(Type componentType, string domElementSelector)>();
         }
 
+        /// <summary>
+        /// Gets a list of component entries with associated dom selectors.
+        /// </summary>
         public List<(Type componentType, string domElementSelector)> Entries { get; }
 
+        /// <summary>
+        /// Gets the list of services.
+        /// </summary>
         public IServiceProvider Services { get; }
 
+        /// <summary>
+        /// Adds a component to the list of Entries.
+        /// </summary>
+        /// <param name="componentType">The type of the component to replace the content inside
+        /// the html with.</param>
+        /// <param name="domElementSelector">The selector to select the element in the DOM.</param>
         public void AddComponent(Type componentType, string domElementSelector)
         {
             if (componentType == null)
@@ -51,10 +63,18 @@ namespace WebWindows.Blazor
                 throw new ArgumentNullException(nameof(domElementSelector));
             }
 
-            Entries.Add((componentType, domElementSelector));
+            this.Entries.Add((componentType, domElementSelector));
         }
 
-        public void AddComponent<T>(string domElementSelector) where T : IComponent
-            => AddComponent(typeof(T), domElementSelector);
+        /// <summary>
+        /// Adds the specified component to the list of component entries
+        /// to replace in html.
+        /// </summary>
+        /// <typeparam name="T">The type of the component to replace the content inside
+        /// the html with.</typeparam>
+        /// <param name="domElementSelector">The selector to select the element in the DOM.</param>
+        public void AddComponent<T>(string domElementSelector)
+            where T : IComponent
+            => this.AddComponent(typeof(T), domElementSelector);
     }
 }

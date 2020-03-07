@@ -15,7 +15,7 @@ namespace BlazorApp.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        BlazorWebView.Mac.BlazorWebView BlazorWebView { get; set; }
+        BlazorWebView.iOS.BlazorWebView BlazorWebView { get; set; }
 
         void ReleaseDesignerOutlets ()
         {

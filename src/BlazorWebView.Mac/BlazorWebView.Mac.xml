@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorWebView.Mac</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorWebView.Mac.BlazorWebView">
+            <summary>
+            An <see cref="T:BlazorWebView.IBlazorWebView"/> implementation for macOS.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Mac.BlazorWebView.InitScriptSource">
+            <summary>
+            The initialization script for the callbacks.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Mac.BlazorWebView.ownerThreadId">
+            <summary>
+            The thread ID of the owner thread.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Mac.BlazorWebView.webView">
+            <summary>
+            The inner <see cref="T:WebKit.WKWebView"/>.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.#ctor(System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Mac.BlazorWebView"/> class.
+            </summary>
+            <param name="handle">A handle to an encapsulated native objet.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Mac.BlazorWebView"/> class.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.#ctor(CoreGraphics.CGRect)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Mac.BlazorWebView"/> class.
+            </summary>
+            <param name="frameRect">A rectangle defining location and size.</param>
+        </member>
+        <member name="E:BlazorWebView.Mac.BlazorWebView.OnWebMessageReceived">
+            <summary>
+            Event that is fired when a web message is received from javascript.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.DidReceiveScriptMessage(WebKit.WKUserContentController,WebKit.WKScriptMessage)">
+            <summary>
+            Invoked when a script message is received from a webpage.
+            </summary>
+            <param name="userContentController">The user content controller invoking the delegate method.</param>
+            <param name="message">The script message received.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.Invoke(System.Action)">
+            <summary>
+            Invoke a callback on the UI thread.
+            </summary>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.SendMessage(System.String)">
+            <summary>
+            Send a message to javascript.
+            </summary>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.NavigateToUrl(System.String)">
+            <summary>
+            Navigate to the specified URL.
+            </summary>
+            <param name="url">The URL to navigate to.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.ShowMessage(System.String,System.String)">
+            <summary>
+            Show a native dialog for the platform with the specified message.
+            </summary>
+            <param name="title">The title to show.</param>
+            <param name="message">The message to show.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.Initialize(System.Action{BlazorWebView.WebViewOptions})">
+            <summary>
+            Initialize the BlazorWebView.
+            </summary>
+            <param name="configure">A delegate that is executed to configure the webview.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Mac.BlazorWebView.AddCustomScheme(WebKit.WKWebViewConfiguration,System.String,BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Adds a custom scheme handler to the collection of schemes to handle.
+            </summary>
+            <param name="webConfig">The webiew configuration.</param>
+            <param name="scheme">The scheme to use.</param>
+            <param name="requestHandler">The handler for the scheme.</param>
+        </member>
+        <member name="T:BlazorWebView.Mac.UrlSchemeHandler">
+            <summary>
+            Handles urls belonging to single scheme.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Mac.UrlSchemeHandler.requestHandler">
+            <summary>
+            A reference to the requesthandler delegate.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Mac.UrlSchemeHandler.#ctor(BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Mac.UrlSchemeHandler"/> class.
+            </summary>
+            <param name="requestHandler">A reference to the requesthandler delegate.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.UrlSchemeHandler.StartUrlSchemeTask(WebKit.WKWebView,WebKit.IWKUrlSchemeTask)">
+            <summary>
+            Starts a task that handles the retrieval of the resource.
+            </summary>
+            <param name="webView">The webview to use.</param>
+            <param name="urlSchemeTask">The scheme task status object.</param>
+        </member>
+        <member name="M:BlazorWebView.Mac.UrlSchemeHandler.StopUrlSchemeTask(WebKit.WKWebView,WebKit.IWKUrlSchemeTask)">
+            <summary>
+            Stops a task that handles the retrieval of the resource.
+            </summary>
+            <param name="webView">The webview to use.</param>
+            <param name="urlSchemeTask">The scheme task status object.</param>
+        </member>
+    </members>
+</doc>

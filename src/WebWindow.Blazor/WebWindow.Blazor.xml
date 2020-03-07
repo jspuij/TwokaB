@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebWindow.Blazor</name>
+    </assembly>
+    <members>
+        <member name="T:WebWindows.Blazor.ComponentsDesktop">
+            <summary>
+            A class that initializes Blazor using the specified <see cref="T:BlazorWebView.IBlazorWebView"/> implementation.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.ComponentsDesktop.FileExtensionContentTypeProvider">
+            <summary>
+            Gets a file extension content type provider.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.ComponentsDesktop.InitialUriAbsolute">
+            <summary>
+            Gets initial absolute Uri.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.ComponentsDesktop.BaseUriAbsolute">
+            <summary>
+            Gets absolute base Uri.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.ComponentsDesktop.DesktopJSRuntime">
+            <summary>
+            Gets desktop javscript runtime interop.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.ComponentsDesktop.DesktopRenderer">
+            <summary>
+            Gets desktop renderer.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.ComponentsDesktop.BlazorWebView">
+            <summary>
+            Gets a reference to the blazor web view.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.ComponentsDesktop.BlazorAppScheme">
+            <summary>
+            Gets a custom HTTP Scheme for the blazor app.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.Run``1(BlazorWebView.IBlazorWebView,System.String,BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Runs Blazor using the specified <see cref="T:BlazorWebView.IBlazorWebView"/> implementation,
+            using the path to the index.html host file and optionally a delegate to
+            resolve the normal (non framework) resources.
+            </summary>
+            <typeparam name="TStartup">A startup class.</typeparam>
+            <param name="blazorWebView">An <see cref="T:BlazorWebView.IBlazorWebView"/> implementation.</param>
+            <param name="hostHtmlPath">The specified oath to the index.html file.</param>
+            <param name="defaultResolveDelegate">An optional delegate to resolve non framework resources.</param>
+            <returns>An <see cref="T:System.IDisposable"/> instance that can be used to cleanup Blazor.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.GetContentType(System.String)">
+            <summary>
+            Gets the content type for the url.
+            </summary>
+            <param name="url">The url to use.</param>
+            <returns>The content type.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.UnhandledException(System.Exception)">
+            <summary>
+            Handles an unhandled exception in blazor.
+            </summary>
+            <param name="ex">The unhandled exception.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.RunAsync``1(WebWindows.Blazor.IPC,System.Threading.CancellationToken)">
+            <summary>
+            Runs blazor using the specified IPC implementation and a
+            cancellationtoken that is triggered when the application should end.
+            </summary>
+            <typeparam name="TStartup">The type of the startup class.</typeparam>
+            <param name="ipc">The IPC channel to communicate between blazor and javascript.</param>
+            <param name="appLifetime">A cancellation token representing the application lifetime.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.SupplyFrameworkFile(System.String)">
+            <summary>
+            A function to supply the framework file from an assembly resource stream.
+            </summary>
+            <param name="uri">The uri for the framework file.</param>
+            <returns>A stream.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.PerformHandshakeAsync(WebWindows.Blazor.IPC)">
+            <summary>
+            Performs the handshake with the javascript part of blazor.
+            </summary>
+            <param name="ipc">The IPC channel to communicate between blazor and javascript.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.AttachJsInterop(WebWindows.Blazor.IPC,System.Threading.CancellationToken)">
+            <summary>
+            Attach the javascript interop functions.
+            </summary>
+            <param name="ipc">The ipc channel to use.</param>
+            <param name="appLifetime">A cancellation token representing the application lifetime.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.GetEncodingAndOpen(System.String,System.Text.Encoding@)">
+            <summary>
+            Gets the encoding for a file and opens it.
+            </summary>
+            <param name="filename">The filename for the file to open.</param>
+            <param name="encoding">The detected encoding.</param>
+            <returns>A stream that represents the file.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.Log(System.String)">
+            <summary>
+            Log a message from blazor.
+            </summary>
+            <param name="message">The message to log.</param>
+        </member>
+        <member name="T:WebWindows.Blazor.ComponentsDesktop.DelegateDisposable">
+            <summary>
+            A class that implements <see cref="T:System.IDisposable"/> by calling a delegate.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.ComponentsDesktop.DelegateDisposable.action">
+            <summary>
+            The delegate to call on disposal.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.DelegateDisposable.#ctor(System.Action)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.ComponentsDesktop.DelegateDisposable"/> class.
+            </summary>
+            <param name="action">The delegate to call on disposal.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.ComponentsDesktop.DelegateDisposable.Dispose">
+            <summary>
+             Performs application-defined tasks associated with freeing, releasing, or resetting
+             unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:WebWindows.Blazor.ConventionBasedStartup">
+            <summary>
+            Handles processing of a Convention based Startup class.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.ConventionBasedStartup.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.ConventionBasedStartup"/> class.
+            </summary>
+            <param name="instance">The startup instance.</param>
+        </member>
+        <member name="P:WebWindows.Blazor.ConventionBasedStartup.Instance">
+            <summary>
+            Gets the instance of the startup class.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.ConventionBasedStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Calls the ConfigureServices method on the startup class.
+            </summary>
+            <param name="services">The services collection to use.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.ConventionBasedStartup.Configure(WebWindows.Blazor.DesktopApplicationBuilder,System.IServiceProvider)">
+            <summary>
+            Calls configure on the startup class.
+            </summary>
+            <param name="app">The application builder to use.</param>
+            <param name="services">The services to register.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.ConventionBasedStartup.GetConfigureMethod">
+            <summary>
+            Tries to get the configure method from the startup instance.
+            </summary>
+            <returns>The MethodInfo object.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.ConventionBasedStartup.GetConfigureServicesMethod">
+            <summary>
+            Tries to get the configureservices method from the startup instance.
+            </summary>
+            <returns>The MethodInfo object.</returns>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopApplicationBuilder">
+            <summary>
+            Application builder class for blazor applications.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopApplicationBuilder.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.DesktopApplicationBuilder"/> class.
+            </summary>
+            <param name="services">The service collection to use.</param>
+        </member>
+        <member name="P:WebWindows.Blazor.DesktopApplicationBuilder.Entries">
+            <summary>
+            Gets a list of component entries with associated dom selectors.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.DesktopApplicationBuilder.Services">
+            <summary>
+            Gets the list of services.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopApplicationBuilder.AddComponent(System.Type,System.String)">
+            <summary>
+            Adds a component to the list of Entries.
+            </summary>
+            <param name="componentType">The type of the component to replace the content inside
+            the html with.</param>
+            <param name="domElementSelector">The selector to select the element in the DOM.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopApplicationBuilder.AddComponent``1(System.String)">
+            <summary>
+            Adds the specified component to the list of component entries
+            to replace in html.
+            </summary>
+            <typeparam name="T">The type of the component to replace the content inside
+            the html with.</typeparam>
+            <param name="domElementSelector">The selector to select the element in the DOM.</param>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopJSRuntime">
+            <summary>
+            Javascript .Net bridge for the BlazorWebView.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopJSRuntime.voidTaskResultType">
+            <summary>
+            The type of VoidTaskResult.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopJSRuntime.ipc">
+            <summary>
+            The inter process communication channel.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopJSRuntime.#ctor(WebWindows.Blazor.IPC)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.DesktopJSRuntime"/> class.
+            </summary>
+            <param name="ipc">The inter process communication channel to use.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopJSRuntime.BeginInvokeJS(System.Int64,System.String,System.String)">
+            <summary>
+            Begin an asynchronous operation to invoke a javascript function.
+            </summary>
+            <param name="asyncHandle">A handle uniquely identifying the asynchronous operation.</param>
+            <param name="identifier">The method identifier.</param>
+            <param name="argsJson">The arguments as JSON string.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopJSRuntime.EndInvokeDotNet(Microsoft.JSInterop.Infrastructure.DotNetInvocationInfo,Microsoft.JSInterop.Infrastructure.DotNetInvocationResult@)">
+            <summary>
+            Ends an asynchronous operation invoking a .NET function from javascript.
+            </summary>
+            <param name="invocationInfo">The invocation info.</param>
+            <param name="invocationResult">The invocation result.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopJSRuntime.HandlePossibleVoidTaskResult(System.Object)">
+            <summary>
+            Handle a possible void taskresult.
+            </summary>
+            <param name="result">The result to handle.</param>
+            <returns>Return null on void.</returns>
+        </member>
+        <member name="E:WebWindows.Blazor.DesktopRenderer.UnhandledException">
+            <summary>
+            Notifies when a rendering exception occured.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.AddComponentAsync``1(System.String)">
+            <summary>
+            Attaches a new root component to the renderer,
+            causing it to be displayed in the specified DOM element.
+            </summary>
+            <typeparam name="TComponent">The type of the component.</typeparam>
+            <param name="domElementSelector">A CSS selector that uniquely identifies a DOM element.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.AddComponentAsync(System.Type,System.String)">
+            <summary>
+            Associates the <see cref="T:Microsoft.AspNetCore.Components.IComponent"/> with the <see cref="!:BrowserRenderer"/>,
+            causing it to be displayed in the specified DOM element.
+            </summary>
+            <param name="componentType">The type of the component.</param>
+            <param name="domElementSelector">A CSS selector that uniquely identifies a DOM element.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.UpdateDisplayAsync(Microsoft.AspNetCore.Components.RenderTree.RenderBatch@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1">
+            <summary>
+            Implements a list that uses an array of objects to store the elements.
+            
+            This differs from a <see cref="T:System.Collections.Generic.List`1"/> in that
+            it not only grows as required but also shrinks if cleared with significant
+            excess capacity. This makes it useful for component rendering, because
+            components can be long-lived and re-render frequently, with the rendered size
+            varying dramatically depending on the user's navigation in the app.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.#ctor(System.Int32,System.Buffers.ArrayPool{`0})">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.Count">
+            <summary>
+            Gets the number of items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.Buffer">
+            <summary>
+            Gets the underlying buffer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.Append(`0@)">
+            <summary>
+            Appends a new item, automatically resizing the underlying array if necessary.
+            </summary>
+            <param name="item">The item to append.</param>
+            <returns>The index of the appended item.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.Overwrite(System.Int32,`0@)">
+            <summary>
+            Sets the supplied value at the specified index. The index must be within
+            range for the array.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.RemoveLast">
+            <summary>
+            Removes the last item.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.InsertExpensive(System.Int32,`0)">
+            <summary>
+            Inserts the item at the specified index, moving the contents of the subsequent entries along by one.
+            </summary>
+            <param name="index">The index at which the value is to be inserted.</param>
+            <param name="value">The value to insert.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1.Clear">
+            <summary>
+            Marks the array as empty, also shrinking the underlying storage if it was
+            not being used to near its full capacity.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Server.Circuits.RenderBatchWriter">
+            <summary>
+            Provides a custom binary serializer for <see cref="T:Microsoft.AspNetCore.Components.RenderTree.RenderBatch"/> instances.
+            This is designed with both server-side and client-side perf in mind:
+            
+             * Array-like regions always have a fixed size per entry (even if some entry types
+               don't require as much space as others) so the recipient can index directly.
+             * The indices describing where field data starts, where each string value starts,
+               etc., are written *after* that data, so when writing the data we don't have to
+               compute the locations up front or seek back to an earlier point in the stream.
+               The recipient can only process the data after reading it all into a buffer,
+               so it's no disadvantage for the location info to be at the end.
+             * We only serialize the data that the JS side will need. For example, we don't
+               emit frame sequence numbers, or any representation of nonstring attribute
+               values, or component instances, etc.
+               
+            We don't have or need a .NET reader for this format. We only read it from JS code.
+            </summary>
+        </member>
+    </members>
+</doc>

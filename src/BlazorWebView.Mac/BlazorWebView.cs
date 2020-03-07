@@ -186,7 +186,7 @@ namespace BlazorWebView.Mac
 
             foreach (var (schemeName, handler) in options.SchemeHandlers)
             {
-                AddCustomScheme(webConfig, schemeName, handler);
+                this.AddCustomScheme(webConfig, schemeName, handler);
             }
 
             this.webView = new WKWebView(this.Frame, webConfig);
