@@ -605,6 +605,74 @@
             <param name="uri">The new uri.</param>
             <param name="isInterceptedLink">Whether it is an intercepted link.</param>
         </member>
+        <member name="T:WebWindows.Blazor.NullDispatcher">
+            <summary>
+            A dispatcher that does not dispatch but invokes directly.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.NullDispatcher.Instance">
+            <summary>
+            the single instance.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.NullDispatcher.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.NullDispatcher"/> class.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.NullDispatcher.CheckAccess">
+            <summary>
+            Returns a value that determines whether using the dispatcher to invoke a work
+            item is required from the current context.
+            </summary>
+            <returns> true if invoking is required, otherwise false.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.NullDispatcher.InvokeAsync(System.Action)">
+            <summary>
+            Invokes the given System.Action in the context of the associated
+            Microsoft.AspNetCore.Components.RenderTree.Renderer.
+            </summary>
+            <param name="workItem">The action to execute.</param>
+            <returns>
+            A System.Threading.Tasks.Task that will be completed when the action has finished
+            executing.
+            </returns>
+        </member>
+        <member name="M:WebWindows.Blazor.NullDispatcher.InvokeAsync(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Invokes the given System.Func'1 in the context of the associated
+            Microsoft.AspNetCore.Components.RenderTree.Renderer.
+            </summary>
+            <param name="workItem">The action to execute.</param>
+            <returns>
+            A System.Threading.Tasks.Task that will be completed when the action has finished
+            executing.
+            </returns>
+        </member>
+        <member name="M:WebWindows.Blazor.NullDispatcher.InvokeAsync``1(System.Func{``0})">
+            <summary>
+            Invokes the given System.Func'1 in the context of the associated
+            Microsoft.AspNetCore.Components.RenderTree.Renderer.
+            </summary>
+            <param name="workItem">The action to execute.</param>
+            <returns>
+            A System.Threading.Tasks.Task that will be completed when the action has finished
+            executing.
+            </returns>
+            <typeparam name="TResult">The return type.</typeparam>
+        </member>
+        <member name="M:WebWindows.Blazor.NullDispatcher.InvokeAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Invokes the given System.Func'1 in the context of the associated
+            Microsoft.AspNetCore.Components.RenderTree.Renderer.
+            </summary>
+            <param name="workItem">The action to execute.</param>
+            <returns>
+            A System.Threading.Tasks.Task that will be completed when the action has finished
+            executing.
+            </returns>
+            <typeparam name="TResult">The return type.</typeparam>
+        </member>
         <member name="T:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1">
             <summary>
             Implements a list that uses an array of objects to store the elements.
