@@ -58,40 +58,44 @@ namespace NewSingleViewTemplate
         }
 
         /// <summary>
-        /// 
+        /// Called when the scene has moved from an inactive state to an active state.
+        /// Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         /// </summary>
-        /// <param name="scene"></param>
+        /// <param name="scene">The scene that became active.</param>
         [Export("sceneDidBecomeActive:")]
         public void DidBecomeActive(UIScene scene)
         {
-            // Called when the scene has moved from an inactive state to an active state.
-            // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         }
 
         /// <summary>
-        /// 
+        /// Called when the scene will move from an active state to an inactive state.
+        /// This may occur due to temporary interruptions (ex. an incoming phone call).
         /// </summary>
-        /// <param name="scene"></param>
+        /// <param name="scene">The scene that became inactive.</param>
         [Export("sceneWillResignActive:")]
         public void WillResignActive(UIScene scene)
         {
-            // Called when the scene will move from an active state to an inactive state.
-            // This may occur due to temporary interruptions (ex. an incoming phone call).
         }
 
+        /// <summary>
+        /// Called as the scene transitions from the background to the foreground.
+        /// Use this method to undo the changes made on entering the background.
+        /// </summary>
+        /// <param name="scene">The scene.</param>
         [Export("sceneWillEnterForeground:")]
         public void WillEnterForeground(UIScene scene)
         {
-            // Called as the scene transitions from the background to the foreground.
-            // Use this method to undo the changes made on entering the background.
         }
 
+        /// <summary>
+        /// Called as the scene transitions from the foreground to the background.
+        /// Use this method to save data, release shared resources, and store enough scene-specific state information
+        /// to restore the scene back to its current state.
+        /// </summary>
+        /// <param name="scene">The scene.</param>
         [Export("sceneDidEnterBackground:")]
         public void DidEnterBackground(UIScene scene)
         {
-            // Called as the scene transitions from the foreground to the background.
-            // Use this method to save data, release shared resources, and store enough scene-specific state information
-            // to restore the scene back to its current state.
         }
     }
 }
