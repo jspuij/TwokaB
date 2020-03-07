@@ -1,88 +1,204 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
+﻿// <copyright file="DesktopSynchronizationContext.cs" company="Steve Sanderson and Jan-Willem Spuij">
+// Copyright 2020 Steve Sanderson and Jan-Willem Spuij
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
 
 namespace WebWindows.Blazor
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// A <see cref="SynchronizationContext"/> implementation that schedules operations on the UI thread.
+    /// </summary>
     internal class DesktopSynchronizationContext : SynchronizationContext
     {
-        public static event EventHandler<Exception> UnhandledException;
+        /// <summary>
+        /// A Queue to queue work.
+        /// </summary>
+        private readonly WorkQueue workQueue;
 
-        private readonly WorkQueue _work;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DesktopSynchronizationContext"/> class.
+        /// </summary>
+        /// <param name="cancellationToken">A cancellation token to cancel work.</param>
         public DesktopSynchronizationContext(CancellationToken cancellationToken)
         {
-            _work = new WorkQueue(cancellationToken);
+            this.workQueue = new WorkQueue(cancellationToken);
         }
 
+        /// <summary>
+        /// An event that is triggered when an unhandled exception occurs.
+        /// </summary>
+        public static event EventHandler<Exception> UnhandledException;
+
+        /// <summary>
+        /// Checks whether the current operation is already in the right context.
+        /// </summary>
+        /// <returns>True when already on the right context.</returns>
+        public static bool CheckAccess()
+        {
+            if (!(Current is DesktopSynchronizationContext synchronizationContext))
+            {
+                throw new InvalidOperationException("Not in the right context.");
+            }
+
+            return synchronizationContext.workQueue.CheckAccess();
+        }
+
+        /// <summary>
+        /// Returns itself instead of creating a copy of this <see cref="DesktopSynchronizationContext"/>.
+        /// </summary>
+        /// <returns>The synchronisation context.</returns>
         public override SynchronizationContext CreateCopy()
         {
             return this;
         }
 
+        /// <summary>
+        /// Dispatches an asynchronous message to a synchronisation context.
+        /// </summary>
+        /// <param name="d">The callback to dispatch.</param>
+        /// <param name="state">A state object to pass.</param>
         public override void Post(SendOrPostCallback d, object state)
         {
-            _work.Queue.Add(new WorkItem() { Callback = d, Context = this, State = state, });
+            this.workQueue.Queue.Add(new WorkItem() { Callback = d, Context = this, State = state, });
         }
 
+        /// <summary>
+        /// Dispatches a synchronous message to a synchronisation context.
+        /// </summary>
+        /// <param name="d">The callback to dispatch.</param>
+        /// <param name="state">A state object to pass.</param>
         public override void Send(SendOrPostCallback d, object state)
         {
-            if (_work.CheckAccess())
+            if (this.workQueue.CheckAccess())
             {
-                _work.ProcessWorkitemInline(d, state);
+                this.workQueue.ProcessWorkitemInline(d, state);
             }
             else
             {
                 var completed = new ManualResetEventSlim();
-                _work.Queue.Add(new WorkItem() { Callback = d, Context = this, State = state, Completed = completed, });
+                this.workQueue.Queue.Add(new WorkItem() { Callback = d, Context = this, State = state, Completed = completed, });
                 completed.Wait();
             }
         }
 
+        /// <summary>
+        /// Stops the queue that dispatches the work to ui thread.
+        /// </summary>
         public void Stop()
         {
-            _work.Queue.CompleteAdding();
+            this.workQueue.Queue.CompleteAdding();
         }
 
-        public static void CheckAccess()
+        /// <summary>
+        /// A workitem to schedule.
+        /// </summary>
+        private struct WorkItem
         {
-            var synchronizationContext = Current as DesktopSynchronizationContext;
-            if (synchronizationContext == null)
-            {
-                throw new InvalidOperationException("Not in the right context.");
-            }
+            /// <summary>
+            /// The callback to execute.
+            /// </summary>
+            public SendOrPostCallback Callback;
 
-            synchronizationContext._work.CheckAccess();
+            /// <summary>
+            /// The state object.
+            /// </summary>
+            public object State;
+
+            /// <summary>
+            /// The context associated with the workitem.
+            /// </summary>
+            public SynchronizationContext Context;
+
+            /// <summary>
+            /// The <see cref="ManualResetEvent"/> to signal for synchronous operations.
+            /// </summary>
+            public ManualResetEventSlim Completed;
         }
 
+        /// <summary>
+        /// A work queue.
+        /// </summary>
         private class WorkQueue
         {
-            private readonly Thread _thread;
-            private readonly CancellationToken _cancellationToken;
+            /// <summary>
+            /// The thread associated with the queue.
+            /// </summary>
+            private readonly Thread thread;
 
+            /// <summary>
+            /// The cancellation token to use.
+            /// </summary>
+            private readonly CancellationToken cancellationToken;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="WorkQueue"/> class.
+            /// </summary>
+            /// <param name="cancellationToken">A cancellation token.</param>
             public WorkQueue(CancellationToken cancellationToken)
             {
-                _cancellationToken = cancellationToken;
-                _thread = new Thread(ProcessQueue);
-                _thread.Start();
+                this.cancellationToken = cancellationToken;
+                this.thread = new Thread(this.ProcessQueue);
+                this.thread.Start();
             }
 
+            /// <summary>
+            /// Gets the queue to process.
+            /// </summary>
             public BlockingCollection<WorkItem> Queue { get; } = new BlockingCollection<WorkItem>();
 
-            public bool CheckAccess()
+            /// <summary>
+            /// Processes a workitem inline.
+            /// </summary>
+            /// <param name="callback">The callback to execute.</param>
+            /// <param name="state">The state object.</param>
+            public void ProcessWorkitemInline(SendOrPostCallback callback, object state)
             {
-                return Thread.CurrentThread == _thread;
+                try
+                {
+                    callback(state);
+                }
+                catch (Exception e)
+                {
+                    UnhandledException?.Invoke(this, e);
+                }
             }
 
+            /// <summary>
+            /// Checks whether the current operation is already in the right context.
+            /// </summary>
+            /// <returns>True when already on the right context.</returns>
+            public bool CheckAccess()
+            {
+                return Thread.CurrentThread == this.thread;
+            }
+
+            /// <summary>
+            /// Process the queue.
+            /// </summary>
             private void ProcessQueue()
             {
-                while (!Queue.IsCompleted)
+                while (!this.Queue.IsCompleted)
                 {
                     WorkItem item;
                     try
                     {
-                        item = Queue.Take(_cancellationToken);
+                        item = this.Queue.Take(this.cancellationToken);
                     }
                     catch (InvalidOperationException)
                     {
@@ -98,7 +214,7 @@ namespace WebWindows.Blazor
 
                     try
                     {
-                        ProcessWorkitemInline(item.Callback, item.State);
+                        this.ProcessWorkitemInline(item.Callback, item.State);
                     }
                     finally
                     {
@@ -111,26 +227,6 @@ namespace WebWindows.Blazor
                     }
                 }
             }
-
-            public void ProcessWorkitemInline(SendOrPostCallback callback, object state)
-            {
-                try
-                {
-                    callback(state);
-                }
-                catch (Exception e)
-                {
-                    UnhandledException?.Invoke(this, e);
-                }
-            }
-        }
-
-        private class WorkItem
-        {
-            public SendOrPostCallback Callback;
-            public object State;
-            public SynchronizationContext Context;
-            public ManualResetEventSlim Completed;
         }
     }
 }

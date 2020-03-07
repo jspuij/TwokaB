@@ -258,9 +258,116 @@
             <param name="result">The result to handle.</param>
             <returns>Return null on void.</returns>
         </member>
+        <member name="T:WebWindows.Blazor.DesktopNavigationInterception">
+            <summary>
+            Class that setups navigation interception on this platform.
+            </summary>
+            <remarks>Not necessary with web views, so this class does nothing but
+            implement <see cref="T:Microsoft.AspNetCore.Components.Routing.INavigationInterception" />.
+            </remarks>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopNavigationInterception.EnableNavigationInterceptionAsync">
+            <summary>
+            Contract to setup navigation interception on the client.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopNavigationManager">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/> implementation for the platform.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopNavigationManager.Instance">
+            <summary>
+            The single instance of the Desktop navigation manager.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopNavigationManager.InteropPrefix">
+            <summary>
+            The prefix for the interop to the javascript part of the navigation manager.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopNavigationManager.InteropNavigateTo">
+            <summary>
+            The method name for the javascript function to navigate to an url.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopNavigationManager.SetLocation(System.String,System.Boolean)">
+            <summary>
+            Sets the specified location.
+            </summary>
+            <param name="uri">The uri to set as location.</param>
+            <param name="isInterceptedLink">Indicates whether this uri is an intercepted link.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopNavigationManager.EnsureInitialized">
+            <summary>
+            Ensures that the navigation manager is intialized with
+            the right initial and base Uri.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopNavigationManager.NavigateToCore(System.String,System.Boolean)">
+            <summary>
+            Navigates to the specified Uri.
+            </summary>
+            <param name="uri">The uri to load.</param>
+            <param name="forceLoad">Force a reload by the browser.</param>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopRenderer">
+            <summary>
+            An HTML renderer for the platform.
+            </summary>
+            <remarks>
+            Many aspects of the layering here are not what we really want, but it won't affect
+            people prototyping applications with it. We can put more work into restructuring the
+            hosting and startup models in the future if it's justified.
+            </remarks>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopRenderer.RendererId">
+            <summary>
+            The renderer Id.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopRenderer.Writer">
+            <summary>
+            Reference to the renderbatch type.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopRenderer.WriteMethod">
+            <summary>
+            Reference to the write method on the renderbatch type.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopRenderer.ipc">
+            <summary>
+            The inter process communication channel.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopRenderer.jsRuntime">
+            <summary>
+            The javacript runtime implementation.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:WebWindows.Blazor.DesktopRenderer"/> class.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.#ctor(System.IServiceProvider,WebWindows.Blazor.IPC,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.DesktopRenderer"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider to resolve services from.</param>
+            <param name="ipc">The inter process communication channel.</param>
+            <param name="loggerFactory">A logger factory.</param>
+        </member>
         <member name="E:WebWindows.Blazor.DesktopRenderer.UnhandledException">
             <summary>
             Notifies when a rendering exception occured.
+            </summary>
+        </member>
+        <member name="P:WebWindows.Blazor.DesktopRenderer.Dispatcher">
+            <summary>
+            Gets the Dispatcher associated with this renderer.
             </summary>
         </member>
         <member name="M:WebWindows.Blazor.DesktopRenderer.AddComponentAsync``1(System.String)">
@@ -270,17 +377,233 @@
             </summary>
             <typeparam name="TComponent">The type of the component.</typeparam>
             <param name="domElementSelector">A CSS selector that uniquely identifies a DOM element.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
         <member name="M:WebWindows.Blazor.DesktopRenderer.AddComponentAsync(System.Type,System.String)">
             <summary>
-            Associates the <see cref="T:Microsoft.AspNetCore.Components.IComponent"/> with the <see cref="!:BrowserRenderer"/>,
+            Associates the <see cref="T:Microsoft.AspNetCore.Components.IComponent"/> with the <see cref="T:WebWindows.Blazor.DesktopRenderer"/>,
             causing it to be displayed in the specified DOM element.
             </summary>
             <param name="componentType">The type of the component.</param>
             <param name="domElementSelector">A CSS selector that uniquely identifies a DOM element.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
         <member name="M:WebWindows.Blazor.DesktopRenderer.UpdateDisplayAsync(Microsoft.AspNetCore.Components.RenderTree.RenderBatch@)">
-            <inheritdoc />
+            <summary>
+            Updates the visible part of the UI.
+            </summary>
+            <param name="batch">The batch to render.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.HandleException(System.Exception)">
+            <summary>
+            Handles an exception.
+            </summary>
+            <param name="exception">The exception to handle.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopRenderer.CaptureAsyncExceptions(System.Threading.Tasks.ValueTask{System.Object})">
+            <summary>
+            Captures an async exception for the task and invokes <see cref="E:WebWindows.Blazor.DesktopRenderer.UnhandledException"/>.
+            </summary>
+            <param name="task">The task to execute.</param>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopSynchronizationContext">
+            <summary>
+            A <see cref="T:System.Threading.SynchronizationContext"/> implementation that schedules operations on the UI thread.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.workQueue">
+            <summary>
+            A Queue to queue work.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.#ctor(System.Threading.CancellationToken)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.DesktopSynchronizationContext"/> class.
+            </summary>
+            <param name="cancellationToken">A cancellation token to cancel work.</param>
+        </member>
+        <member name="E:WebWindows.Blazor.DesktopSynchronizationContext.UnhandledException">
+            <summary>
+            An event that is triggered when an unhandled exception occurs.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.CheckAccess">
+            <summary>
+            Checks whether the current operation is already in the right context.
+            </summary>
+            <returns>True when already on the right context.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.CreateCopy">
+            <summary>
+            Returns itself instead of creating a copy of this <see cref="T:WebWindows.Blazor.DesktopSynchronizationContext"/>.
+            </summary>
+            <returns>The synchronisation context.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.Post(System.Threading.SendOrPostCallback,System.Object)">
+            <summary>
+            Dispatches an asynchronous message to a synchronisation context.
+            </summary>
+            <param name="d">The callback to dispatch.</param>
+            <param name="state">A state object to pass.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.Send(System.Threading.SendOrPostCallback,System.Object)">
+            <summary>
+            Dispatches a synchronous message to a synchronisation context.
+            </summary>
+            <param name="d">The callback to dispatch.</param>
+            <param name="state">A state object to pass.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.Stop">
+            <summary>
+            Stops the queue that dispatches the work to ui thread.
+            </summary>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopSynchronizationContext.WorkItem">
+            <summary>
+            A workitem to schedule.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.WorkItem.Callback">
+            <summary>
+            The callback to execute.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.WorkItem.State">
+            <summary>
+            The state object.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.WorkItem.Context">
+            <summary>
+            The context associated with the workitem.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.WorkItem.Completed">
+            <summary>
+            The <see cref="T:System.Threading.ManualResetEvent"/> to signal for synchronous operations.
+            </summary>
+        </member>
+        <member name="T:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue">
+            <summary>
+            A work queue.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.thread">
+            <summary>
+            The thread associated with the queue.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.cancellationToken">
+            <summary>
+            The cancellation token to use.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.#ctor(System.Threading.CancellationToken)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue"/> class.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+        </member>
+        <member name="P:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.Queue">
+            <summary>
+            Gets the queue to process.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.ProcessWorkitemInline(System.Threading.SendOrPostCallback,System.Object)">
+            <summary>
+            Processes a workitem inline.
+            </summary>
+            <param name="callback">The callback to execute.</param>
+            <param name="state">The state object.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.CheckAccess">
+            <summary>
+            Checks whether the current operation is already in the right context.
+            </summary>
+            <returns>True when already on the right context.</returns>
+        </member>
+        <member name="M:WebWindows.Blazor.DesktopSynchronizationContext.WorkQueue.ProcessQueue">
+            <summary>
+            Process the queue.
+            </summary>
+        </member>
+        <member name="T:WebWindows.Blazor.IPC">
+            <summary>
+            Inter process communication channel.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.IPC.registrations">
+            <summary>
+            Dictionary of registrations by key.
+            </summary>
+        </member>
+        <member name="F:WebWindows.Blazor.IPC.blazorWebView">
+            <summary>
+            The <see cref="T:BlazorWebView.IBlazorWebView"/> to communicate with.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.IPC.#ctor(BlazorWebView.IBlazorWebView)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebWindows.Blazor.IPC"/> class.
+            </summary>
+            <param name="blazorWebView">The <see cref="T:BlazorWebView.IBlazorWebView"/> to communicate with.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.IPC.Send(System.String,System.Object[])">
+            <summary>
+            Sends a message, triggering a javascript event with the specified arguments.
+            </summary>
+            <param name="eventName">The eventname.</param>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.IPC.On(System.String,System.Action{System.Object})">
+            <summary>
+            Registers a callback for an event name.
+            </summary>
+            <param name="eventName">The name of the event.</param>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.IPC.Once(System.String,System.Action{System.Object})">
+            <summary>
+            Registers a callback to receive an event only once.
+            </summary>
+            <param name="eventName">The name of the event.</param>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.IPC.Off(System.String,System.Action{System.Object})">
+            <summary>
+            Removes the callback function for the event name.
+            </summary>
+            <param name="eventName">The event name.</param>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:WebWindows.Blazor.IPC.HandleScriptNotify(System.Object,System.String)">
+            <summary>
+            Handles a notification of a javascript call.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:WebWindows.Blazor.JSInteropMethods">
+            <summary>
+            Methods that can be called from javascript.
+            </summary>
+        </member>
+        <member name="M:WebWindows.Blazor.JSInteropMethods.DispatchEvent(Microsoft.AspNetCore.Components.RenderTree.WebEventDescriptor,System.String)">
+            <summary>
+            Dispatches an event with the specified event descriptor
+            and event arguments to the renderer.
+            </summary>
+            <param name="eventDescriptor">The event descriptor.</param>
+            <param name="eventArgsJson">The event arguments.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebWindows.Blazor.JSInteropMethods.NotifyLocationChanged(System.String,System.Boolean)">
+            <summary>
+            Notify the navigation manager that the location has changed.
+            </summary>
+            <param name="uri">The new uri.</param>
+            <param name="isInterceptedLink">Whether it is an intercepted link.</param>
         </member>
         <member name="T:Microsoft.AspNetCore.Components.RenderTree.ArrayBuilder`1">
             <summary>
