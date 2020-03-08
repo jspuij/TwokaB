@@ -44,7 +44,7 @@ namespace BlazorWebView.Mac
 			 };
 			 window.external = {
 			 	sendMessage: function(message) {
-			 		window.webkit.messageHandlers.webwindowinterop.postMessage(message);
+			 		window.webkit.messageHandlers.blazorwebviewinterop.postMessage(message);
 			 	},
 			 	receiveMessage: function(callback) {
 			 		window.__receiveMessageCallbacks.push(callback);
@@ -182,7 +182,7 @@ namespace BlazorWebView.Mac
             webConfig.UserContentController = new WKUserContentController();
             webConfig.UserContentController.AddUserScript(new WKUserScript((NSString)InitScriptSource, WKUserScriptInjectionTime.AtDocumentStart, true));
             webConfig.Preferences.SetValueForKey(NSNumber.FromBoolean(true), (NSString)"developerExtrasEnabled");
-            webConfig.UserContentController.AddScriptMessageHandler(this, "webwindowinterop");
+            webConfig.UserContentController.AddScriptMessageHandler(this, "blazorwebviewinterop");
 
             foreach (var (schemeName, handler) in options.SchemeHandlers)
             {

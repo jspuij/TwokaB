@@ -253,7 +253,7 @@ namespace BlazorWebView
             switch (uri)
             {
                 case "framework://blazor.desktop.js":
-                    return typeof(ComponentsDesktop).Assembly.GetManifestResourceStream("WebWindow.Blazor.blazor.desktop.js");
+                    return typeof(ComponentsDesktop).Assembly.GetManifestResourceStream("BlazorWebView.blazor.desktop.js");
                 default:
                     throw new ArgumentException($"Unknown framework file: {uri}");
             }

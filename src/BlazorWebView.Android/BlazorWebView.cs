@@ -47,7 +47,7 @@ namespace BlazorWebView.Android
 			 };
 			 window.external = {
 			 	sendMessage: function(message) {
-			 		webwindowinterop.PostMessage(message);
+			 		blazorwebviewinterop.PostMessage(message);
 			 	},
 			 	receiveMessage: function(callback) {
 			 		window.__receiveMessageCallbacks.push(callback);
@@ -99,7 +99,7 @@ namespace BlazorWebView.Android
 
             WebSettings webSettings = this.innerWebView.Settings;
             webSettings.JavaScriptEnabled = true;
-            this.innerWebView.AddJavascriptInterface(new BlazorJavascriptInterface(this), "webwindowinterop");
+            this.innerWebView.AddJavascriptInterface(new BlazorJavascriptInterface(this), "blazorwebviewinterop");
 
             var resultCallBack = new ValueCallback<string>(s =>
             {
