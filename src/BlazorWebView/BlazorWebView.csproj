@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -26,7 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <EmbeddedResource Include="../WebWindow.Blazor.JS/dist/blazor.desktop.js" />
+    <EmbeddedResource Include="../BlazorWebView.JS/dist/blazor.desktop.js" />
   </ItemGroup>
 
 </Project>

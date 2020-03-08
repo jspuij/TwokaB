@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorApp.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorApp.Wpf.App">
+            <summary>
+            Interaction logic for App.xaml.
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Wpf.App.OnExit(System.Windows.ExitEventArgs)">
+            <summary>
+            Raises the application exit event.
+            </summary>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="M:BlazorApp.Wpf.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Wpf.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:BlazorApp.Wpf.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.xaml.
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="F:BlazorApp.Wpf.MainWindow.run">
+            <summary>
+            disposable usable to stop blazor..
+            </summary>
+        </member>
+        <member name="F:BlazorApp.Wpf.MainWindow.initialized">
+            <summary>
+            Bool signaling whether the application is initialized.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Wpf.MainWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorApp.Wpf.MainWindow"/> class.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Wpf.MainWindow.OnContentRendered(System.EventArgs)">
+            <summary>
+            Raises the ContentRendered event.
+            </summary>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="M:BlazorApp.Wpf.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>
