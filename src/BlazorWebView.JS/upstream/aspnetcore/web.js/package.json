@@ -35,7 +35,6 @@
     "**/set-value": "^2.0.1"
   },
   "dependencies": {
-    "serialize-javascript": "^3.0.0",
     "set-value": "^3.0.1",
     "yarn": "^1.22.1"
   }
