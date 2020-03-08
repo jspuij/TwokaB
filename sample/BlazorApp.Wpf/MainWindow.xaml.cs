@@ -1,51 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WebWindows.Blazor;
+﻿// <copyright file="MainWindow.xaml.cs" company="Steve Sanderson and Jan-Willem Spuij">
+// Copyright 2020 Steve Sanderson and Jan-Willem Spuij
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
 
 namespace BlazorApp.Wpf
 {
+    using System;
+    using System.Windows;
+    using WebWindows.Blazor;
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// disposable usable to stop blazor..
+        /// </summary>
         private IDisposable run;
 
+        /// <summary>
+        /// Bool signaling whether the application is initialized.
+        /// </summary>
+        private bool initialized = false;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
-        bool initialized = false;
-
+        /// <summary>
+        /// Raises the ContentRendered event.
+        /// </summary>
+        /// <param name="e">The event arguments.</param>
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
 
-            if (!initialized)
+            if (!this.initialized)
             {
-                initialized = true;
-                run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
+                this.initialized = true;
+                this.run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
             }
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            System.Environment.Exit(0);
         }
     }
 }

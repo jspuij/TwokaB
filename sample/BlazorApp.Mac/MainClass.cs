@@ -1,4 +1,4 @@
-﻿// <copyright file="Main.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="MainClass.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,28 +14,23 @@
 // limitations under the License.
 // </copyright>
 
-#pragma warning disable SA1300 // Element should begin with upper-case letter
-namespace BlazorApp.iOS
-#pragma warning restore SA1300 // Element should begin with upper-case letter
+namespace BlazorApp.Mac
 {
-    using UIKit;
+    using AppKit;
 
     /// <summary>
     /// Main application class.
     /// </summary>
-#pragma warning disable SA1649 // File name should match first type name
-    public class Application
-#pragma warning restore SA1649 // File name should match first type name
+    public static class MainClass
     {
         /// <summary>
-        /// This is the main entry point of the application.
+        /// Entry point of the application.
         /// </summary>
-        /// <param name="args">The command line arguments.</param>
+        /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
-            // if you want to use a different Application Delegate class from "AppDelegate"
-            // you can specify it here.
-            UIApplication.Main(args, null, typeof(AppDelegate).Name);
+            NSApplication.Init();
+            NSApplication.Main(args);
         }
     }
 }

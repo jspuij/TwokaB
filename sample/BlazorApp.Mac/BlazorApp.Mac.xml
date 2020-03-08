@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorApp.Mac</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorApp.Mac.MainClass">
+            <summary>
+            Main application class.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Mac.MainClass.Main(System.String[])">
+            <summary>
+            Entry point of the application.
+            </summary>
+            <param name="args">Command line arguments.</param>
+        </member>
+        <member name="T:BlazorApp.Mac.AppDelegate">
+            <summary>
+            The NSApplicationDelegate for the application. This class is responsible for launching the
+            User Interface of the application, as well as listening (and optionally responding) to application events from macOS.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Mac.AppDelegate.DidFinishLaunching(Foundation.NSNotification)">
+            <summary>
+            Override point for customization after application launch.
+            If not required for your application you can safely delete this method.
+            </summary>
+            <param name="notification">The notification.</param>
+        </member>
+        <member name="M:BlazorApp.Mac.AppDelegate.WillTerminate(Foundation.NSNotification)">
+            <summary>
+            Called when the application will terminate..
+            Use this method to release any resources that were specific to the application.
+            </summary>
+            <param name="notification">The notification.</param>
+        </member>
+        <member name="T:BlazorApp.Mac.ViewController">
+            <summary>
+            A view controller for the main view.
+            </summary>
+        </member>
+        <member name="F:BlazorApp.Mac.ViewController.run">
+            <summary>
+            Disposable to stop blazor.
+            </summary>
+        </member>
+        <member name="P:BlazorApp.Mac.ViewController.RepresentedObject">
+            <summary>
+            Gets or sets the represented object.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.Mac.ViewController.ViewDidLoad">
+            <summary>
+            Called after the view is loaded into memory.
+            </summary>
+        </member>
+    </members>
+</doc>

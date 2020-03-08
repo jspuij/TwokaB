@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorApp.iOS</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorApp.iOS.AppDelegate">
+            <summary>
+            The UIApplicationDelegate for the application. This class is responsible for launching the
+            User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
+            </summary>
+        </member>
+        <member name="P:BlazorApp.iOS.AppDelegate.Window">
+            <summary>
+            Gets or sets the window.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.iOS.AppDelegate.FinishedLaunching(UIKit.UIApplication,Foundation.NSDictionary)">
+            <summary>
+            Override point for customization after application launch.
+            If not required for your application you can safely delete this method.
+            </summary>
+            <param name="application">The application.</param>
+            <param name="launchOptions">The launch options.</param>
+            <returns>A boolean indicating success.</returns>
+        </member>
+        <member name="M:BlazorApp.iOS.AppDelegate.GetConfiguration(UIKit.UIApplication,UIKit.UISceneSession,UIKit.UISceneConnectionOptions)">
+            <summary>
+            Called when a new scene session is being created.
+            Use this method to select a configuration to create the new scene with.
+            </summary>
+            <param name="application">The application.</param>
+            <param name="connectingSceneSession">The connecting scene session.</param>
+            <param name="options">The scene connection options.</param>
+            <returns>A scene configuration.</returns>
+        </member>
+        <member name="M:BlazorApp.iOS.AppDelegate.DidDiscardSceneSessions(UIKit.UIApplication,Foundation.NSSet{UIKit.UISceneSession})">
+            <summary>
+            Called when the user discards a scene session.
+            If any sessions were discarded while the application was not running, this will be called shortly after `FinishedLaunching`.
+            Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+            </summary>
+            <param name="application">The application.</param>
+            <param name="sceneSessions">The set of discarded scene sessions.</param>
+        </member>
+        <member name="T:BlazorApp.iOS.Application">
+            <summary>
+            Main application class.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.iOS.Application.Main(System.String[])">
+            <summary>
+            This is the main entry point of the application.
+            </summary>
+            <param name="args">The command line arguments.</param>
+        </member>
+        <member name="T:BlazorApp.iOS.ViewController">
+            <summary>
+            A view controller for the main view.
+            </summary>
+        </member>
+        <member name="F:BlazorApp.iOS.ViewController.run">
+            <summary>
+            Disposable to stop blazor.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.iOS.ViewController.ViewDidLoad">
+            <summary>
+            Called after the view is loaded into memory.
+            </summary>
+        </member>
+        <member name="M:BlazorApp.iOS.ViewController.DidReceiveMemoryWarning">
+            <summary>
+            Called when the system is load on memory.
+            </summary>
+        </member>
+        <member name="T:NewSingleViewTemplate.SceneDelegate">
+            <summary>
+            The delegate for the scene.
+            </summary>
+        </member>
+        <member name="P:NewSingleViewTemplate.SceneDelegate.Window">
+            <summary>
+            Gets or sets the window.
+            </summary>
+        </member>
+        <member name="M:NewSingleViewTemplate.SceneDelegate.WillConnect(UIKit.UIScene,UIKit.UISceneSession,UIKit.UISceneConnectionOptions)">
+            <summary>
+            Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
+            If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
+            This delegate does not imply the connecting scene or session are new (see UIApplicationDelegate `GetConfiguration` instead).
+            </summary>
+            <param name="scene">The scene.</param>
+            <param name="session">The session.</param>
+            <param name="connectionOptions">The connection options.</param>
+        </member>
+        <member name="M:NewSingleViewTemplate.SceneDelegate.DidDisconnect(UIKit.UIScene)">
+            <summary>
+            Called as the scene is being released by the system.
+            This occurs shortly after the scene enters the background, or when its session is discarded.
+            Release any resources associated with this scene that can be re-created the next time the scene connects.
+            The scene may re-connect later, as its session was not neccessarily discarded (see UIApplicationDelegate `DidDiscardSceneSessions` instead).
+            </summary>
+            <param name="scene">The scene that got disconnected.</param>
+        </member>
+        <member name="M:NewSingleViewTemplate.SceneDelegate.DidBecomeActive(UIKit.UIScene)">
+            <summary>
+            Called when the scene has moved from an inactive state to an active state.
+            Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+            </summary>
+            <param name="scene">The scene that became active.</param>
+        </member>
+        <member name="M:NewSingleViewTemplate.SceneDelegate.WillResignActive(UIKit.UIScene)">
+            <summary>
+            Called when the scene will move from an active state to an inactive state.
+            This may occur due to temporary interruptions (ex. an incoming phone call).
+            </summary>
+            <param name="scene">The scene that became inactive.</param>
+        </member>
+        <member name="M:NewSingleViewTemplate.SceneDelegate.WillEnterForeground(UIKit.UIScene)">
+            <summary>
+            Called as the scene transitions from the background to the foreground.
+            Use this method to undo the changes made on entering the background.
+            </summary>
+            <param name="scene">The scene.</param>
+        </member>
+        <member name="M:NewSingleViewTemplate.SceneDelegate.DidEnterBackground(UIKit.UIScene)">
+            <summary>
+            Called as the scene transitions from the foreground to the background.
+            Use this method to save data, release shared resources, and store enough scene-specific state information
+            to restore the scene back to its current state.
+            </summary>
+            <param name="scene">The scene.</param>
+        </member>
+    </members>
+</doc>

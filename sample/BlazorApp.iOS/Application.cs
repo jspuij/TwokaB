@@ -1,4 +1,4 @@
-﻿// <copyright file="App.xaml.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="Application.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,30 +14,26 @@
 // limitations under the License.
 // </copyright>
 
-namespace BlazorApp.Wpf
+#pragma warning disable SA1300 // Element should begin with upper-case letter
+namespace BlazorApp.iOS
+#pragma warning restore SA1300 // Element should begin with upper-case letter
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Data;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Windows;
+    using UIKit;
 
     /// <summary>
-    /// Interaction logic for App.xaml.
+    /// Main application class.
     /// </summary>
-    public partial class App : Application
+    public class Application
     {
         /// <summary>
-        /// Raises the application exit event.
+        /// This is the main entry point of the application.
         /// </summary>
-        /// <param name="e">The event arguments.</param>
-        protected override void OnExit(ExitEventArgs e)
+        /// <param name="args">The command line arguments.</param>
+        public static void Main(string[] args)
         {
-            base.OnExit(e);
-            System.Environment.Exit(0);
+            // if you want to use a different Application Delegate class from "AppDelegate"
+            // you can specify it here.
+            UIApplication.Main(args, null, typeof(AppDelegate).Name);
         }
     }
 }
