@@ -19,9 +19,9 @@ namespace BlazorApp.iOS
 #pragma warning restore SA1300 // Element should begin with upper-case letter
 {
     using System;
+    using BlazorWebView;
     using Foundation;
     using UIKit;
-    using WebWindows.Blazor;
 
     /// <summary>
     /// A view controller for the main view.

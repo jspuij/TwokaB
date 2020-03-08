@@ -16,8 +16,8 @@
 
 namespace BlazorApp
 {
+    using BlazorWebView;
     using Microsoft.Extensions.DependencyInjection;
-    using WebWindows.Blazor;
 
     /// <summary>
     /// Startup class. Adds services and configures components.

@@ -33,9 +33,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebWindow.Blazor\WebWindow.Blazor.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj" />
   </ItemGroup>
 </Project>

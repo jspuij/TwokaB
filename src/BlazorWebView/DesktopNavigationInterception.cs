@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 
-namespace WebWindows.Blazor
+namespace BlazorWebView
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components.Routing;

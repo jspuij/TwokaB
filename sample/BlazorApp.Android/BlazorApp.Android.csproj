@@ -126,10 +126,6 @@
       <Project>{581141f6-5522-4b66-8404-4c376f42fb5c}</Project>
       <Name>BlazorWebView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebWindow.Blazor\WebWindow.Blazor.csproj">
-      <Project>{e5989f93-0a61-467e-be1d-208bcbe1327d}</Project>
-      <Name>WebWindow.Blazor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlazorApp\BlazorApp.csproj">
       <Project>{196c67e9-3e9e-4d57-b977-11bf00073fc9}</Project>
       <Name>BlazorApp</Name>

@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BlazorWebView.Wpf\BlazorWebView.Wpf.csproj" />
-    <ProjectReference Include="..\..\src\WebWindow.Blazor\WebWindow.Blazor.csproj" />
     <ProjectReference Include="..\BlazorApp\BlazorApp.csproj" />
   </ItemGroup>
 

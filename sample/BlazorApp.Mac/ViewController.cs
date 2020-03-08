@@ -18,8 +18,8 @@ namespace BlazorApp.Mac
 {
     using System;
     using AppKit;
+    using BlazorWebView;
     using Foundation;
-    using WebWindows.Blazor;
 
     /// <summary>
     /// A view controller for the main view.

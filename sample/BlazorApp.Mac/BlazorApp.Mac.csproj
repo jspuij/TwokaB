@@ -223,10 +223,6 @@
       <Project>{BA247A5F-A935-47F7-BEFF-3619512B64F4}</Project>
       <Name>BlazorWebView.Mac</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebWindow.Blazor\WebWindow.Blazor.csproj">
-      <Project>{E5989F93-0A61-467E-BE1D-208BCBE1327D}</Project>
-      <Name>WebWindow.Blazor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj">
       <Project>{581141F6-5522-4B66-8404-4C376F42FB5C}</Project>
       <Name>BlazorWebView</Name>

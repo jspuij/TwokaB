@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 
-namespace WebWindows.Blazor
+namespace BlazorWebView
 {
     using System;
     using System.Collections.Generic;
@@ -23,7 +23,6 @@ namespace WebWindows.Blazor
     using System.Threading;
     using System.Threading.Tasks;
     using BlazorWebView;
-    using WebWindows;
 
     /// <summary>
     /// Inter process communication channel.

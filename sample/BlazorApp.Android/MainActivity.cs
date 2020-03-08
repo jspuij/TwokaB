@@ -18,6 +18,7 @@ namespace BlazorApp.Android
 {
     using System.IO;
     using System.IO.Compression;
+    using BlazorWebView;
     using BlazorWebView.Android;
     using global::Android.App;
     using global::Android.OS;
@@ -25,7 +26,6 @@ namespace BlazorApp.Android
     using global::Android.Support.V7.App;
     using global::Android.Widget;
     using Java.Util.Zip;
-    using WebWindows.Blazor;
 
     /// <summary>
     /// Main activity for the app.

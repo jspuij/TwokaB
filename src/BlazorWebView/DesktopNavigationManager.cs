@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 
-namespace WebWindows.Blazor
+namespace BlazorWebView
 {
     using Microsoft.AspNetCore.Components;
     using Microsoft.JSInterop;

@@ -159,10 +159,6 @@
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebWindow.Blazor\WebWindow.Blazor.csproj">
-      <Project>{E5989F93-0A61-467E-BE1D-208BCBE1327D}</Project>
-      <Name>WebWindow.Blazor</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="..\BlazorApp\wwwroot\index.html">

@@ -18,7 +18,7 @@ namespace BlazorApp.Wpf
 {
     using System;
     using System.Windows;
-    using WebWindows.Blazor;
+    using BlazorWebView;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
