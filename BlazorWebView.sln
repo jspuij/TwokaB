@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{D862B5CA-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.Wpf", "src\BlazorWebView.Wpf\BlazorWebView.Wpf.csproj", "{5FA920C7-EA7E-4FDA-860B-81BD19613DB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebView.Android", "src\BlazorWebView.Android\BlazorWebView.Android.csproj", "{7059EDC1-60B1-4EF6-87A2-CEF95B967DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.Android", "src\BlazorWebView.Android\BlazorWebView.Android.csproj", "{7059EDC1-60B1-4EF6-87A2-CEF95B967DBB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp.Wpf", "sample\BlazorApp.Wpf\BlazorApp.Wpf.csproj", "{D53EC302-8E28-4D61-9C6C-B01772F863E3}"
 EndProject

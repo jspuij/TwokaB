@@ -4,10 +4,10 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <NativeOutputDir32>..\BlazorWebView.Native\build32\$(Configuration)\</NativeOutputDir32>
     <NativeOutputDir64>..\BlazorWebView.Native\build64\$(Configuration)\</NativeOutputDir64>
-    <NativeAssetRuntimeIdentifier32>win-x86</NativeAssetRuntimeIdentifier32>
+    <NativeOutputDir32>..\BlazorWebView.Native\build32\$(Configuration)\</NativeOutputDir32>
     <NativeAssetRuntimeIdentifier64>win-x64</NativeAssetRuntimeIdentifier64>
+    <NativeAssetRuntimeIdentifier32>win-x86</NativeAssetRuntimeIdentifier32>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
@@ -23,28 +23,32 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorWebView\BlazorWebView.csproj" />
-    <ProjectReference Include="..\BlazorWebView.Native\build32\BlazorWebViewNative.vcxproj" />
     <ProjectReference Include="..\BlazorWebView.Native\build64\BlazorWebViewNative.vcxproj" />
+    <ProjectReference Include="..\BlazorWebView.Native\build32\BlazorWebViewNative.vcxproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_NativeLibraries32 Include="$(NativeOutputDir32)BlazorWebViewNative.dll" Condition="Exists('$(NativeOutputDir32)BlazorWebViewNative.dll')" />
-    <_NativeLibraries32 Include="$(NativeOutputDir32)WebView2Loader.dll" Condition="Exists('$(NativeOutputDir32)WebView2Loader.dll')" />
-    <Content Include="@(_NativeLibraries32)">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(Filename)%(Extension)</Link>
-      <Pack>true</Pack>
-      <PackagePath>runtimes/$(NativeAssetRuntimeIdentifier32)/native/%(Filename)%(Extension)</PackagePath>
-    </Content>
-  </ItemGroup>
   <ItemGroup>
     <_NativeLibraries64 Include="$(NativeOutputDir64)BlazorWebViewNative.dll" Condition="Exists('$(NativeOutputDir64)BlazorWebViewNative.dll')" />
     <_NativeLibraries64 Include="$(NativeOutputDir64)WebView2Loader.dll" Condition="Exists('$(NativeOutputDir64)WebView2Loader.dll')" />
     <Content Include="@(_NativeLibraries64)">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='AnyCPU'">PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='x64'">PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='x86'">Never</CopyToOutputDirectory>
       <Link>%(Filename)%(Extension)</Link>
       <Pack>true</Pack>
       <PackagePath>runtimes/$(NativeAssetRuntimeIdentifier64)/native/%(Filename)%(Extension)</PackagePath>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <_NativeLibraries32 Include="$(NativeOutputDir32)BlazorWebViewNative.dll" Condition="Exists('$(NativeOutputDir32)BlazorWebViewNative.dll')" />
+    <_NativeLibraries32 Include="$(NativeOutputDir32)WebView2Loader.dll" Condition="Exists('$(NativeOutputDir32)WebView2Loader.dll')" />
+    <Content Include="@(_NativeLibraries32)">
+      <CopyToOutputDirectory Condition="'$(Platform)'=='AnyCPU'">Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='x64'">Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='x86'">PreserveNewest</CopyToOutputDirectory>
+      <Link>%(Filename)%(Extension)</Link>
+      <Pack>true</Pack>
+      <PackagePath>runtimes/$(NativeAssetRuntimeIdentifier32)/native/%(Filename)%(Extension)</PackagePath>
     </Content>
   </ItemGroup>
 
@@ -55,13 +59,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <!--ItemGroup>
-    <NativeLibs Include="$(SolutionDir)\src\BlazorWebView.Native\build\**\*.dll" />
-    <None Include="@(NativeLibs)">
-      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup-->
-  <Import Project="../../build.props"/>
+  <Import Project="../../build.props" />
 
 </Project>
