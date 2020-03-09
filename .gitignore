@@ -406,6 +406,8 @@ ASALocalRun/
 *.blob
 
 build/
+build32/
+build64/
 
 /sample/BlazorApp.Android/Assets/wwwroot.zip
 /sample/BlazorApp.Wpf/*.xml

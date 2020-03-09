@@ -28,5 +28,5 @@
     </PackageReference>
     <EmbeddedResource Include="../BlazorWebView.JS/dist/blazor.desktop.js" />
   </ItemGroup>
-
+  <Import Project="../../build.props"/>
 </Project>
