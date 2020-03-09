@@ -52,6 +52,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlazorWebViewNative", "src\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZERO_CHECK", "src\BlazorWebView.Native\build64\ZERO_CHECK.vcxproj", "{F30E9FF2-F3B4-3189-9C93-D186E7E38674}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1070D27-26E5-49D2-A71A-E5ED03F9AF75}"
+	ProjectSection(SolutionItems) = preProject
+		build.props = build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
