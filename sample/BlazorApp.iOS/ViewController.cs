@@ -34,6 +34,15 @@ namespace BlazorApp.iOS
         private IDisposable run;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ViewController"/> class.
+        /// </summary>
+        /// <param name="handle">The handle to the native object.</param>
+        public ViewController(IntPtr handle)
+            : base(handle)
+        {
+        }
+
+        /// <summary>
         /// Called after the view is loaded into memory.
         /// </summary>
         public override void ViewDidLoad()

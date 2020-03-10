@@ -38,6 +38,9 @@
   <PropertyGroup>
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
+      <ItemGroup>
+        <Folder Include="Resources" />
+  </ItemGroup>
    <ItemGroup>
     <ProjectReference Include="..\BlazorWebView\BlazorWebView.csproj">
     </ProjectReference>

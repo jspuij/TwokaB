@@ -64,6 +64,12 @@
             Disposable to stop blazor.
             </summary>
         </member>
+        <member name="M:BlazorApp.iOS.ViewController.#ctor(System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorApp.iOS.ViewController"/> class.
+            </summary>
+            <param name="handle">The handle to the native object.</param>
+        </member>
         <member name="M:BlazorApp.iOS.ViewController.ViewDidLoad">
             <summary>
             Called after the view is loaded into memory.
