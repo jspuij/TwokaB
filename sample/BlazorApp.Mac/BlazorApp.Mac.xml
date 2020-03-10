@@ -45,6 +45,12 @@
             Disposable to stop blazor.
             </summary>
         </member>
+        <member name="M:BlazorApp.Mac.ViewController.#ctor(System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorApp.Mac.ViewController"/> class.
+            </summary>
+            <param name="handle">The handle to the native object.</param>
+        </member>
         <member name="P:BlazorApp.Mac.ViewController.RepresentedObject">
             <summary>
             Gets or sets the represented object.

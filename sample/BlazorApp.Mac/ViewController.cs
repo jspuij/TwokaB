@@ -32,6 +32,15 @@ namespace BlazorApp.Mac
         private IDisposable run;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ViewController"/> class.
+        /// </summary>
+        /// <param name="handle">The handle to the native object.</param>
+        public ViewController(IntPtr handle)
+            : base(handle)
+        {
+        }
+
+        /// <summary>
         /// Gets or sets the represented object.
         /// </summary>
         public override NSObject RepresentedObject
