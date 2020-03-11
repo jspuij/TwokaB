@@ -31,6 +31,8 @@
     <UseRefCounting>true</UseRefCounting>
     <AOTMode>None</AOTMode>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+    <MonoBundlingExtraArgs>-v -v -v -v</MonoBundlingExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,15 +54,6 @@
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Blazor.HttpClient, Version=3.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Blazor.HttpClient.3.2.0-preview2.20160.5\lib\netstandard2.0\Microsoft.AspNetCore.Blazor.HttpClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Features.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Hosting.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Extensions.WebEncoders, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.WebEncoders.3.1.2\lib\netstandard2.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
     </Reference>
@@ -71,9 +64,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Pipelines, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.IO.Pipelines.4.7.0\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Mac" />
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
@@ -130,12 +120,6 @@
     <Reference Include="Microsoft.AspNetCore.Components.Web">
       <HintPath>..\..\packages\Microsoft.AspNetCore.Components.Web.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Components.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.WebAssembly.Interop">
-      <HintPath>..\..\packages\Mono.WebAssembly.Interop.3.2.0-preview1.20073.1\lib\netstandard2.1\Mono.WebAssembly.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Blazor">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Blazor.3.2.0-preview1.20073.1\lib\netstandard2.1\Microsoft.AspNetCore.Blazor.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Binder">
       <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Binder.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
     </Reference>
@@ -184,6 +168,15 @@
     <Reference Include="Microsoft.AspNetCore.StaticFiles">
       <HintPath>..\..\packages\Microsoft.AspNetCore.StaticFiles.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.StaticFiles.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.JSInterop.WebAssembly">
+      <HintPath>..\..\packages\Microsoft.JSInterop.WebAssembly.3.2.0-preview2.20160.5\lib\netstandard2.1\Microsoft.JSInterop.WebAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Components.WebAssembly">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Components.WebAssembly.3.2.0-preview2.20160.5\lib\netstandard2.1\Microsoft.AspNetCore.Components.WebAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Features.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -204,7 +197,6 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
