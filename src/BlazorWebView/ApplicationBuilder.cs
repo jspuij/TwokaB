@@ -1,4 +1,4 @@
-﻿// <copyright file="DesktopApplicationBuilder.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="CoreApplicationBuilder.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,13 +23,13 @@ namespace BlazorWebView
     /// <summary>
     /// Application builder class for blazor applications.
     /// </summary>
-    public class DesktopApplicationBuilder
+    public class ApplicationBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesktopApplicationBuilder"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationBuilder"/> class.
         /// </summary>
         /// <param name="services">The service collection to use.</param>
-        public DesktopApplicationBuilder(IServiceProvider services)
+        public ApplicationBuilder(IServiceProvider services)
         {
             this.Services = services;
             this.Entries = new List<(Type componentType, string domElementSelector)>();

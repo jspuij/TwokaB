@@ -62,7 +62,7 @@ namespace BlazorApp.Mac
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            this.run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
+            this.run = BlazorWebViewHost.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
         }
     }
 }

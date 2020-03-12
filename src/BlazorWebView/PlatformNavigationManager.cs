@@ -22,12 +22,12 @@ namespace BlazorWebView
     /// <summary>
     /// A <see cref="NavigationManager"/> implementation for the platform.
     /// </summary>
-    internal class DesktopNavigationManager : NavigationManager
+    internal class PlatformNavigationManager : NavigationManager
     {
         /// <summary>
         /// The single instance of the Desktop navigation manager.
         /// </summary>
-        public static readonly DesktopNavigationManager Instance = new DesktopNavigationManager();
+        public static readonly PlatformNavigationManager Instance = new PlatformNavigationManager();
 
         /// <summary>
         /// The prefix for the interop to the javascript part of the navigation manager.
@@ -56,7 +56,7 @@ namespace BlazorWebView
         /// </summary>
         protected override void EnsureInitialized()
         {
-            this.Initialize(ComponentsDesktop.BaseUriAbsolute, ComponentsDesktop.InitialUriAbsolute);
+            this.Initialize(BlazorWebViewHost.BaseUriAbsolute, BlazorWebViewHost.InitialUriAbsolute);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace BlazorWebView
         /// <param name="forceLoad">Force a reload by the browser.</param>
         protected override void NavigateToCore(string uri, bool forceLoad)
         {
-            ComponentsDesktop.DesktopJSRuntime.InvokeAsync<object>(InteropNavigateTo, uri, forceLoad);
+            BlazorWebViewHost.JSRuntime.InvokeAsync<object>(InteropNavigateTo, uri, forceLoad);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace BlazorApp.iOS
             base.ViewDidLoad();
 
             // Perform any additional setup after loading the view, typically from a nib.
-            this.run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
+            this.run = BlazorWebViewHost.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
         }
 
         /// <summary>

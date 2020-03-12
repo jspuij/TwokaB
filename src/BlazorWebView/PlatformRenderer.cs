@@ -35,7 +35,7 @@ namespace BlazorWebView
     /// people prototyping applications with it. We can put more work into restructuring the
     /// hosting and startup models in the future if it's justified.
     /// </remarks>
-    internal class DesktopRenderer : Renderer
+    internal class PlatformRenderer : Renderer
     {
         /// <summary>
         /// The renderer Id.
@@ -63,21 +63,21 @@ namespace BlazorWebView
         private readonly IJSRuntime jsRuntime;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DesktopRenderer"/> class.
+        /// Initializes static members of the <see cref="PlatformRenderer"/> class.
         /// </summary>
-        static DesktopRenderer()
+        static PlatformRenderer()
         {
             Writer = typeof(RenderBatchWriter);
             WriteMethod = Writer.GetMethod("Write", new[] { typeof(RenderBatch).MakeByRefType() });
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesktopRenderer"/> class.
+        /// Initializes a new instance of the <see cref="PlatformRenderer"/> class.
         /// </summary>
         /// <param name="serviceProvider">The service provider to resolve services from.</param>
         /// <param name="ipc">The inter process communication channel.</param>
         /// <param name="loggerFactory">A logger factory.</param>
-        public DesktopRenderer(IServiceProvider serviceProvider, IPC ipc, ILoggerFactory loggerFactory)
+        public PlatformRenderer(IServiceProvider serviceProvider, IPC ipc, ILoggerFactory loggerFactory)
             : base(serviceProvider, loggerFactory)
         {
             this.ipc = ipc ?? throw new ArgumentNullException(nameof(ipc));
@@ -108,7 +108,7 @@ namespace BlazorWebView
         }
 
         /// <summary>
-        /// Associates the <see cref="IComponent"/> with the <see cref="DesktopRenderer"/>,
+        /// Associates the <see cref="IComponent"/> with the <see cref="PlatformRenderer"/>,
         /// causing it to be displayed in the specified DOM element.
         /// </summary>
         /// <param name="componentType">The type of the component.</param>

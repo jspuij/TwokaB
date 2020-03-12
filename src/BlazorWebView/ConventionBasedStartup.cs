@@ -72,7 +72,7 @@ namespace BlazorWebView
         /// </summary>
         /// <param name="app">The application builder to use.</param>
         /// <param name="services">The services to register.</param>
-        public void Configure(DesktopApplicationBuilder app, IServiceProvider services)
+        public void Configure(ApplicationBuilder app, IServiceProvider services)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace BlazorWebView
                 for (var i = 0; i < parameters.Length; i++)
                 {
                     var parameter = parameters[i];
-                    arguments[i] = parameter.ParameterType == typeof(DesktopApplicationBuilder)
+                    arguments[i] = parameter.ParameterType == typeof(ApplicationBuilder)
                         ? app
                         : services.GetRequiredService(parameter.ParameterType);
                 }

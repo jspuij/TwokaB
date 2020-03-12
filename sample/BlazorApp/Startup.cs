@@ -36,7 +36,7 @@ namespace BlazorApp
         /// Configure the app.
         /// </summary>
         /// <param name="app">The application builder for apps.</param>
-        public void Configure(DesktopApplicationBuilder app)
+        public void Configure(ApplicationBuilder app)
         {
             app.AddComponent<App>("app");
         }

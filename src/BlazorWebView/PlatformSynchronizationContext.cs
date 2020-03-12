@@ -1,4 +1,4 @@
-﻿// <copyright file="DesktopSynchronizationContext.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="PlatformSynchronizationContext.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ namespace BlazorWebView
     /// <summary>
     /// A <see cref="SynchronizationContext"/> implementation that schedules operations on the UI thread.
     /// </summary>
-    internal class DesktopSynchronizationContext : SynchronizationContext
+    internal class PlatformSynchronizationContext : SynchronizationContext
     {
         /// <summary>
         /// A Queue to queue work.
@@ -32,10 +32,10 @@ namespace BlazorWebView
         private readonly WorkQueue workQueue;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesktopSynchronizationContext"/> class.
+        /// Initializes a new instance of the <see cref="PlatformSynchronizationContext"/> class.
         /// </summary>
         /// <param name="cancellationToken">A cancellation token to cancel work.</param>
-        public DesktopSynchronizationContext(CancellationToken cancellationToken)
+        public PlatformSynchronizationContext(CancellationToken cancellationToken)
         {
             this.workQueue = new WorkQueue(cancellationToken);
         }
@@ -51,7 +51,7 @@ namespace BlazorWebView
         /// <returns>True when already on the right context.</returns>
         public static bool CheckAccess()
         {
-            if (!(Current is DesktopSynchronizationContext synchronizationContext))
+            if (!(Current is PlatformSynchronizationContext synchronizationContext))
             {
                 throw new InvalidOperationException("Not in the right context.");
             }
@@ -60,7 +60,7 @@ namespace BlazorWebView
         }
 
         /// <summary>
-        /// Returns itself instead of creating a copy of this <see cref="DesktopSynchronizationContext"/>.
+        /// Returns itself instead of creating a copy of this <see cref="PlatformSynchronizationContext"/>.
         /// </summary>
         /// <returns>The synchronisation context.</returns>
         public override SynchronizationContext CreateCopy()

@@ -1,4 +1,4 @@
-﻿// <copyright file="DesktopJSRuntime.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="PlatformJSRuntime.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ namespace BlazorWebView
     /// <summary>
     /// Javascript .Net bridge for the BlazorWebView.
     /// </summary>
-    internal class DesktopJSRuntime : JSRuntime
+    internal class PlatformJSRuntime : JSRuntime
     {
         /// <summary>
         /// The type of VoidTaskResult.
@@ -40,10 +40,10 @@ namespace BlazorWebView
         private readonly IPC ipc;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesktopJSRuntime"/> class.
+        /// Initializes a new instance of the <see cref="PlatformJSRuntime"/> class.
         /// </summary>
         /// <param name="ipc">The inter process communication channel to use.</param>
-        public DesktopJSRuntime(IPC ipc)
+        public PlatformJSRuntime(IPC ipc)
         {
             this.ipc = ipc ?? throw new ArgumentNullException(nameof(ipc));
         }

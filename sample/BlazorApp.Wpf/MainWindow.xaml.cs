@@ -54,7 +54,7 @@ namespace BlazorApp.Wpf
             if (!this.initialized)
             {
                 this.initialized = true;
-                this.run = ComponentsDesktop.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
+                this.run = BlazorWebViewHost.Run<Startup>(this.BlazorWebView, "wwwroot/index.html");
             }
         }
     }

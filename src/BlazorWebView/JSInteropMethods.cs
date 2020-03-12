@@ -40,7 +40,7 @@ namespace BlazorWebView
         public static async Task DispatchEvent(WebEventDescriptor eventDescriptor, string eventArgsJson)
         {
             var webEvent = WebEventData.Parse(eventDescriptor, eventArgsJson);
-            var renderer = ComponentsDesktop.DesktopRenderer;
+            var renderer = BlazorWebViewHost.PlatformRenderer;
             await renderer.DispatchEventAsync(
                 webEvent.EventHandlerId,
                 webEvent.EventFieldInfo,
@@ -55,7 +55,7 @@ namespace BlazorWebView
         [JSInvokable(nameof(NotifyLocationChanged))]
         public static void NotifyLocationChanged(string uri, bool isInterceptedLink)
         {
-            DesktopNavigationManager.Instance.SetLocation(uri, isInterceptedLink);
+            PlatformNavigationManager.Instance.SetLocation(uri, isInterceptedLink);
         }
     }
 }

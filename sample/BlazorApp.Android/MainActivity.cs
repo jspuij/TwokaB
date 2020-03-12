@@ -65,9 +65,10 @@ namespace BlazorApp.Android
             // Set our view from the "main" layout resource
             this.SetContentView(Resource.Layout.activity_main);
             this.blazorWebView = (BlazorWebView)this.SupportFragmentManager.FindFragmentById(Resource.Id.blazorWebView);
+            this.blazorWebView.RetainInstance = true;
 
             // run blazor.
-            this.disposable = ComponentsDesktop.Run<Startup>(this.blazorWebView, "wwwroot/index.html", new AndroidAssetResolver(this.Assets, "wwwroot/index.html").Resolve);
+            this.disposable = BlazorWebViewHost.Run<Startup>(this.blazorWebView, "wwwroot/index.html", new AndroidAssetResolver(this.Assets, "wwwroot/index.html").Resolve);
         }
 
         /// <summary>

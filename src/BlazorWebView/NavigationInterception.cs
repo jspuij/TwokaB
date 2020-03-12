@@ -1,4 +1,4 @@
-﻿// <copyright file="DesktopNavigationInterception.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="NavigationInterception.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ namespace BlazorWebView
     /// <remarks>Not necessary with web views, so this class does nothing but
     /// implement <see cref="INavigationInterception" />.
     /// </remarks>
-    internal class DesktopNavigationInterception : INavigationInterception
+    internal class NavigationInterception : INavigationInterception
     {
         /// <summary>
         /// Contract to setup navigation interception on the client.

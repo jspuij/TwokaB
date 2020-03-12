@@ -1,4 +1,4 @@
-﻿// <copyright file="ComponentsDesktop.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="BlazorWebViewHost.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ namespace BlazorWebView
     /// <summary>
     /// A class that initializes Blazor using the specified <see cref="IBlazorWebView"/> implementation.
     /// </summary>
-    public static class ComponentsDesktop
+    public static class BlazorWebViewHost
     {
         /// <summary>
         /// Gets a file extension content type provider.
@@ -56,14 +56,14 @@ namespace BlazorWebView
         internal static string BaseUriAbsolute { get; private set; }
 
         /// <summary>
-        /// Gets desktop javscript runtime interop.
+        /// Gets javscript runtime interop.
         /// </summary>
-        internal static DesktopJSRuntime DesktopJSRuntime { get; private set; }
+        internal static PlatformJSRuntime JSRuntime { get; private set; }
 
         /// <summary>
-        /// Gets desktop renderer.
+        /// Gets platform renderer.
         /// </summary>
-        internal static DesktopRenderer DesktopRenderer { get; private set; }
+        internal static PlatformRenderer PlatformRenderer { get; private set; }
 
         /// <summary>
         /// Gets a reference to the blazor web view.
@@ -99,7 +99,7 @@ namespace BlazorWebView
         /// <returns>An <see cref="IDisposable "/> instance that can be used to cleanup Blazor.</returns>
         public static IDisposable Run<TStartup>(IBlazorWebView blazorWebView, string hostHtmlPath, ResolveWebResourceDelegate defaultResolveDelegate = null)
         {
-            DesktopSynchronizationContext.UnhandledException += (sender, exception) =>
+            PlatformSynchronizationContext.UnhandledException += (sender, exception) =>
             {
                 UnhandledException(exception);
             };
@@ -210,36 +210,36 @@ namespace BlazorWebView
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true);
 
-            DesktopJSRuntime = new DesktopJSRuntime(ipc);
+            JSRuntime = new PlatformJSRuntime(ipc);
             await PerformHandshakeAsync(ipc);
             AttachJsInterop(ipc, appLifetime);
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<IConfiguration>(configurationBuilder.Build());
             serviceCollection.AddLogging(configure => configure.AddConsole());
-            serviceCollection.AddSingleton<NavigationManager>(DesktopNavigationManager.Instance);
-            serviceCollection.AddSingleton<IJSRuntime>(DesktopJSRuntime);
-            serviceCollection.AddSingleton<INavigationInterception, DesktopNavigationInterception>();
+            serviceCollection.AddSingleton<NavigationManager>(PlatformNavigationManager.Instance);
+            serviceCollection.AddSingleton<IJSRuntime>(JSRuntime);
+            serviceCollection.AddSingleton<INavigationInterception, NavigationInterception>();
             serviceCollection.AddSingleton(BlazorWebView);
 
             var startup = new ConventionBasedStartup(Activator.CreateInstance(typeof(TStartup)));
             startup.ConfigureServices(serviceCollection);
 
             var services = serviceCollection.BuildServiceProvider();
-            var builder = new DesktopApplicationBuilder(services);
+            var builder = new ApplicationBuilder(services);
             startup.Configure(builder, services);
 
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 
-            DesktopRenderer = new DesktopRenderer(services, ipc, loggerFactory);
-            DesktopRenderer.UnhandledException += (sender, exception) =>
+            PlatformRenderer = new PlatformRenderer(services, ipc, loggerFactory);
+            PlatformRenderer.UnhandledException += (sender, exception) =>
             {
                 Console.Error.WriteLine(exception);
             };
 
             foreach (var rootComponent in builder.Entries)
             {
-                _ = DesktopRenderer.AddComponentAsync(rootComponent.componentType, rootComponent.domElementSelector);
+                _ = PlatformRenderer.AddComponentAsync(rootComponent.componentType, rootComponent.domElementSelector);
             }
         }
 
@@ -253,7 +253,7 @@ namespace BlazorWebView
             switch (uri)
             {
                 case "framework://blazor.desktop.js":
-                    return typeof(ComponentsDesktop).Assembly.GetManifestResourceStream("BlazorWebView.blazor.desktop.js");
+                    return typeof(BlazorWebViewHost).Assembly.GetManifestResourceStream("BlazorWebView.blazor.desktop.js");
                 default:
                     throw new ArgumentException($"Unknown framework file: {uri}");
             }
@@ -286,17 +286,17 @@ namespace BlazorWebView
         /// <param name="appLifetime">A cancellation token representing the application lifetime.</param>
         private static void AttachJsInterop(IPC ipc, CancellationToken appLifetime)
         {
-            var desktopSynchronizationContext = new DesktopSynchronizationContext(appLifetime);
-            SynchronizationContext.SetSynchronizationContext(desktopSynchronizationContext);
+            var platformSynchronizationContext = new PlatformSynchronizationContext(appLifetime);
+            SynchronizationContext.SetSynchronizationContext(platformSynchronizationContext);
 
             ipc.On("BeginInvokeDotNetFromJS", args =>
             {
-                desktopSynchronizationContext.Send(
+                platformSynchronizationContext.Send(
                     state =>
                 {
                     var argsArray = (object[])state;
                     DotNetDispatcher.BeginInvokeDotNet(
-                        DesktopJSRuntime,
+                        JSRuntime,
                         new DotNetInvocationInfo(
                             assemblyName: ((JsonElement)argsArray[1]).GetString(),
                             methodIdentifier: ((JsonElement)argsArray[2]).GetString(),
@@ -308,12 +308,12 @@ namespace BlazorWebView
 
             ipc.On("EndInvokeJSFromDotNet", args =>
             {
-                desktopSynchronizationContext.Send(
+                platformSynchronizationContext.Send(
                     state =>
                 {
                     var argsArray = (object[])state;
                     DotNetDispatcher.EndInvokeJS(
-                        DesktopJSRuntime,
+                        JSRuntime,
                         ((JsonElement)argsArray[2]).GetString());
                 }, args);
             });
