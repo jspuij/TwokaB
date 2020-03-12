@@ -23,5 +23,10 @@
             </summary>
             <param name="savedInstanceState">Optional saved state in case the actvity is resumed.</param>
         </member>
+        <member name="M:BlazorApp.Android.MainActivity.OnDestroy">
+            <summary>
+            Perform any final cleanup before the activity is destroyed.
+            </summary>
+        </member>
     </members>
 </doc>

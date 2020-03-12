@@ -38,23 +38,6 @@ namespace BlazorWebView.Android
     public class BlazorWebView : Fragment, IBlazorWebView
     {
         /// <summary>
-        /// The initialization script for the callbacks.
-        /// </summary>
-        private const string InitScriptSource =
-         @"window.__receiveMessageCallbacks = [];
-	 		 window.__dispatchMessageCallback = function(message) {
-			 	window.__receiveMessageCallbacks.forEach(function(callback) { callback(message); });
-			 };
-			 window.external = {
-			 	sendMessage: function(message) {
-			 		blazorwebviewinterop.PostMessage(message);
-			 	},
-			 	receiveMessage: function(callback) {
-			 		window.__receiveMessageCallbacks.push(callback);
-			 	}
-			 };";
-
-        /// <summary>
         /// The thread ID of the owner thread.
         /// </summary>
         private int ownerThreadId;
@@ -99,6 +82,7 @@ namespace BlazorWebView.Android
 
             WebSettings webSettings = this.innerWebView.Settings;
             webSettings.JavaScriptEnabled = true;
+            WebView.SetWebContentsDebuggingEnabled(true);
             this.innerWebView.AddJavascriptInterface(new BlazorJavascriptInterface(this), "blazorwebviewinterop");
 
             var resultCallBack = new ValueCallback<string>(s =>
@@ -111,10 +95,6 @@ namespace BlazorWebView.Android
             });
 
             var blazorWebViewClient = new BlazorWebViewClient();
-            blazorWebViewClient.PageStarted += (s, e) =>
-            {
-                this.innerWebView.EvaluateJavascript(InitScriptSource, resultCallBack);
-            };
 
             this.innerWebView.SetWebViewClient(blazorWebViewClient);
 

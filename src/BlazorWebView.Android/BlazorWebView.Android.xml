@@ -80,11 +80,6 @@
             An <see cref="T:BlazorWebView.IBlazorWebView"/> implementation for Android.
             </summary>
         </member>
-        <member name="F:BlazorWebView.Android.BlazorWebView.InitScriptSource">
-            <summary>
-            The initialization script for the callbacks.
-            </summary>
-        </member>
         <member name="F:BlazorWebView.Android.BlazorWebView.ownerThreadId">
             <summary>
             The thread ID of the owner thread.
@@ -198,6 +193,11 @@
             <summary>
             A <see cref="T:Android.Webkit.WebViewClient"/> implementation to handle events that happen
             on the inner Android <see cref="T:Android.Webkit.WebView"/>.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Android.BlazorWebViewClient.InitScriptSource">
+            <summary>
+            The initialization script for the callbacks.
             </summary>
         </member>
         <member name="E:BlazorWebView.Android.BlazorWebViewClient.PageStarted">

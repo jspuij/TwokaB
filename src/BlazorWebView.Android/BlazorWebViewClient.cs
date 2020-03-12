@@ -18,6 +18,7 @@ namespace BlazorWebView.Android
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using global::Android.App;
@@ -35,6 +36,23 @@ namespace BlazorWebView.Android
     /// </summary>
     public class BlazorWebViewClient : WebViewClient
     {
+        /// <summary>
+        /// The initialization script for the callbacks.
+        /// </summary>
+        private const string InitScriptSource =
+         @"window.__receiveMessageCallbacks = [];
+	 		 window.__dispatchMessageCallback = function(message) {
+			 	window.__receiveMessageCallbacks.forEach(function(callback) { callback(message); });
+			 };
+			 window.external = {
+			 	sendMessage: function(message) {
+			 		blazorwebviewinterop.PostMessage(message);
+			 	},
+			 	receiveMessage: function(callback) {
+			 		window.__receiveMessageCallbacks.push(callback);
+			 	}
+			 };";
+
         private readonly IDictionary<string, ResolveWebResourceDelegate> schemeHandlers
             = new Dictionary<string, ResolveWebResourceDelegate>();
 
@@ -83,6 +101,18 @@ namespace BlazorWebView.Android
                 var stream = handler(request.Url.ToString(), out string contentType, out Encoding encoding);
                 if (stream != null)
                 {
+                    if (request.Url.Scheme == "framework")
+                    {
+                        var memoryStream = new MemoryStream();
+
+                        var buffer = encoding.GetBytes(InitScriptSource);
+                        memoryStream.Write(buffer, 0, buffer.Count());
+                        stream.CopyTo(memoryStream);
+                        stream.Dispose();
+                        memoryStream.Position = 0;
+                        stream = memoryStream;
+                    }
+
                     // there is a result stream, prepare the response.
                     var responseHeaders = new Dictionary<string, string>()
                     {

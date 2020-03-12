@@ -16,6 +16,7 @@
 
 namespace BlazorApp.Android
 {
+    using System;
     using System.IO;
     using System.IO.Compression;
     using BlazorWebView;
@@ -33,6 +34,10 @@ namespace BlazorApp.Android
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        private BlazorWebView blazorWebView;
+
+        private IDisposable disposable;
+
         /// <summary>
         /// Executes when permissions are requested.
         /// </summary>
@@ -59,11 +64,19 @@ namespace BlazorApp.Android
 
             // Set our view from the "main" layout resource
             this.SetContentView(Resource.Layout.activity_main);
-
-            var blazorWebView = (BlazorWebView)this.SupportFragmentManager.FindFragmentById(Resource.Id.blazorWebView);
+            this.blazorWebView = (BlazorWebView)this.SupportFragmentManager.FindFragmentById(Resource.Id.blazorWebView);
 
             // run blazor.
-            ComponentsDesktop.Run<Startup>(blazorWebView, "wwwroot/index.html", new AndroidAssetResolver(this.Assets, "wwwroot/index.html").Resolve);
+            this.disposable = ComponentsDesktop.Run<Startup>(this.blazorWebView, "wwwroot/index.html", new AndroidAssetResolver(this.Assets, "wwwroot/index.html").Resolve);
+        }
+
+        /// <summary>
+        /// Perform any final cleanup before the activity is destroyed.
+        /// </summary>
+        protected override void OnDestroy()
+        {
+            this.disposable.Dispose();
+            base.OnDestroy();
         }
     }
 }

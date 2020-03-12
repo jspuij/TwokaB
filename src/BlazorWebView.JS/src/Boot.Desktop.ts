@@ -48,14 +48,4 @@ function boot() {
     navigationManagerFunctions.getBaseURI()]);
 }
 
-function pollReady() {
-
-    if (window.external != undefined) {
-        boot();
-
-    } else {
-        setTimeout(pollReady, 300); 
-    }
-}
-
-pollReady();
+boot();

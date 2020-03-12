@@ -96,32 +96,40 @@ namespace BlazorWebView.Android
                 var bom = new byte[4];
 
                 stream.Read(bom, 0, 4);
-                stream.Position = 0;
 
                 // lets assume UTF8 is reasonably safe for web.
                 encoding = Encoding.UTF8;
+
+                int bomPos = 0;
 
                 // Analyze the BOM
                 if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76)
                 {
                     encoding = Encoding.UTF7;
+                    bomPos = 3;
                 }
                 else if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf)
                 {
                     encoding = Encoding.UTF8;
+                    bomPos = 3;
                 }
                 else if (bom[0] == 0xff && bom[1] == 0xfe)
                 {
                     encoding = Encoding.Unicode;
+                    bomPos = 2;
                 }
                 else if (bom[0] == 0xfe && bom[1] == 0xff)
                 {
                     encoding = Encoding.BigEndianUnicode;
+                    bomPos = 2;
                 }
                 else if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff)
                 {
                     encoding = Encoding.UTF32;
+                    bomPos = 4;
                 }
+
+                stream.Position = bomPos;
 
                 return stream;
             }
