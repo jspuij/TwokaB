@@ -39,7 +39,7 @@ jobs:
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     - name: BlazorWebView.Native configure32
       working-directory: ./build/
-      run: native.cmd
+      run: ./native.cmd
     - name: Build BlazorWebView.Wpf
       working-directory: ./src/BlazorWebView.Wpf/
       run: dotnet build --configuration Release
