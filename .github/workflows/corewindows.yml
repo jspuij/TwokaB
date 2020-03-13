@@ -1,0 +1,26 @@
+name: .NET Core Windows
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.102
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Run unit tests
+      run: dotnet test
+    - name: Pack nuget package
+      run: dotnet pack --configuration Release
+    - name: Push nuget package
+      run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
