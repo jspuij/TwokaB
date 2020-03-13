@@ -35,13 +35,13 @@ jobs:
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     - name: configure32
       working-directory: ./src/BlazorWebView/BlazorWebView.Native
-      run: mkdir build32 && cd build32 && cmake -G "Visual Studio 16 2019" -A Win32 -S .. -B "build32"
+      run: mkdir build32 && cd build32 && cmake -G "Visual Studio 16 2019" -A Win32 ..
     - name: build32
       working-directory: ./src/BlazorWebView/BlazorWebView.Native
       run: cmake --build build32 --config Release
     - name: configure64
       working-directory: ./src/BlazorWebView/BlazorWebView.Native
-      run: mkdir build64 && cd build64 && cmake -G "Visual Studio 16 2019" -A x64 -S .. -B "build64"
+      run: mkdir build64 && cd build64 && cmake -G "Visual Studio 16 2019" -A x64 ..
     - name: build32
       working-directory: ./src/BlazorWebView/BlazorWebView.Native
       run: cmake --build build64 --config Release
