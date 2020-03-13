@@ -21,3 +21,9 @@ jobs:
     - name: Yarn
       working-directory: ./src/BlazorWebView.JS/upstream/aspnetcore/web.js
       run: yarn
+    - name: Build BlazorWebView.JS
+      working-directory: ./src/BlazorWebView.JS/
+      run: dotnet build --configuration Release
+    - name: Build BlazorWebView
+      working-directory: ./src/BlazorWebView/
+      run: dotnet build --configuration Release

@@ -67,6 +67,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{38F7D1E9
 		docs\pages\toc.yml = docs\pages\toc.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{33388780-DC1F-4126-96FA-8DDA89481E21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6C568249-8365-4CA4-B207-914F53457471}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\corewindows.yml = .github\workflows\corewindows.yml
+		.github\workflows\docfx.yml = .github\workflows\docfx.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -717,6 +725,7 @@ Global
 		{FEFB71C7-E8AC-3259-9731-474D3E74F874} = {300D886C-F5B9-4E7B-8618-FA31E73F5447}
 		{F30E9FF2-F3B4-3189-9C93-D186E7E38674} = {300D886C-F5B9-4E7B-8618-FA31E73F5447}
 		{38F7D1E9-A604-4CC1-96B9-73E76E4EAA6D} = {D862B5CA-88D4-486A-9863-692BB4AD2DCE}
+		{6C568249-8365-4CA4-B207-914F53457471} = {33388780-DC1F-4126-96FA-8DDA89481E21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0409AB77-4C94-47BD-BA7B-D574C2C618B9}
