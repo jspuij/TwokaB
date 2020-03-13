@@ -18,6 +18,8 @@ jobs:
         dotnet-version: 3.1.102
     - name: Setup nodejs
       uses: actions/setup-node@v1
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
     - name: Yarn
       working-directory: ./src/BlazorWebView.JS/upstream/aspnetcore/web.js
       run: yarn
@@ -34,7 +36,6 @@ jobs:
       working-directory: ./src/BlazorWebView/
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     - name: Nuget restore
-      working-directory: .
       run: nuget restore src\BlazorWebView.Native\build32\BlazorWebViewNative.sln -PackagesDirectory .\packages\
     - name: BlazorWebView.Native configure32
       working-directory: ./src/BlazorWebView.Native/
