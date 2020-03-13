@@ -18,6 +18,8 @@ jobs:
         dotnet-version: 3.1.102
     - name: Setup nodejs
       uses: actions/setup-node@v1
+    - name: Setup nuget
+      uses: nuget/setup-nuget@v1
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.0
     - name: Yarn
