@@ -36,20 +36,8 @@ jobs:
       working-directory: ./src/BlazorWebView/
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     - name: BlazorWebView.Native configure32
-      working-directory: ./src/BlazorWebView.Native/
-      run: mkdir build32 && cd build32 && cmake -G "Visual Studio 16 2019" -A Win32 ..
-    - name: Nuget restore
-      working-directory: ./
-      run: nuget restore .\src\BlazorWebView.Native\build32\BlazorWebViewNative.sln -PackagesDirectory .\packages\
-    - name: BlazorWebView.Native build32
-      working-directory: ./src/BlazorWebView.Native
-      run: cmake --build build32 --config Release
-    - name: BlazorWebView.Native configure64
-      working-directory: ./src/BlazorWebView.Native
-      run: mkdir build64 && cd build64 && cmake -G "Visual Studio 16 2019" -A x64 ..
-    - name: BlazorWebView.Native build32
-      working-directory: ./src/BlazorWebView.Native
-      run: cmake --build build64 --config Release
+      working-directory: ./build/
+      run: native.cmd
     - name: Build BlazorWebView.Wpf
       working-directory: ./src/BlazorWebView.Wpf/
       run: dotnet build --configuration Release
