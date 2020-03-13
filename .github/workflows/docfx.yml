@@ -1,0 +1,43 @@
+name: docfx
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.BUILD_Token }}
+        path: BlazorWebView
+    - uses: actions/checkout@v2
+      with:
+        repository: jspuij/BlazorWebView.Docs
+        ref: master
+        token: ${{ secrets.BUILD_Token }}
+        path: BlazorWebView.Docs
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.102
+    - name: Chocolatey Action
+      uses: crazy-max/ghaction-chocolatey@v1.0.1
+      with:
+          args: install docfx -y
+    - name: Run documentation generation
+      run: build/docfx.cmd
+      working-directory: ./BlazorWebView
+      env:
+        token: ${{ secrets.BUILD_Token }}
+        GH_EMAIL: ${{ secrets.GH_EMAIL }}
+        GH_USER: ${{ secrets.GH_USER }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.BUILD_Token }}
+        directory: BlazorWebView.Docs
+        repository: jspuij/BlazorWebView.Docs

@@ -1,0 +1,21 @@
+/* Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
+html,
+body {
+    font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
+}
+
+.navbar-inverse {
+    background: #808080;
+    border: 0 none;
+}
+    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+        color: #fff;
+        background-color: #5c2d91;
+    }
+
+
+#logo {
+    width: 38pt;
+    height: 38pt;
+    padding: 5px;
+}

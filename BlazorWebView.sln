@@ -8,9 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "sample\BlazorA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView", "src\BlazorWebView\BlazorWebView.csproj", "{581141F6-5522-4B66-8404-4C376F42FB5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebView.Mac", "src\BlazorWebView.Mac\BlazorWebView.Mac.csproj", "{BA247A5F-A935-47F7-BEFF-3619512B64F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.Mac", "src\BlazorWebView.Mac\BlazorWebView.Mac.csproj", "{BA247A5F-A935-47F7-BEFF-3619512B64F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebView.iOS", "src\BlazorWebView.iOS\BlazorWebView.iOS.csproj", "{C4E356A9-C221-47E1-B566-458D9C6ACB18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.iOS", "src\BlazorWebView.iOS\BlazorWebView.iOS.csproj", "{C4E356A9-C221-47E1-B566-458D9C6ACB18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.iOS", "sample\BlazorApp.iOS\BlazorApp.iOS.csproj", "{B2890F22-29C4-410B-9F39-40BEC6818E33}"
 EndProject
@@ -22,8 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "native", "native", "{687E10
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{D862B5CA-88D4-486A-9863-692BB4AD2DCE}"
 	ProjectSection(SolutionItems) = preProject
+		docs\docfx.json = docs\docfx.json
+		docs\index.md = docs\index.md
 		LICENSE = LICENSE
 		README.md = README.md
+		docs\toc.yml = docs\toc.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.Wpf", "src\BlazorWebView.Wpf\BlazorWebView.Wpf.csproj", "{5FA920C7-EA7E-4FDA-860B-81BD19613DB6}"
@@ -55,6 +58,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1070D27-26E5-49D2-A71A-E5ED03F9AF75}"
 	ProjectSection(SolutionItems) = preProject
 		build.props = build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{38F7D1E9-A604-4CC1-96B9-73E76E4EAA6D}"
+	ProjectSection(SolutionItems) = preProject
+		docs\pages\index.md = docs\pages\index.md
+		docs\pages\toc.yml = docs\pages\toc.yml
 	EndProjectSection
 EndProject
 Global
@@ -706,6 +715,7 @@ Global
 		{F8685C60-965D-379C-8175-2A10FF53E8C4} = {300D886C-F5B9-4E7B-8618-FA31E73F5447}
 		{FEFB71C7-E8AC-3259-9731-474D3E74F874} = {300D886C-F5B9-4E7B-8618-FA31E73F5447}
 		{F30E9FF2-F3B4-3189-9C93-D186E7E38674} = {300D886C-F5B9-4E7B-8618-FA31E73F5447}
+		{38F7D1E9-A604-4CC1-96B9-73E76E4EAA6D} = {D862B5CA-88D4-486A-9863-692BB4AD2DCE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0409AB77-4C94-47BD-BA7B-D574C2C618B9}
