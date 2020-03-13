@@ -16,7 +16,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.102
-    - name: Yarn
+    - name: Setup nodejs
       uses: actions/setup-node@v1
+    - name: Yarn
       working-directory: ./src/BlazorWebView.JS/upstream/aspnetcore/web.js
       run: yarn
