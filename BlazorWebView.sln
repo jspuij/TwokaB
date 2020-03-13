@@ -58,6 +58,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1070D27-26E5-49D2-A71A-E5ED03F9AF75}"
 	ProjectSection(SolutionItems) = preProject
 		build.props = build.props
+		build\docfx.cmd = build\docfx.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{38F7D1E9-A604-4CC1-96B9-73E76E4EAA6D}"
