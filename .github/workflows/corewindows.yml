@@ -33,6 +33,9 @@ jobs:
     - name: Push BlazorWebView nuget package
       working-directory: ./src/BlazorWebView/
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+    - name: Nuget restore
+      working-directory: .
+      run: nuget restore src\BlazorWebView.Native\build32\BlazorWebViewNative.sln -PackagesDirectory .\packages\
     - name: BlazorWebView.Native configure32
       working-directory: ./src/BlazorWebView.Native/
       run: mkdir build32 && cd build32 && cmake -G "Visual Studio 16 2019" -A Win32 ..
