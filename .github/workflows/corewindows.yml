@@ -42,10 +42,7 @@ jobs:
       run: ./native.cmd
     - name: Build BlazorWebView.Wpf
       working-directory: ./src/BlazorWebView.Wpf/
-      run: dotnet build --configuration Release
-    - name: Pack BlazorWebView.Wpf
-      working-directory: ./src/BlazorWebView.Wpf/
-      run: dotnet pack --configuration Release
+      run: MsBuild.exe BlazorWebView.Wpf.csproj /t:Build /p:Configuration=Release
     - name: Push BlazorWebView.Wpf nuget package
       working-directory: ./src/BlazorWebView.Wpf/
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
