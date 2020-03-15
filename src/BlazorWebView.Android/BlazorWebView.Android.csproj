@@ -10,7 +10,6 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidUseAapt2>true</AndroidUseAapt2>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,14 +29,11 @@
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles">
-      <Version>2.2.0</Version>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0">
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.1.118</Version>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -52,8 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorWebView\BlazorWebView.csproj">
-      <Project>{581141f6-5522-4b66-8404-4c376f42fb5c}</Project>
-      <Name>BlazorWebView</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

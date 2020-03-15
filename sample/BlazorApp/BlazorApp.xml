@@ -15,7 +15,7 @@
             </summary>
             <param name="services">The collection of services to add to.</param>
         </member>
-        <member name="M:BlazorApp.Startup.Configure(BlazorWebView.DesktopApplicationBuilder)">
+        <member name="M:BlazorApp.Startup.Configure(BlazorWebView.ApplicationBuilder)">
             <summary>
             Configure the app.
             </summary>

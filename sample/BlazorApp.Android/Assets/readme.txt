@@ -1,0 +1,1 @@
+﻿the blazor wwwroot folder will be zipped here.

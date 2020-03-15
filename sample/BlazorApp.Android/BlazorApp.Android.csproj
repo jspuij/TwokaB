@@ -17,7 +17,6 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
@@ -53,7 +52,6 @@
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
     <AotAssemblies>true</AotAssemblies>
     <EnableLLVM>true</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
@@ -77,6 +75,7 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <AdditionalFiles Include="stylecop.json" />
+    <AndroidAsset Include="Assets\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.xml">
@@ -123,7 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\BlazorWebView.Android\BlazorWebView.Android.csproj">
-      <Project>{7059edc1-60b1-4ef6-87a2-cef95b967dbb}</Project>
+      <Project>{9CD52AD4-1753-4239-A235-5527CDFCD3BA}</Project>
       <Name>BlazorWebView.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj">
