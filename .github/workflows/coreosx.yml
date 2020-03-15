@@ -1,4 +1,4 @@
-﻿name: .NET Core
+﻿name: Xamarin mac, Android, iOS
 
 on:
   push:
@@ -18,6 +18,8 @@ jobs:
         dotnet-version: 3.1.102
     - name: Setup nodejs
       uses: actions/setup-node@v1
+    - name: Restore packages
+      run: nuget restore
     - name: Yarn
       working-directory: ./src/BlazorWebView.JS/upstream/aspnetcore/web.js
       run: yarn
@@ -27,3 +29,12 @@ jobs:
     - name: Build BlazorWebView
       working-directory: ./src/BlazorWebView/
       run: dotnet build --configuration Release
+    - name: Build BlazorWebView.Android
+      working-directory: ./src/BlazorWebView.Android/
+      run: msbuild BlazorWebView.Android.csproj /t:Build /p:Configuration=Release
+    - name: Build BlazorWebView.Mac
+      working-directory: ./src/BlazorWebView.Mac/
+      run: msbuild BlazorWebView.Mac.csproj /t:Build /p:Configuration=Release
+    - name: Build BlazorWebView.iOS
+      working-directory: ./src/BlazorWebView.iOS/
+      run: msbuild BlazorWebView.iOS.csproj /t:Build /p:Configuration=Release

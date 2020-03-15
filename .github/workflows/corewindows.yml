@@ -1,4 +1,4 @@
-name: .NET Core
+name: .NET Core and WPF on Windows
 
 on:
   push:
