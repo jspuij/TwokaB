@@ -31,10 +31,16 @@ jobs:
       run: dotnet build --configuration Release
     - name: Build BlazorWebView.Android
       working-directory: ./src/BlazorWebView.Android/
-      run: msbuild BlazorWebView.Android.csproj /t:Build /p:Configuration=Release
+      run: |
+        dotnet restore
+        msbuild BlazorWebView.Android.csproj /t:Build /p:Configuration=Release
     - name: Build BlazorWebView.Mac
       working-directory: ./src/BlazorWebView.Mac/
-      run: msbuild BlazorWebView.Mac.csproj /t:Build /p:Configuration=Release
+      run: |
+        dotnet restore
+        msbuild BlazorWebView.Mac.csproj /t:Build /p:Configuration=Release
     - name: Build BlazorWebView.iOS
       working-directory: ./src/BlazorWebView.iOS/
-      run: msbuild BlazorWebView.iOS.csproj /t:Build /p:Configuration=Release
+      run: |
+        dotnet restore
+        msbuild BlazorWebView.iOS.csproj /t:Build /p:Configuration=Release
