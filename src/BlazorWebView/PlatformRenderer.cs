@@ -17,6 +17,7 @@
 namespace BlazorWebView
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -61,6 +62,16 @@ namespace BlazorWebView
         /// The javacript runtime implementation.
         /// </summary>
         private readonly IJSRuntime jsRuntime;
+
+        /// <summary>
+        /// Whether the incoming event is a dispatching event.
+        /// </summary>
+        private bool isDispatchingEvent;
+
+        /// <summary>
+        /// A queue of deferred incoming events.
+        /// </summary>
+        private Queue<IncomingEventInfo> deferredIncomingEvents = new Queue<IncomingEventInfo>();
 
         /// <summary>
         /// Initializes static members of the <see cref="PlatformRenderer"/> class.
@@ -129,6 +140,57 @@ namespace BlazorWebView
         }
 
         /// <summary>
+        /// Notifies the renderer that an event has occured.
+        /// </summary>
+        /// <param name="eventHandlerId">The event handler Id.</param>
+        /// <param name="eventFieldInfo">The evet field info.</param>
+        /// <param name="eventArgs">The event arguments.</param>
+        /// <returns>A <see cref="Task"/>A task representing the asynchronous operation.</returns>
+        public override Task DispatchEventAsync(ulong eventHandlerId, EventFieldInfo eventFieldInfo, EventArgs eventArgs)
+        {
+            // Be sure we only run one event handler at once. Although they couldn't run
+            // simultaneously anyway (there's only one thread), they could run nested on
+            // the stack if somehow one event handler triggers another event synchronously.
+            // We need event handlers not to overlap because (a) that's consistent with
+            // server-side Blazor which uses a sync context, and (b) the rendering logic
+            // relies completely on the idea that within a given scope it's only building
+            // or processing one batch at a time.
+            //
+            // The only currently known case where this makes a difference is in the E2E
+            // tests in ReorderingFocusComponent, where we hit what seems like a Chrome bug
+            // where mutating the DOM cause an element's "change" to fire while its "input"
+            // handler is still running (i.e., nested on the stack) -- this doesn't happen
+            // in Firefox. Possibly a future version of Chrome may fix this, but even then,
+            // it's conceivable that DOM mutation events could trigger this too.
+            if (this.isDispatchingEvent)
+            {
+                var info = new IncomingEventInfo(eventHandlerId, eventFieldInfo, eventArgs);
+                this.deferredIncomingEvents.Enqueue(info);
+                return info.TaskCompletionSource.Task;
+            }
+            else
+            {
+                try
+                {
+                    this.isDispatchingEvent = true;
+                    return base.DispatchEventAsync(eventHandlerId, eventFieldInfo, eventArgs);
+                }
+                finally
+                {
+                    this.isDispatchingEvent = false;
+
+                    if (this.deferredIncomingEvents.Count > 0)
+                    {
+                        // Fire-and-forget because the task we return from this method should only reflect the
+                        // completion of its own event dispatch, not that of any others that happen to be queued.
+                        // Also, ProcessNextDeferredEventAsync deals with its own async errors.
+                        _ = this.ProcessNextDeferredEventAsync();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Updates the visible part of the UI.
         /// </summary>
         /// <param name="batch">The batch to render.</param>
@@ -181,6 +243,45 @@ namespace BlazorWebView
             catch (Exception ex)
             {
                 this.UnhandledException?.Invoke(this, ex);
+            }
+        }
+
+        /// <summary>
+        /// Processes the next deferred event asynchronously.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        private async Task ProcessNextDeferredEventAsync()
+        {
+            var info = this.deferredIncomingEvents.Dequeue();
+            var taskCompletionSource = info.TaskCompletionSource;
+
+            try
+            {
+                await this.DispatchEventAsync(info.EventHandlerId, info.EventFieldInfo, info.EventArgs);
+                taskCompletionSource.SetResult(null);
+            }
+            catch (Exception ex)
+            {
+                taskCompletionSource.SetException(ex);
+            }
+        }
+
+        /// <summary>
+        /// A struct for the incoming event info.
+        /// </summary>
+        private readonly struct IncomingEventInfo
+        {
+            public readonly ulong EventHandlerId;
+            public readonly EventFieldInfo EventFieldInfo;
+            public readonly EventArgs EventArgs;
+            public readonly TaskCompletionSource<object> TaskCompletionSource;
+
+            public IncomingEventInfo(ulong eventHandlerId, EventFieldInfo eventFieldInfo, EventArgs eventArgs)
+            {
+                this.EventHandlerId = eventHandlerId;
+                this.EventFieldInfo = eventFieldInfo;
+                this.EventArgs = eventArgs;
+                this.TaskCompletionSource = new TaskCompletionSource<object>();
             }
         }
     }

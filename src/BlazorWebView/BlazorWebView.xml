@@ -533,6 +533,16 @@
             The javacript runtime implementation.
             </summary>
         </member>
+        <member name="F:BlazorWebView.PlatformRenderer.isDispatchingEvent">
+            <summary>
+            Whether the incoming event is a dispatching event.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.PlatformRenderer.deferredIncomingEvents">
+            <summary>
+            A queue of deferred incoming events.
+            </summary>
+        </member>
         <member name="M:BlazorWebView.PlatformRenderer.#cctor">
             <summary>
             Initializes static members of the <see cref="T:BlazorWebView.PlatformRenderer"/> class.
@@ -574,6 +584,15 @@
             <param name="domElementSelector">A CSS selector that uniquely identifies a DOM element.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
+        <member name="M:BlazorWebView.PlatformRenderer.DispatchEventAsync(System.UInt64,Microsoft.AspNetCore.Components.RenderTree.EventFieldInfo,System.EventArgs)">
+            <summary>
+            Notifies the renderer that an event has occured.
+            </summary>
+            <param name="eventHandlerId">The event handler Id.</param>
+            <param name="eventFieldInfo">The evet field info.</param>
+            <param name="eventArgs">The event arguments.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/>A task representing the asynchronous operation.</returns>
+        </member>
         <member name="M:BlazorWebView.PlatformRenderer.UpdateDisplayAsync(Microsoft.AspNetCore.Components.RenderTree.RenderBatch@)">
             <summary>
             Updates the visible part of the UI.
@@ -592,6 +611,17 @@
             Captures an async exception for the task and invokes <see cref="E:BlazorWebView.PlatformRenderer.UnhandledException"/>.
             </summary>
             <param name="task">The task to execute.</param>
+        </member>
+        <member name="M:BlazorWebView.PlatformRenderer.ProcessNextDeferredEventAsync">
+            <summary>
+            Processes the next deferred event asynchronously.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:BlazorWebView.PlatformRenderer.IncomingEventInfo">
+            <summary>
+            A struct for the incoming event info.
+            </summary>
         </member>
         <member name="T:BlazorWebView.PlatformSynchronizationContext">
             <summary>
