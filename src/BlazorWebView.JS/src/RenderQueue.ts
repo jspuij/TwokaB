@@ -1,6 +1,6 @@
-﻿import { renderBatch } from '@browserjs/Rendering/Renderer';
+﻿import '@dotnet/jsinterop/dist/Microsoft.JSInterop';
+import { renderBatch } from '@browserjs/Rendering/Renderer';
 import { OutOfProcessRenderBatch } from '@browserjs/Rendering/RenderBatch/OutOfProcessRenderBatch';
-import * as ipc from './IPC';
 
 export class RenderQueue {
     private static instance: RenderQueue;
@@ -32,7 +32,7 @@ export class RenderQueue {
         if (receivedBatchId > this.nextBatchId) {
             if (this.fatalError) {
                 console.log(`Received a new batch ${receivedBatchId} but errored out on a previous batch ${this.nextBatchId - 1}`);
-                await ipc.send('OnRenderCompleted', [this.nextBatchId - 1, this.fatalError.toString()]);
+                await DotNet.invokeMethodAsync('BlazorWebView', 'OnRenderCompleted', this.nextBatchId - 1, this.fatalError.toString());
                 return;
             }
             return;
@@ -47,7 +47,7 @@ export class RenderQueue {
             console.error(`There was an error applying batch ${receivedBatchId}.`);
 
             // If there's a rendering exception, notify server *and* throw on client
-            ipc.send('OnRenderCompleted', [receivedBatchId, error.toString()]);
+            DotNet.invokeMethodAsync('BlazorWebView', 'OnRenderCompleted', receivedBatchId, error.toString());
             throw error;
         }
     }
@@ -58,7 +58,7 @@ export class RenderQueue {
 
     private async completeBatch(batchId: number): Promise<void> {
         try {
-            await ipc.send('OnRenderCompleted', [batchId, null]);
+            await DotNet.invokeMethodAsync('BlazorWebView', 'OnRenderCompleted', batchId, null);
         } catch {
             console.warn(`Failed to deliver completion notification for render '${batchId}'.`);
         }
