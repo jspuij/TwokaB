@@ -1,7 +1,7 @@
 <Project>
 <PropertyGroup>
 <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-<Version>0.1.0-preview3</Version>
+<Version>0.1.0-preview4</Version>
 <Authors>Jan-Willem Spuij</Authors>
 <Company />
 <Description>

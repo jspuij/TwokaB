@@ -1,5 +1,3 @@
-git config --global user.email "%GH_EMAIL%"
-git config --global user.name "%GH_USER%"
 cd ..\src\BlazorWebView.Native\
 rmdir build32 /q /s
 mkdir build32 && cd build32 && cmake -G "Visual Studio 16 2019" -A Win32 ..

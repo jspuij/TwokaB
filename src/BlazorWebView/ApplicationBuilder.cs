@@ -1,4 +1,4 @@
-﻿// <copyright file="CoreApplicationBuilder.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="ApplicationBuilder.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

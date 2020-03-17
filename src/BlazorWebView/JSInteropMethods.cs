@@ -57,5 +57,18 @@ namespace BlazorWebView
         {
             PlatformNavigationManager.Instance.SetLocation(uri, isInterceptedLink);
         }
+
+        /// <summary>
+        /// Notify the Renderer that a render has completed.
+        /// </summary>
+        /// <param name="renderId">The id of the render pass.</param>
+        /// <param name="errorMessageOrNull">The error message or null indicating uscces.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        [JSInvokable(nameof(OnRenderCompleted))]
+        public static async Task OnRenderCompleted(long renderId, string errorMessageOrNull)
+        {
+            var renderer = BlazorWebViewHost.PlatformRenderer;
+            await renderer.OnRenderCompletedAsync(renderId, errorMessageOrNull);
+        }
     }
 }

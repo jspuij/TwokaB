@@ -333,6 +333,14 @@
             <param name="uri">The new uri.</param>
             <param name="isInterceptedLink">Whether it is an intercepted link.</param>
         </member>
+        <member name="M:BlazorWebView.JSInteropMethods.OnRenderCompleted(System.Int64,System.String)">
+            <summary>
+            Notify the Renderer that a render has completed.
+            </summary>
+            <param name="renderId">The id of the render pass.</param>
+            <param name="errorMessageOrNull">The error message or null indicating uscces.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
         <member name="T:BlazorWebView.NavigationInterception">
             <summary>
             Class that setups navigation interception on this platform.
@@ -513,6 +521,11 @@
             The renderer Id.
             </summary>
         </member>
+        <member name="F:BlazorWebView.PlatformRenderer.CanceledTask">
+            <summary>
+            Represents a canceled task.
+            </summary>
+        </member>
         <member name="F:BlazorWebView.PlatformRenderer.Writer">
             <summary>
             Reference to the renderbatch type.
@@ -533,14 +546,19 @@
             The javacript runtime implementation.
             </summary>
         </member>
-        <member name="F:BlazorWebView.PlatformRenderer.isDispatchingEvent">
+        <member name="F:BlazorWebView.PlatformRenderer.unacknowledgedRenderBatches">
             <summary>
-            Whether the incoming event is a dispatching event.
+            A concurrent queue of unacknowledged render batches.
             </summary>
         </member>
-        <member name="F:BlazorWebView.PlatformRenderer.deferredIncomingEvents">
+        <member name="F:BlazorWebView.PlatformRenderer.disposing">
             <summary>
-            A queue of deferred incoming events.
+            A value indicating wether the renderer is disposing.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.PlatformRenderer.nextRenderId">
+            <summary>
+            A number indicating the next render batch.
             </summary>
         </member>
         <member name="M:BlazorWebView.PlatformRenderer.#cctor">
@@ -584,14 +602,13 @@
             <param name="domElementSelector">A CSS selector that uniquely identifies a DOM element.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
-        <member name="M:BlazorWebView.PlatformRenderer.DispatchEventAsync(System.UInt64,Microsoft.AspNetCore.Components.RenderTree.EventFieldInfo,System.EventArgs)">
+        <member name="M:BlazorWebView.PlatformRenderer.OnRenderCompletedAsync(System.Int64,System.String)">
             <summary>
-            Notifies the renderer that an event has occured.
+            Signals that a render batch has completed.
             </summary>
-            <param name="eventHandlerId">The event handler Id.</param>
-            <param name="eventFieldInfo">The evet field info.</param>
-            <param name="eventArgs">The event arguments.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/>A task representing the asynchronous operation.</returns>
+            <param name="incomingBatchId">The render batch id.</param>
+            <param name="errorMessageOrNull">The error message or null.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
         <member name="M:BlazorWebView.PlatformRenderer.UpdateDisplayAsync(Microsoft.AspNetCore.Components.RenderTree.RenderBatch@)">
             <summary>
@@ -599,6 +616,12 @@
             </summary>
             <param name="batch">The batch to render.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:BlazorWebView.PlatformRenderer.Dispose(System.Boolean)">
+            <summary>
+            Releases all resources currently used by this <see cref="T:BlazorWebView.PlatformRenderer"/> instance.
+            </summary>
+            <param name="disposing">true if this method is being invoked by System.IDisposable.Dispose, otherwise false.</param>
         </member>
         <member name="M:BlazorWebView.PlatformRenderer.HandleException(System.Exception)">
             <summary>
@@ -612,11 +635,41 @@
             </summary>
             <param name="task">The task to execute.</param>
         </member>
-        <member name="M:BlazorWebView.PlatformRenderer.ProcessNextDeferredEventAsync">
+        <member name="M:BlazorWebView.PlatformRenderer.ProcessPendingBatch(System.String,BlazorWebView.PlatformRenderer.UnacknowledgedRenderBatch)">
             <summary>
-            Processes the next deferred event asynchronously.
+            Processes a pending batch.
             </summary>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+            <param name="errorMessageOrNull">The error message or null.</param>
+            <param name="entry">The entry to process.</param>
+        </member>
+        <member name="M:BlazorWebView.PlatformRenderer.CompleteRender(System.Threading.Tasks.TaskCompletionSource{System.Object},System.String)">
+            <summary>
+            Completes a render pass.
+            </summary>
+            <param name="pendingRenderInfo">The pending render info.</param>
+            <param name="errorMessageOrNull">The error message.</param>
+        </member>
+        <member name="T:BlazorWebView.PlatformRenderer.UnacknowledgedRenderBatch">
+            <summary>
+            A struct representing an unacknowledged render batch.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.PlatformRenderer.UnacknowledgedRenderBatch.#ctor(System.Int64,System.Threading.Tasks.TaskCompletionSource{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.PlatformRenderer.UnacknowledgedRenderBatch"/> struct.
+            </summary>
+            <param name="batchId">The batch id.</param>
+            <param name="completionSource">The completion source.</param>
+        </member>
+        <member name="P:BlazorWebView.PlatformRenderer.UnacknowledgedRenderBatch.BatchId">
+            <summary>
+            Gets the batch id.
+            </summary>
+        </member>
+        <member name="P:BlazorWebView.PlatformRenderer.UnacknowledgedRenderBatch.CompletionSource">
+            <summary>
+            Gets the completion source.
+            </summary>
         </member>
         <member name="T:BlazorWebView.PlatformRenderer.IncomingEventInfo">
             <summary>

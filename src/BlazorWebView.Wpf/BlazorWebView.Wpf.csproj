@@ -31,8 +31,8 @@
     <_NativeLibraries64 Include="$(NativeOutputDir64)BlazorWebViewNative.dll" Condition="Exists('$(NativeOutputDir64)BlazorWebViewNative.dll')" />
     <_NativeLibraries64 Include="$(NativeOutputDir64)WebView2Loader.dll" Condition="Exists('$(NativeOutputDir64)WebView2Loader.dll')" />
     <Content Include="@(_NativeLibraries64)">
-      <CopyToOutputDirectory Condition="'$(Platform)'=='AnyCPU'">PreserveNewest</CopyToOutputDirectory>
-      <CopyToOutputDirectory Condition="'$(Platform)'=='x64'">PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='AnyCPU'">Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='x64'">Always</CopyToOutputDirectory>
       <CopyToOutputDirectory Condition="'$(Platform)'=='x86'">Never</CopyToOutputDirectory>
       <Link>%(Filename)%(Extension)</Link>
       <Pack>true</Pack>
@@ -45,7 +45,7 @@
     <Content Include="@(_NativeLibraries32)">
       <CopyToOutputDirectory Condition="'$(Platform)'=='AnyCPU'">Never</CopyToOutputDirectory>
       <CopyToOutputDirectory Condition="'$(Platform)'=='x64'">Never</CopyToOutputDirectory>
-      <CopyToOutputDirectory Condition="'$(Platform)'=='x86'">PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory Condition="'$(Platform)'=='x86'">Always</CopyToOutputDirectory>
       <Link>%(Filename)%(Extension)</Link>
       <Pack>true</Pack>
       <PackagePath>runtimes/$(NativeAssetRuntimeIdentifier32)/native/%(Filename)%(Extension)</PackagePath>

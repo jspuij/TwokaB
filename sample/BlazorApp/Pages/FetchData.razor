@@ -75,6 +75,7 @@ else
 ]
 ";
         forecasts = JsonSerializer.Deserialize<WeatherForecast[]>(forecastsJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        await base.OnInitializedAsync();
     }
 
     public class WeatherForecast

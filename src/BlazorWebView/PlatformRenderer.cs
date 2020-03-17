@@ -1,4 +1,4 @@
-﻿// <copyright file="DesktopRenderer.cs" company="Steve Sanderson and Jan-Willem Spuij">
+﻿// <copyright file="PlatformRenderer.cs" company="Steve Sanderson and Jan-Willem Spuij">
 // Copyright 2020 Steve Sanderson and Jan-Willem Spuij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,11 @@
 namespace BlazorWebView
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.RenderTree;
@@ -44,6 +46,11 @@ namespace BlazorWebView
         private const int RendererId = 0; // Not relevant, since we have only one renderer in Desktop
 
         /// <summary>
+        /// Represents a canceled task.
+        /// </summary>
+        private static readonly Task CanceledTask = Task.FromCanceled(new CancellationToken(canceled: true));
+
+        /// <summary>
         /// Reference to the renderbatch type.
         /// </summary>
         private static readonly Type Writer;
@@ -64,14 +71,19 @@ namespace BlazorWebView
         private readonly IJSRuntime jsRuntime;
 
         /// <summary>
-        /// Whether the incoming event is a dispatching event.
+        /// A concurrent queue of unacknowledged render batches.
         /// </summary>
-        private bool isDispatchingEvent;
+        private readonly ConcurrentQueue<UnacknowledgedRenderBatch> unacknowledgedRenderBatches = new ConcurrentQueue<UnacknowledgedRenderBatch>();
 
         /// <summary>
-        /// A queue of deferred incoming events.
+        /// A value indicating wether the renderer is disposing.
         /// </summary>
-        private Queue<IncomingEventInfo> deferredIncomingEvents = new Queue<IncomingEventInfo>();
+        private bool disposing = false;
+
+        /// <summary>
+        /// A number indicating the next render batch.
+        /// </summary>
+        private long nextRenderId = 1;
 
         /// <summary>
         /// Initializes static members of the <see cref="PlatformRenderer"/> class.
@@ -140,53 +152,61 @@ namespace BlazorWebView
         }
 
         /// <summary>
-        /// Notifies the renderer that an event has occured.
+        /// Signals that a render batch has completed.
         /// </summary>
-        /// <param name="eventHandlerId">The event handler Id.</param>
-        /// <param name="eventFieldInfo">The evet field info.</param>
-        /// <param name="eventArgs">The event arguments.</param>
-        /// <returns>A <see cref="Task"/>A task representing the asynchronous operation.</returns>
-        public override Task DispatchEventAsync(ulong eventHandlerId, EventFieldInfo eventFieldInfo, EventArgs eventArgs)
+        /// <param name="incomingBatchId">The render batch id.</param>
+        /// <param name="errorMessageOrNull">The error message or null.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task OnRenderCompletedAsync(long incomingBatchId, string errorMessageOrNull)
         {
-            // Be sure we only run one event handler at once. Although they couldn't run
-            // simultaneously anyway (there's only one thread), they could run nested on
-            // the stack if somehow one event handler triggers another event synchronously.
-            // We need event handlers not to overlap because (a) that's consistent with
-            // server-side Blazor which uses a sync context, and (b) the rendering logic
-            // relies completely on the idea that within a given scope it's only building
-            // or processing one batch at a time.
-            //
-            // The only currently known case where this makes a difference is in the E2E
-            // tests in ReorderingFocusComponent, where we hit what seems like a Chrome bug
-            // where mutating the DOM cause an element's "change" to fire while its "input"
-            // handler is still running (i.e., nested on the stack) -- this doesn't happen
-            // in Firefox. Possibly a future version of Chrome may fix this, but even then,
-            // it's conceivable that DOM mutation events could trigger this too.
-            if (this.isDispatchingEvent)
+            if (this.disposing)
             {
-                var info = new IncomingEventInfo(eventHandlerId, eventFieldInfo, eventArgs);
-                this.deferredIncomingEvents.Enqueue(info);
-                return info.TaskCompletionSource.Task;
+                // Disposing so don't do work.
+                return Task.CompletedTask;
+            }
+
+            if (!this.unacknowledgedRenderBatches.TryPeek(out var nextUnacknowledgedBatch) || incomingBatchId < nextUnacknowledgedBatch.BatchId)
+            {
+                // TODO: Log duplicated batch ack.
+                return Task.CompletedTask;
             }
             else
             {
-                try
-                {
-                    this.isDispatchingEvent = true;
-                    return base.DispatchEventAsync(eventHandlerId, eventFieldInfo, eventArgs);
-                }
-                finally
-                {
-                    this.isDispatchingEvent = false;
+                var lastBatchId = nextUnacknowledgedBatch.BatchId;
 
-                    if (this.deferredIncomingEvents.Count > 0)
-                    {
-                        // Fire-and-forget because the task we return from this method should only reflect the
-                        // completion of its own event dispatch, not that of any others that happen to be queued.
-                        // Also, ProcessNextDeferredEventAsync deals with its own async errors.
-                        _ = this.ProcessNextDeferredEventAsync();
-                    }
+                // Order is important here so that we don't prematurely dequeue the last nextUnacknowledgedBatch
+                while (this.unacknowledgedRenderBatches.TryPeek(out nextUnacknowledgedBatch) && nextUnacknowledgedBatch.BatchId <= incomingBatchId)
+                {
+                    lastBatchId = nextUnacknowledgedBatch.BatchId;
+
+                    // At this point the queue is definitely not full, we have at least emptied one slot, so we allow a further
+                    // full queue log entry the next time it fills up.
+                    this.unacknowledgedRenderBatches.TryDequeue(out _);
+                    this.ProcessPendingBatch(errorMessageOrNull, nextUnacknowledgedBatch);
                 }
+
+                if (lastBatchId < incomingBatchId)
+                {
+                    // This exception is due to a bad client input, so we mark it as such to prevent logging it as a warning and
+                    // flooding the logs with warnings.
+                    throw new InvalidOperationException($"Received an acknowledgement for batch with id '{incomingBatchId}' when the last batch produced was '{lastBatchId}'.");
+                }
+
+                // Normally we will not have pending renders, but it might happen that we reached the limit of
+                // available buffered renders and new renders got queued.
+                // Invoke ProcessBufferedRenderRequests so that we might produce any additional batch that is
+                // missing.
+
+                // We return the task in here, but the caller doesn't await it.
+                return this.Dispatcher.InvokeAsync(() =>
+                {
+                    // Now we're on the sync context, check again whether we got disposed since this
+                    // work item was queued. If so there's nothing to do.
+                    if (!this.disposing)
+                    {
+                        this.ProcessPendingRender();
+                    }
+                });
             }
         }
 
@@ -197,6 +217,12 @@ namespace BlazorWebView
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         protected override Task UpdateDisplayAsync(in RenderBatch batch)
         {
+            if (this.disposing)
+            {
+                // We are being disposed, so do no work.
+                return CanceledTask;
+            }
+
             string base64;
             using (var memoryStream = new MemoryStream())
             {
@@ -211,13 +237,34 @@ namespace BlazorWebView
                 base64 = Convert.ToBase64String(batchBytes);
             }
 
-            this.ipc.Send("JS.RenderBatch", RendererId, base64);
+            var renderId = Interlocked.Increment(ref this.nextRenderId);
 
-            // TODO: Consider finding a way to get back a completion message from the Desktop side
-            // in case there was an error. We don't really need to wait for anything to happen, since
-            // this is not prerendering and we don't care how quickly the UI is updated, but it would
-            // be desirable to flow back errors.
-            return Task.CompletedTask;
+            var pendingRender = new UnacknowledgedRenderBatch(
+                renderId,
+                new TaskCompletionSource<object>());
+
+            // Buffer the rendered batches no matter what. We'll send it down immediately when the client
+            // is connected or right after the client reconnects.
+            this.unacknowledgedRenderBatches.Enqueue(pendingRender);
+
+            this.ipc.Send("JS.RenderBatch", renderId, base64);
+
+            return pendingRender.CompletionSource.Task;
+        }
+
+        /// <summary>
+        /// Releases all resources currently used by this <see cref="PlatformRenderer"/> instance.
+        /// </summary>
+        /// <param name="disposing">true if this method is being invoked by System.IDisposable.Dispose, otherwise false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            this.disposing = true;
+            while (this.unacknowledgedRenderBatches.TryDequeue(out var entry))
+            {
+                entry.CompletionSource.TrySetCanceled();
+            }
+
+            base.Dispose(true);
         }
 
         /// <summary>
@@ -247,23 +294,57 @@ namespace BlazorWebView
         }
 
         /// <summary>
-        /// Processes the next deferred event asynchronously.
+        /// Processes a pending batch.
         /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        private async Task ProcessNextDeferredEventAsync()
+        /// <param name="errorMessageOrNull">The error message or null.</param>
+        /// <param name="entry">The entry to process.</param>
+        private void ProcessPendingBatch(string errorMessageOrNull, UnacknowledgedRenderBatch entry)
         {
-            var info = this.deferredIncomingEvents.Dequeue();
-            var taskCompletionSource = info.TaskCompletionSource;
+            this.CompleteRender(entry.CompletionSource, errorMessageOrNull);
+        }
 
-            try
+        /// <summary>
+        /// Completes a render pass.
+        /// </summary>
+        /// <param name="pendingRenderInfo">The pending render info.</param>
+        /// <param name="errorMessageOrNull">The error message.</param>
+        private void CompleteRender(TaskCompletionSource<object> pendingRenderInfo, string errorMessageOrNull)
+        {
+            if (errorMessageOrNull == null)
             {
-                await this.DispatchEventAsync(info.EventHandlerId, info.EventFieldInfo, info.EventArgs);
-                taskCompletionSource.SetResult(null);
+                pendingRenderInfo.TrySetResult(null);
             }
-            catch (Exception ex)
+            else
             {
-                taskCompletionSource.SetException(ex);
+                pendingRenderInfo.TrySetException(new InvalidOperationException(errorMessageOrNull));
             }
+        }
+
+        /// <summary>
+        /// A struct representing an unacknowledged render batch.
+        /// </summary>
+        internal readonly struct UnacknowledgedRenderBatch
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="UnacknowledgedRenderBatch"/> struct.
+            /// </summary>
+            /// <param name="batchId">The batch id.</param>
+            /// <param name="completionSource">The completion source.</param>
+            public UnacknowledgedRenderBatch(long batchId, TaskCompletionSource<object> completionSource)
+            {
+                this.BatchId = batchId;
+                this.CompletionSource = completionSource;
+            }
+
+            /// <summary>
+            /// Gets the batch id.
+            /// </summary>
+            public long BatchId { get; }
+
+            /// <summary>
+            /// Gets the completion source.
+            /// </summary>
+            public TaskCompletionSource<object> CompletionSource { get; }
         }
 
         /// <summary>
