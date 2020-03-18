@@ -36,10 +36,11 @@ void BlazorWebView::RefitContent()
     }
 }
 
-BlazorWebView::BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback)
+BlazorWebView::BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback)
 {
     rootWindow = parent;
     this->webMessageReceivedCallback = webMessageReceivedCallback;
+    this->errorOccuredCallback = errorOccuredCallback;
 	this->window = CreateWindowEx(
 		0,                              // Optional window styles.
 		CLASS_NAME,                     // Window class
@@ -60,7 +61,7 @@ HWND BlazorWebView::GetHWND()
 	return window;
 }
 
-void BlazorWebView::Initialize()
+bool BlazorWebView::Initialize()
 {
     std::atomic_flag flag = ATOMIC_FLAG_INIT;
     flag.test_and_set();
@@ -158,7 +159,10 @@ void BlazorWebView::Initialize()
     {
         _com_error err(envResult);
         LPCTSTR errMsg = err.ErrorMessage();
-        MessageBox(window, errMsg, L"Error instantiating webview", MB_OK);
+        
+        this->errorOccuredCallback(envResult, errMsg);
+
+        return false;
     }
     else
     {
@@ -171,6 +175,7 @@ void BlazorWebView::Initialize()
             DispatchMessage(&msg);
         }
     }
+    return true;
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

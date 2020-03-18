@@ -20,6 +20,7 @@ namespace BlazorWebView.Wpf
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.InteropServices;
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Threading;
     using System.Windows;
@@ -52,6 +53,11 @@ namespace BlazorWebView.Wpf
         private IntPtr blazorWebView;
 
         /// <summary>
+        /// A string with the last error message.
+        /// </summary>
+        private string lastErrorMessage;
+
+        /// <summary>
         /// Initializes static members of the <see cref="BlazorWebView"/> class.
         /// </summary>
         static BlazorWebView()
@@ -66,6 +72,14 @@ namespace BlazorWebView.Wpf
         /// <param name="message">The received message.</param>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
         private delegate void WebMessageReceivedCallback(string message);
+
+        /// <summary>
+        /// A callback delegate for when an error occurs.
+        /// </summary>
+        /// <param name="errorCode">The error code.</param>
+        /// <param name="message">The received message.</param>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
+        private delegate void ErrorOccuredCallback(int errorCode, string message);
 
         /// <summary>
         /// A callback delegate to handle a Resource request.
@@ -96,7 +110,10 @@ namespace BlazorWebView.Wpf
                 this.AddCustomScheme(schemeName, handler);
             }
 
-            BlazorWebViewNative_Initialize(this.blazorWebView);
+            if (!BlazorWebViewNative_Initialize(this.blazorWebView))
+            {
+                throw new InvalidOperationException(this.lastErrorMessage);
+            }
         }
 
         /// <summary>
@@ -159,7 +176,10 @@ namespace BlazorWebView.Wpf
             var onWebMessageReceivedDelegate = (WebMessageReceivedCallback)this.ReceiveWebMessage;
             this.gcHandlesToFree.Add(GCHandle.Alloc(onWebMessageReceivedDelegate));
 
-            this.blazorWebView = BlazorWebViewNative_Ctor(hwndParent.Handle, onWebMessageReceivedDelegate);
+            var onErrorMessageDelegate = (ErrorOccuredCallback)this.ReceiveErrorMessage;
+            this.gcHandlesToFree.Add(GCHandle.Alloc(onErrorMessageDelegate));
+
+            this.blazorWebView = BlazorWebViewNative_Ctor(hwndParent.Handle, onWebMessageReceivedDelegate, onErrorMessageDelegate);
             var hwnd = BlazorWebViewNative_GetHWND(this.blazorWebView);
             return new HandleRef(this, hwnd);
         }
@@ -191,9 +211,10 @@ namespace BlazorWebView.Wpf
         /// </summary>
         /// <param name="parent">A handle to the parent window.</param>
         /// <param name="webMessageReceivedCallback">The callback to use when a message is received from javascript.</param>
+        /// <param name="errorOccuredCallback">The callback to use when an error occured.</param>
         /// <returns>A pointer to the native webview object.</returns>
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr BlazorWebViewNative_Ctor(IntPtr parent, WebMessageReceivedCallback webMessageReceivedCallback);
+        private static extern IntPtr BlazorWebViewNative_Ctor(IntPtr parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback);
 
         /// <summary>
         /// Gets the window handle of the native webview object.
@@ -215,7 +236,7 @@ namespace BlazorWebView.Wpf
         /// </summary>
         /// <param name="blazorWebView">A pointer to the native webview object.</param>
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void BlazorWebViewNative_Initialize(IntPtr blazorWebView);
+        private static extern bool BlazorWebViewNative_Initialize(IntPtr blazorWebView);
 
         /// <summary>
         /// Adds a custom scheme to the native webview.
@@ -283,6 +304,16 @@ namespace BlazorWebView.Wpf
         private void ReceiveWebMessage(string message)
         {
             this.OnWebMessageReceived?.Invoke(this, message);
+        }
+
+        /// <summary>
+        /// Receives an error from the native control.
+        /// </summary>
+        /// <param name="errorCode">The error code.</param>
+        /// <param name="message">The error message.</param>
+        private void ReceiveErrorMessage(int errorCode, string message)
+        {
+            this.lastErrorMessage = message;
         }
     }
 }

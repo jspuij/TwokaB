@@ -29,6 +29,11 @@
             A reference to the native webview.
             </summary>
         </member>
+        <member name="F:BlazorWebView.Wpf.BlazorWebView.lastErrorMessage">
+            <summary>
+            A string with the last error message.
+            </summary>
+        </member>
         <member name="M:BlazorWebView.Wpf.BlazorWebView.#cctor">
             <summary>
             Initializes static members of the <see cref="T:BlazorWebView.Wpf.BlazorWebView"/> class.
@@ -38,6 +43,13 @@
             <summary>
             A callback delegate for when a web message is received from javascript.
             </summary>
+            <param name="message">The received message.</param>
+        </member>
+        <member name="T:BlazorWebView.Wpf.BlazorWebView.ErrorOccuredCallback">
+            <summary>
+            A callback delegate for when an error occurs.
+            </summary>
+            <param name="errorCode">The error code.</param>
             <param name="message">The received message.</param>
         </member>
         <member name="T:BlazorWebView.Wpf.BlazorWebView.WebResourceRequestedCallback">
@@ -104,12 +116,13 @@
             </summary>
             <param name="hInstance">The instance handle for the module.</param>
         </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_Ctor(System.IntPtr,BlazorWebView.Wpf.BlazorWebView.WebMessageReceivedCallback)">
+        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_Ctor(System.IntPtr,BlazorWebView.Wpf.BlazorWebView.WebMessageReceivedCallback,BlazorWebView.Wpf.BlazorWebView.ErrorOccuredCallback)">
             <summary>
             Calls the constructor of the native webview opbject.
             </summary>
             <param name="parent">A handle to the parent window.</param>
             <param name="webMessageReceivedCallback">The callback to use when a message is received from javascript.</param>
+            <param name="errorOccuredCallback">The callback to use when an error occured.</param>
             <returns>A pointer to the native webview object.</returns>
         </member>
         <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_GetHWND(System.IntPtr)">
@@ -158,6 +171,13 @@
             Receives a message from javascript.
             </summary>
             <param name="message">The message to receive.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorWebView.ReceiveErrorMessage(System.Int32,System.String)">
+            <summary>
+            Receives an error from the native control.
+            </summary>
+            <param name="errorCode">The error code.</param>
+            <param name="message">The error message.</param>
         </member>
     </members>
 </doc>

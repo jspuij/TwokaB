@@ -6,7 +6,7 @@
 #include <map>
 #include <list>
 #include <string>
-typedef const wchar_t* AutoString;
+typedef const wchar_t* AutoString;  
 #include <wrl.h>
 #include <wil/com.h>
 // include WebView2 header
@@ -15,12 +15,13 @@ typedef const wchar_t* AutoString;
 
 typedef void (*WebMessageReceivedCallback)(AutoString message);
 typedef void* (*WebResourceRequestedCallback)(AutoString url, int* outNumBytes, AutoString* outContentType);
-
+typedef void (*ErrorOccuredCallback)(int32_t errorCode, AutoString message);
 
 class BlazorWebView
 {
 private:
     WebMessageReceivedCallback webMessageReceivedCallback;
+    ErrorOccuredCallback errorOccuredCallback;
 #ifdef _WIN32
     static HINSTANCE hInstance;
     HWND window = 0;
@@ -34,13 +35,13 @@ private:
 
 public:
 #ifdef _WIN32
-    BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback);
+    BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback);
     HWND GetHWND(); 
     static void Register(HINSTANCE hInstance);
     void RefitContent();
 #endif
 
-    void Initialize();
+    bool Initialize();
     ~BlazorWebView();
     void AddCustomScheme(AutoString scheme, WebResourceRequestedCallback requestHandler);
     void NavigateToUrl(AutoString url);
