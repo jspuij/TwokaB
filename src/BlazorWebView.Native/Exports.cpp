@@ -32,7 +32,7 @@ extern "C"
         blazorWebView->~BlazorWebView();
     }
 
-    EXPORTED bool BlazorWebViewNative_Initialize(BlazorWebView* blazorWebView)
+    EXPORTED BOOL BlazorWebViewNative_Initialize(BlazorWebView* blazorWebView)
     {
         return blazorWebView->Initialize();
     }

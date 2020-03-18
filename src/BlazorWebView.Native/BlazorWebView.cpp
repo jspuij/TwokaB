@@ -203,12 +203,19 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 BlazorWebView::~BlazorWebView()
 {
-    for (EventRegistrationToken token : this->webResourceRequestedTokens)
+    if (this->webviewWindow != nullptr)
     {
-        this->webviewWindow->remove_WebResourceRequested(token);
+        for (EventRegistrationToken token : this->webResourceRequestedTokens)
+        {
+            this->webviewWindow->remove_WebResourceRequested(token);
+        }
+        this->webviewWindow->remove_WebMessageReceived(this->webMessageReceivedToken);
+        this->webviewWindow = nullptr;
     }
-    this->webviewWindow->remove_WebMessageReceived(this->webMessageReceivedToken);
-	DestroyWindow(this->window);
+    if (this->window != nullptr)
+    {
+        DestroyWindow(this->window);
+    }
 }
 
 void BlazorWebView::AddCustomScheme(AutoString scheme, WebResourceRequestedCallback requestHandler)

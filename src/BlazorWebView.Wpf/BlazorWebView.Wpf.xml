@@ -4,55 +4,55 @@
         <name>BlazorWebView.Wpf</name>
     </assembly>
     <members>
-        <member name="T:BlazorWebView.Wpf.BlazorWebView">
+        <member name="T:BlazorWebView.Wpf.BlazorNewEdgeWebView">
             <summary>
             An <see cref="T:BlazorWebView.IBlazorWebView"/> implementation for Wpf.
             </summary>
         </member>
-        <member name="F:BlazorWebView.Wpf.BlazorWebView.DllName">
+        <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.DllName">
             <summary>
             The name of the native DLL that is used.
             </summary>
         </member>
-        <member name="F:BlazorWebView.Wpf.BlazorWebView.gcHandlesToFree">
+        <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.gcHandlesToFree">
             <summary>
             A list of GC handles to free afterwards.
             </summary>
         </member>
-        <member name="F:BlazorWebView.Wpf.BlazorWebView.ownerThreadId">
+        <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.ownerThreadId">
             <summary>
             The thread id of the owner thread.
             </summary>
         </member>
-        <member name="F:BlazorWebView.Wpf.BlazorWebView.blazorWebView">
+        <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.blazorWebView">
             <summary>
             A reference to the native webview.
             </summary>
         </member>
-        <member name="F:BlazorWebView.Wpf.BlazorWebView.lastErrorMessage">
+        <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.lastErrorMessage">
             <summary>
             A string with the last error message.
             </summary>
         </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.#cctor">
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.#cctor">
             <summary>
-            Initializes static members of the <see cref="T:BlazorWebView.Wpf.BlazorWebView"/> class.
+            Initializes static members of the <see cref="T:BlazorWebView.Wpf.BlazorNewEdgeWebView"/> class.
             </summary>
         </member>
-        <member name="T:BlazorWebView.Wpf.BlazorWebView.WebMessageReceivedCallback">
+        <member name="T:BlazorWebView.Wpf.BlazorNewEdgeWebView.WebMessageReceivedCallback">
             <summary>
             A callback delegate for when a web message is received from javascript.
             </summary>
             <param name="message">The received message.</param>
         </member>
-        <member name="T:BlazorWebView.Wpf.BlazorWebView.ErrorOccuredCallback">
+        <member name="T:BlazorWebView.Wpf.BlazorNewEdgeWebView.ErrorOccuredCallback">
             <summary>
             A callback delegate for when an error occurs.
             </summary>
             <param name="errorCode">The error code.</param>
             <param name="message">The received message.</param>
         </member>
-        <member name="T:BlazorWebView.Wpf.BlazorWebView.WebResourceRequestedCallback">
+        <member name="T:BlazorWebView.Wpf.BlazorNewEdgeWebView.WebResourceRequestedCallback">
             <summary>
             A callback delegate to handle a Resource request.
             </summary>
@@ -60,6 +60,241 @@
             <param name="numBytes">The number of bytes of the resource.</param>
             <param name="contentType">The content type of the resource.</param>
             <returns>A pointer to a stream.</returns>
+        </member>
+        <member name="E:BlazorWebView.Wpf.BlazorNewEdgeWebView.OnWebMessageReceived">
+            <summary>
+            Event that is fired when a web message is received from javascript.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.Initialize(System.Action{BlazorWebView.WebViewOptions})">
+            <summary>
+            Initialize the BlazorWebView.
+            </summary>
+            <param name="configure">A delegate that is executed to configure the webview.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.Invoke(System.Action)">
+            <summary>
+            Invoke a callback on the UI thread.
+            </summary>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.NavigateToUrl(System.String)">
+            <summary>
+            Navigate to the specified URL.
+            </summary>
+            <param name="url">The URL to navigate to.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.SendMessage(System.String)">
+            <summary>
+            Send a message to javascript.
+            </summary>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.ShowMessage(System.String,System.String)">
+            <summary>
+            Show a native dialog for the platform with the specified message.
+            </summary>
+            <param name="title">The title to show.</param>
+            <param name="message">The message to show.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BuildWindowCore(System.Runtime.InteropServices.HandleRef)">
+            <summary>
+            Creates the window to be hosted.
+            </summary>
+            <param name="hwndParent">The window handle of the parent window.</param>
+            <returns> The handle to the child Win32 window to create.</returns>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.DestroyWindowCore(System.Runtime.InteropServices.HandleRef)">
+            <summary>
+            Destroys the hosted window.
+            </summary>
+            <param name="hwnd">A structure that contains the window handle.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_Register(System.IntPtr)">
+            <summary>
+            Registers a window class for the window that is hosted.
+            </summary>
+            <param name="hInstance">The instance handle for the module.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_Ctor(System.IntPtr,BlazorWebView.Wpf.BlazorNewEdgeWebView.WebMessageReceivedCallback,BlazorWebView.Wpf.BlazorNewEdgeWebView.ErrorOccuredCallback)">
+            <summary>
+            Calls the constructor of the native webview opbject.
+            </summary>
+            <param name="parent">A handle to the parent window.</param>
+            <param name="webMessageReceivedCallback">The callback to use when a message is received from javascript.</param>
+            <param name="errorOccuredCallback">The callback to use when an error occured.</param>
+            <returns>A pointer to the native webview object.</returns>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_GetHWND(System.IntPtr)">
+            <summary>
+            Gets the window handle of the native webview object.
+            </summary>
+            <param name="blazorWebView">A pointer to the native webview object.</param>
+            <returns>A window handle.</returns>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_Dtor(System.IntPtr)">
+            <summary>
+            Calls the destructor of the native webview object.
+            </summary>
+            <param name="blazorWebView">A pointer to the native webview object.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_Initialize(System.IntPtr)">
+            <summary>
+            Initializes the native webview object.
+            </summary>
+            <param name="blazorWebView">A pointer to the native webview object.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_AddCustomScheme(System.IntPtr,System.String,BlazorWebView.Wpf.BlazorNewEdgeWebView.WebResourceRequestedCallback)">
+            <summary>
+            Adds a custom scheme to the native webview.
+            </summary>
+            <param name="blazorWebView">A pointer to the native webview object.</param>
+            <param name="scheme">The schemde to register the custom scheme for.</param>
+            <param name="requestHandler">The request handler to use.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_NavigateToUrl(System.IntPtr,System.String)">
+            <summary>
+            Navigates the native webview to an Url.
+            </summary>
+            <param name="blazorWebView">A pointer to the native webview object.</param>
+            <param name="url">The url to navigate to.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_SendMessage(System.IntPtr,System.String)">
+            <summary>
+            Sends a message to javascript.
+            </summary>
+            <param name="blazorWebView">A pointer to the native webview object.</param>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.ReceiveWebMessage(System.String)">
+            <summary>
+            Receives a message from javascript.
+            </summary>
+            <param name="message">The message to receive.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.ReceiveErrorMessage(System.Int32,System.String)">
+            <summary>
+            Receives an error from the native control.
+            </summary>
+            <param name="errorCode">The error code.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="T:BlazorWebView.Wpf.BlazorOldEdgeWebView">
+            <summary>
+            A Blazor Webview Implementation for the old edge.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Wpf.BlazorOldEdgeWebView.InitScriptSource">
+            <summary>
+            The initialization script for the callbacks.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Wpf.BlazorOldEdgeWebView.ownerThreadId">
+            <summary>
+            The thread id of the owner thread.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Wpf.BlazorOldEdgeWebView.uriToStreamResolver">
+            <summary>
+            An uri to stream resolver for Edge.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Wpf.BlazorOldEdgeWebView"/> class.
+            </summary>
+        </member>
+        <member name="E:BlazorWebView.Wpf.BlazorOldEdgeWebView.OnWebMessageReceived">
+            <summary>
+            Event that is fired when a web message is received from javascript.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.Initialize(System.Action{BlazorWebView.WebViewOptions})">
+            <summary>
+            Initialize the BlazorWebView.
+            </summary>
+            <param name="configure">A delegate that is executed to configure the webview.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.Invoke(System.Action)">
+            <summary>
+            Invoke a callback on the UI thread.
+            </summary>
+            <param name="callback">The callback to execute.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.NavigateToUrl(System.String)">
+            <summary>
+            Navigate to the specified URL.
+            </summary>
+            <param name="url">The URL to navigate to.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.SendMessage(System.String)">
+            <summary>
+            Send a message to javascript.
+            </summary>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.ShowMessage(System.String,System.String)">
+            <summary>
+            Show a native dialog for the platform with the specified message.
+            </summary>
+            <param name="title">The title to show.</param>
+            <param name="message">The message to show.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.Webview_ScriptNotify(System.Object,Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.WebViewControlScriptNotifyEventArgs)">
+            <summary>
+            Event handler for script notifications from Edge.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The event arguments.</param>
+        </member>
+        <member name="T:BlazorWebView.Wpf.BlazorOldEdgeWebView.EdgeUriToStreamResolver">
+            <summary>
+            Class that resolves an Uri to a stream.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.EdgeUriToStreamResolver.AddSchemeHandler(System.String,BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Adds a scheme handler to the EdgeResolver.
+            </summary>
+            <param name="schemeName">The name of the scheme.</param>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.EdgeUriToStreamResolver.UriToStream(System.Uri)">
+            <summary>
+            Resolves the Uri to a stream or throws an Exception.
+            </summary>
+            <param name="uri">The uri to resolve.</param>
+            <returns>A stream with content.</returns>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.EdgeUriToStreamResolver.GetHashString(System.String)">
+            <summary>
+            Gets a hash string for a text.
+            </summary>
+            <param name="text">The text to hast.</param>
+            <returns>A hash string.</returns>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorOldEdgeWebView.EdgeUriToStreamResolver.Resolve(System.String,BlazorWebView.ResolveWebResourceDelegate)">
+            <summary>
+            Resolves an Uri to a stream.
+            </summary>
+            <param name="uri">The uri to resolve.</param>
+            <param name="resolveWebResourceDelegate">The delegate to call.</param>
+            <returns>A Stream.</returns>
+        </member>
+        <member name="T:BlazorWebView.Wpf.BlazorWebView">
+            <summary>
+            UserControl that wraps either an NewEdgeWebView or the normal EdgeWebView, depending on what is installed.
+            </summary>
+        </member>
+        <member name="F:BlazorWebView.Wpf.BlazorWebView.grid">
+            <summary>
+            The readonly grid.
+            </summary>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorWebView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BlazorWebView.Wpf.BlazorWebView"/> class.
+            </summary>
         </member>
         <member name="E:BlazorWebView.Wpf.BlazorWebView.OnWebMessageReceived">
             <summary>
@@ -96,88 +331,6 @@
             </summary>
             <param name="title">The title to show.</param>
             <param name="message">The message to show.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BuildWindowCore(System.Runtime.InteropServices.HandleRef)">
-            <summary>
-            Creates the window to be hosted.
-            </summary>
-            <param name="hwndParent">The window handle of the parent window.</param>
-            <returns> The handle to the child Win32 window to create.</returns>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.DestroyWindowCore(System.Runtime.InteropServices.HandleRef)">
-            <summary>
-            Destroys the hosted window.
-            </summary>
-            <param name="hwnd">A structure that contains the window handle.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_Register(System.IntPtr)">
-            <summary>
-            Registers a window class for the window that is hosted.
-            </summary>
-            <param name="hInstance">The instance handle for the module.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_Ctor(System.IntPtr,BlazorWebView.Wpf.BlazorWebView.WebMessageReceivedCallback,BlazorWebView.Wpf.BlazorWebView.ErrorOccuredCallback)">
-            <summary>
-            Calls the constructor of the native webview opbject.
-            </summary>
-            <param name="parent">A handle to the parent window.</param>
-            <param name="webMessageReceivedCallback">The callback to use when a message is received from javascript.</param>
-            <param name="errorOccuredCallback">The callback to use when an error occured.</param>
-            <returns>A pointer to the native webview object.</returns>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_GetHWND(System.IntPtr)">
-            <summary>
-            Gets the window handle of the native webview object.
-            </summary>
-            <param name="blazorWebView">A pointer to the native webview object.</param>
-            <returns>A window handle.</returns>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_Dtor(System.IntPtr)">
-            <summary>
-            Calls the destructor of the native webview object.
-            </summary>
-            <param name="blazorWebView">A pointer to the native webview object.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_Initialize(System.IntPtr)">
-            <summary>
-            Initializes the native webview object.
-            </summary>
-            <param name="blazorWebView">A pointer to the native webview object.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_AddCustomScheme(System.IntPtr,System.String,BlazorWebView.Wpf.BlazorWebView.WebResourceRequestedCallback)">
-            <summary>
-            Adds a custom scheme to the native webview.
-            </summary>
-            <param name="blazorWebView">A pointer to the native webview object.</param>
-            <param name="scheme">The schemde to register the custom scheme for.</param>
-            <param name="requestHandler">The request handler to use.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_NavigateToUrl(System.IntPtr,System.String)">
-            <summary>
-            Navigates the native webview to an Url.
-            </summary>
-            <param name="blazorWebView">A pointer to the native webview object.</param>
-            <param name="url">The url to navigate to.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.BlazorWebViewNative_SendMessage(System.IntPtr,System.String)">
-            <summary>
-            Sends a message to javascript.
-            </summary>
-            <param name="blazorWebView">A pointer to the native webview object.</param>
-            <param name="message">The message to send.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.ReceiveWebMessage(System.String)">
-            <summary>
-            Receives a message from javascript.
-            </summary>
-            <param name="message">The message to receive.</param>
-        </member>
-        <member name="M:BlazorWebView.Wpf.BlazorWebView.ReceiveErrorMessage(System.Int32,System.String)">
-            <summary>
-            Receives an error from the native control.
-            </summary>
-            <param name="errorCode">The error code.</param>
-            <param name="message">The error message.</param>
         </member>
     </members>
 </doc>
