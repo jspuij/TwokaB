@@ -22,7 +22,7 @@ namespace BlazorWebView
     using System.Threading.Tasks;
 
     /// <summary>
-    /// A <see cref="SynchronizationContext"/> implementation that schedules operations on the UI thread.
+    /// A <see cref="System.Threading.SynchronizationContext"/> implementation that schedules operations on the UI thread.
     /// </summary>
     internal class PlatformSynchronizationContext : SynchronizationContext
     {
@@ -37,13 +37,13 @@ namespace BlazorWebView
         /// <param name="cancellationToken">A cancellation token to cancel work.</param>
         public PlatformSynchronizationContext(CancellationToken cancellationToken)
         {
-            this.workQueue = new WorkQueue(cancellationToken);
+            this.workQueue = new WorkQueue(this, cancellationToken);
         }
 
         /// <summary>
         /// An event that is triggered when an unhandled exception occurs.
         /// </summary>
-        public static event EventHandler<Exception> UnhandledException;
+        public event EventHandler<Exception> UnhandledException;
 
         /// <summary>
         /// Checks whether the current operation is already in the right context.
@@ -63,7 +63,7 @@ namespace BlazorWebView
         /// Returns itself instead of creating a copy of this <see cref="PlatformSynchronizationContext"/>.
         /// </summary>
         /// <returns>The synchronisation context.</returns>
-        public override SynchronizationContext CreateCopy()
+        public override System.Threading.SynchronizationContext CreateCopy()
         {
             return this;
         }
@@ -123,7 +123,7 @@ namespace BlazorWebView
             /// <summary>
             /// The context associated with the workitem.
             /// </summary>
-            public SynchronizationContext Context;
+            public System.Threading.SynchronizationContext Context;
 
             /// <summary>
             /// The <see cref="ManualResetEvent"/> to signal for synchronous operations.
@@ -142,6 +142,11 @@ namespace BlazorWebView
             private readonly Thread thread;
 
             /// <summary>
+            /// The parent Context.
+            /// </summary>
+            private readonly PlatformSynchronizationContext parent;
+
+            /// <summary>
             /// The cancellation token to use.
             /// </summary>
             private readonly CancellationToken cancellationToken;
@@ -149,9 +154,11 @@ namespace BlazorWebView
             /// <summary>
             /// Initializes a new instance of the <see cref="WorkQueue"/> class.
             /// </summary>
+            /// <param name="parent">The parent SynchronizationContext.</param>
             /// <param name="cancellationToken">A cancellation token.</param>
-            public WorkQueue(CancellationToken cancellationToken)
+            public WorkQueue(PlatformSynchronizationContext parent, CancellationToken cancellationToken)
             {
+                this.parent = parent;
                 this.cancellationToken = cancellationToken;
                 this.thread = new Thread(this.ProcessQueue);
                 this.thread.Start();
@@ -175,7 +182,7 @@ namespace BlazorWebView
                 }
                 catch (Exception e)
                 {
-                    UnhandledException?.Invoke(this, e);
+                    this.parent.UnhandledException?.Invoke(this, e);
                 }
             }
 
@@ -209,7 +216,7 @@ namespace BlazorWebView
                         return;
                     }
 
-                    var current = Current;
+                    var previous = Current;
                     SetSynchronizationContext(item.Context);
 
                     try
@@ -223,7 +230,7 @@ namespace BlazorWebView
                             item.Completed.Set();
                         }
 
-                        SetSynchronizationContext(current);
+                        SetSynchronizationContext(previous);
                     }
                 }
             }

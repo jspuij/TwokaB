@@ -99,11 +99,6 @@ namespace BlazorWebView
         /// <returns>An <see cref="IDisposable "/> instance that can be used to cleanup Blazor.</returns>
         public static IDisposable Run<TStartup>(IBlazorWebView blazorWebView, string hostHtmlPath, ResolveWebResourceDelegate defaultResolveDelegate = null)
         {
-            PlatformSynchronizationContext.UnhandledException += (sender, exception) =>
-            {
-                UnhandledException(exception);
-            };
-
             if (defaultResolveDelegate == null)
             {
                 var contentRootAbsolute = Path.GetDirectoryName(Path.GetFullPath(hostHtmlPath));
@@ -212,7 +207,9 @@ namespace BlazorWebView
 
             JSRuntime = new PlatformJSRuntime(ipc);
             await PerformHandshakeAsync(ipc);
-            AttachJsInterop(ipc, appLifetime);
+            var dispatcher = new PlatformDispatcher(appLifetime);
+
+            AttachJsInterop(ipc, appLifetime, dispatcher.Context);
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<IConfiguration>(configurationBuilder.Build());
@@ -230,16 +227,22 @@ namespace BlazorWebView
             startup.Configure(builder, services);
 
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+            var jsRuntime = services.GetRequiredService<IJSRuntime>();
 
-            PlatformRenderer = new PlatformRenderer(services, ipc, loggerFactory);
+            PlatformRenderer = new PlatformRenderer(services, ipc, loggerFactory, dispatcher, jsRuntime);
             PlatformRenderer.UnhandledException += (sender, exception) =>
             {
                 Console.Error.WriteLine(exception);
             };
 
+            dispatcher.Context.UnhandledException += (sender, exception) =>
+            {
+                UnhandledException(exception);
+            };
+
             foreach (var rootComponent in builder.Entries)
             {
-                _ = PlatformRenderer.AddComponentAsync(rootComponent.componentType, rootComponent.domElementSelector);
+                await dispatcher.InvokeAsync(async () => await PlatformRenderer.AddComponentAsync(rootComponent.componentType, rootComponent.domElementSelector));
             }
         }
 
@@ -284,14 +287,12 @@ namespace BlazorWebView
         /// </summary>
         /// <param name="ipc">The ipc channel to use.</param>
         /// <param name="appLifetime">A cancellation token representing the application lifetime.</param>
-        private static void AttachJsInterop(IPC ipc, CancellationToken appLifetime)
+        /// <param name="synchronizationContext">The synchronization context to use to send the messages.</param>
+        private static void AttachJsInterop(IPC ipc, CancellationToken appLifetime, PlatformSynchronizationContext synchronizationContext)
         {
-            var platformSynchronizationContext = new PlatformSynchronizationContext(appLifetime);
-            SynchronizationContext.SetSynchronizationContext(platformSynchronizationContext);
-
             ipc.On("BeginInvokeDotNetFromJS", args =>
             {
-                platformSynchronizationContext.Send(
+                synchronizationContext.Send(
                     state =>
                 {
                     var argsArray = (object[])state;
@@ -308,7 +309,7 @@ namespace BlazorWebView
 
             ipc.On("EndInvokeJSFromDotNet", args =>
             {
-                platformSynchronizationContext.Send(
+                synchronizationContext.Send(
                     state =>
                 {
                     var argsArray = (object[])state;

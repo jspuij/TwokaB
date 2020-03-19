@@ -131,12 +131,13 @@
             <param name="ipc">The IPC channel to communicate between blazor and javascript.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
-        <member name="M:BlazorWebView.BlazorWebViewHost.AttachJsInterop(BlazorWebView.IPC,System.Threading.CancellationToken)">
+        <member name="M:BlazorWebView.BlazorWebViewHost.AttachJsInterop(BlazorWebView.IPC,System.Threading.CancellationToken,BlazorWebView.PlatformSynchronizationContext)">
             <summary>
             Attach the javascript interop functions.
             </summary>
             <param name="ipc">The ipc channel to use.</param>
             <param name="appLifetime">A cancellation token representing the application lifetime.</param>
+            <param name="synchronizationContext">The synchronization context to use to send the messages.</param>
         </member>
         <member name="M:BlazorWebView.BlazorWebViewHost.GetEncodingAndOpen(System.String,System.Text.Encoding@)">
             <summary>
@@ -355,29 +356,30 @@
             </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
-        <member name="T:BlazorWebView.NullDispatcher">
+        <member name="T:BlazorWebView.PlatformDispatcher">
             <summary>
             A dispatcher that does not dispatch but invokes directly.
             </summary>
         </member>
-        <member name="F:BlazorWebView.NullDispatcher.Instance">
+        <member name="M:BlazorWebView.PlatformDispatcher.#ctor(System.Threading.CancellationToken)">
             <summary>
-            the single instance.
+            Initializes a new instance of the <see cref="T:BlazorWebView.PlatformDispatcher"/> class.
+            </summary>
+            <param name="cancellationToken">The cancellation token to pass to the synchronizationcontext.</param>
+        </member>
+        <member name="P:BlazorWebView.PlatformDispatcher.Context">
+            <summary>
+            Gets and internal reference to the context.
             </summary>
         </member>
-        <member name="M:BlazorWebView.NullDispatcher.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:BlazorWebView.NullDispatcher"/> class.
-            </summary>
-        </member>
-        <member name="M:BlazorWebView.NullDispatcher.CheckAccess">
+        <member name="M:BlazorWebView.PlatformDispatcher.CheckAccess">
             <summary>
             Returns a value that determines whether using the dispatcher to invoke a work
             item is required from the current context.
             </summary>
             <returns> true if invoking is required, otherwise false.</returns>
         </member>
-        <member name="M:BlazorWebView.NullDispatcher.InvokeAsync(System.Action)">
+        <member name="M:BlazorWebView.PlatformDispatcher.InvokeAsync(System.Action)">
             <summary>
             Invokes the given System.Action in the context of the associated
             Microsoft.AspNetCore.Components.RenderTree.Renderer.
@@ -388,7 +390,7 @@
             executing.
             </returns>
         </member>
-        <member name="M:BlazorWebView.NullDispatcher.InvokeAsync(System.Func{System.Threading.Tasks.Task})">
+        <member name="M:BlazorWebView.PlatformDispatcher.InvokeAsync(System.Func{System.Threading.Tasks.Task})">
             <summary>
             Invokes the given System.Func'1 in the context of the associated
             Microsoft.AspNetCore.Components.RenderTree.Renderer.
@@ -399,7 +401,7 @@
             executing.
             </returns>
         </member>
-        <member name="M:BlazorWebView.NullDispatcher.InvokeAsync``1(System.Func{``0})">
+        <member name="M:BlazorWebView.PlatformDispatcher.InvokeAsync``1(System.Func{``0})">
             <summary>
             Invokes the given System.Func'1 in the context of the associated
             Microsoft.AspNetCore.Components.RenderTree.Renderer.
@@ -411,7 +413,7 @@
             </returns>
             <typeparam name="TResult">The return type.</typeparam>
         </member>
-        <member name="M:BlazorWebView.NullDispatcher.InvokeAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
+        <member name="M:BlazorWebView.PlatformDispatcher.InvokeAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
             <summary>
             Invokes the given System.Func'1 in the context of the associated
             Microsoft.AspNetCore.Components.RenderTree.Renderer.
@@ -566,11 +568,13 @@
             Initializes static members of the <see cref="T:BlazorWebView.PlatformRenderer"/> class.
             </summary>
         </member>
-        <member name="M:BlazorWebView.PlatformRenderer.#ctor(System.IServiceProvider,BlazorWebView.IPC,Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:BlazorWebView.PlatformRenderer.#ctor(System.IServiceProvider,BlazorWebView.IPC,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.AspNetCore.Components.Dispatcher,Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Initializes a new instance of the <see cref="T:BlazorWebView.PlatformRenderer"/> class.
             </summary>
             <param name="serviceProvider">The service provider to resolve services from.</param>
+            <param name="dispatcher">The dispatcher to use.</param>
+            <param name="jsRuntime">The runtime to use.</param>
             <param name="ipc">The inter process communication channel.</param>
             <param name="loggerFactory">A logger factory.</param>
         </member>
@@ -763,15 +767,21 @@
             The thread associated with the queue.
             </summary>
         </member>
+        <member name="F:BlazorWebView.PlatformSynchronizationContext.WorkQueue.parent">
+            <summary>
+            The parent Context.
+            </summary>
+        </member>
         <member name="F:BlazorWebView.PlatformSynchronizationContext.WorkQueue.cancellationToken">
             <summary>
             The cancellation token to use.
             </summary>
         </member>
-        <member name="M:BlazorWebView.PlatformSynchronizationContext.WorkQueue.#ctor(System.Threading.CancellationToken)">
+        <member name="M:BlazorWebView.PlatformSynchronizationContext.WorkQueue.#ctor(BlazorWebView.PlatformSynchronizationContext,System.Threading.CancellationToken)">
             <summary>
             Initializes a new instance of the <see cref="T:BlazorWebView.PlatformSynchronizationContext.WorkQueue"/> class.
             </summary>
+            <param name="parent">The parent SynchronizationContext.</param>
             <param name="cancellationToken">A cancellation token.</param>
         </member>
         <member name="P:BlazorWebView.PlatformSynchronizationContext.WorkQueue.Queue">

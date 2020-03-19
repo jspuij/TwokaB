@@ -98,13 +98,16 @@ namespace BlazorWebView
         /// Initializes a new instance of the <see cref="PlatformRenderer"/> class.
         /// </summary>
         /// <param name="serviceProvider">The service provider to resolve services from.</param>
+        /// <param name="dispatcher">The dispatcher to use.</param>
+        /// <param name="jsRuntime">The runtime to use.</param>
         /// <param name="ipc">The inter process communication channel.</param>
         /// <param name="loggerFactory">A logger factory.</param>
-        public PlatformRenderer(IServiceProvider serviceProvider, IPC ipc, ILoggerFactory loggerFactory)
+        public PlatformRenderer(IServiceProvider serviceProvider, IPC ipc, ILoggerFactory loggerFactory, Dispatcher dispatcher, IJSRuntime jsRuntime)
             : base(serviceProvider, loggerFactory)
         {
             this.ipc = ipc ?? throw new ArgumentNullException(nameof(ipc));
-            this.jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
+            this.Dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
+            this.jsRuntime = jsRuntime ?? throw new ArgumentNullException(nameof(jsRuntime));
         }
 
         /// <summary>
@@ -115,7 +118,7 @@ namespace BlazorWebView
         /// <summary>
         /// Gets the Dispatcher associated with this renderer.
         /// </summary>
-        public override Dispatcher Dispatcher { get; } = NullDispatcher.Instance;
+        public override Dispatcher Dispatcher { get; }
 
         /// <summary>
         /// Attaches a new root component to the renderer,
