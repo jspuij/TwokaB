@@ -227,9 +227,8 @@ namespace BlazorWebView
             startup.Configure(builder, services);
 
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-            var jsRuntime = services.GetRequiredService<IJSRuntime>();
 
-            PlatformRenderer = new PlatformRenderer(services, ipc, loggerFactory, dispatcher, jsRuntime);
+            PlatformRenderer = new PlatformRenderer(services, ipc, loggerFactory, dispatcher, JSRuntime);
             PlatformRenderer.UnhandledException += (sender, exception) =>
             {
                 Console.Error.WriteLine(exception);
@@ -288,7 +287,7 @@ namespace BlazorWebView
         /// <param name="ipc">The ipc channel to use.</param>
         /// <param name="appLifetime">A cancellation token representing the application lifetime.</param>
         /// <param name="synchronizationContext">The synchronization context to use to send the messages.</param>
-        private static void AttachJsInterop(IPC ipc, CancellationToken appLifetime, PlatformSynchronizationContext synchronizationContext)
+        private static void AttachJsInterop(IPC ipc, CancellationToken appLifetime, SynchronizationContext synchronizationContext)
         {
             ipc.On("BeginInvokeDotNetFromJS", args =>
             {
