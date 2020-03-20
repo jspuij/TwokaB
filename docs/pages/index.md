@@ -1,6 +1,4 @@
-<img src="../logo.svg" alt="BlazorWebView" height=120 align="right">
-
-# BlazorWebView documentation.
+# BlazorWebView
 
 Blazor traditionally runs on dotnet core for Server Side Blazor and runs the Mono runtime on webassembly inside the
 browser for client side blazor. For desktop and mobile applications this is cumbersome as it requires a bundled web-
@@ -32,3 +30,74 @@ I'm considering adding these platforms in the future:
 The advantage of using Xamarin on mobile platforms is that you can use the
 [Xamarin Essentials](https://docs.microsoft.com/en-us/xamarin/essentials/) library to interact with mobile platform
 API's easily from .NET.
+
+## Get Started
+
+The instructions to get started vary depending on the platform you want to create the application for. It's best
+to follow the tutorials for every platform. They are available below:
+
+* [Xamarin Android](androidtutorial.md)
+* [Xamarin iOS](iostutorial.md)
+* [Xamarin Mac](mactutorial.md)
+* [WPF](wpftutorial.md)
+
+### Install the nugets
+
+In general you need to add one of the nuget packages specific for your platform to your project:
+
+```
+PM> Install-Package BlazorWebView.Android
+
+# OR
+PM> Install-Package BlazorWebView.iOS
+
+# OR
+PM> Install-Package BlazorWebView.Mac
+
+# OR
+PM> Install-Package BlazorWebView.Wpf
+```
+
+### Add BlazorWebView to your Activity/View, ViewController/View, or Window
+
+Next add the BlazorWebView (it's named like this in every package) to your Activity / View (for Android),
+ViewController / View (for iOS and Mac), or to your window Xaml. Make sure that the BlazorWebView gets an
+identifier so we can reference it in a code behind file.
+
+### Wire up your blazor project to the BlazorWebView
+
+First, we need to adapt the url to the blazor javascript. It will be loaded from the nuget assembly by
+referencing a dedicated scheme. The Uri to the blazor javascript is:
+
+```
+framework://blazor.desktop.js
+```
+
+The rest of the Urls are relative urls. A complete example index.html file provided below:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MyDesktopApp</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <app>Loading...</app>
+
+    <script src="framework://blazor.desktop.js"></script>
+</body>
+</html>
+```
+
+Finally we initialize the BlazorWebView from codebehind using the BlazorWebViewHost static class like this:
+
+```csharp
+BlazorWebViewHost.Run<Startup>(this.blazorWebView, "wwwroot/index.html");
+```
+
+That's it! That wasn't too difficult, was it?
