@@ -5,8 +5,12 @@
         {
           "src": "../",
           "files": [
-            "src/**.csproj"
-          ]
+            "src/BlazorWebView/BlazorWebView.csproj",
+            "src/BlazorWebView.Android/BlazorWebView.Android.csproj",
+            "src/BlazorWebView.iOS/BlazorWebView.iOS.csproj",
+            "src/BlazorWebView.Mac/BlazorWebView.Mac.csproj",
+            "src/BlazorWebView.Wpf/BlazorWebView.Wpf.csproj"
+          ],
         }
       ],
       "dest": "ref",

@@ -41,6 +41,8 @@ to follow the tutorials for every platform. They are available below:
 * [Xamarin Mac](mactutorial.md)
 * [WPF](wpftutorial.md)
 
+[Some guidance](prepare.md) on how to setup a Blazor project to best accomodate targeting multiple platforms is available as well.
+
 ### Install the nugets
 
 In general you need to add one of the nuget packages specific for your platform to your project:

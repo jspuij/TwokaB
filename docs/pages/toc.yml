@@ -2,3 +2,15 @@
   items:
     - name: Summary
       href: index.md
+- name: Tutorial
+  items:
+    - name: Preparations
+      href: prepare.md
+    - name: Android
+      href: androidtutorial.md
+    - name: iOS
+      href: iostutorial.md
+    - name: Mac
+      href: mactutorial.md
+    - name: WPF
+      href: wpftutorial.md

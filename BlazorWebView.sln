@@ -57,6 +57,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{38F7D1E9-A604-4CC1-96B9-73E76E4EAA6D}"
 	ProjectSection(SolutionItems) = preProject
 		docs\pages\index.md = docs\pages\index.md
+		docs\pages\prepare.md = docs\pages\prepare.md
 		docs\pages\toc.yml = docs\pages\toc.yml
 	EndProjectSection
 EndProject
@@ -64,18 +65,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3338
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6C568249-8365-4CA4-B207-914F53457471}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\coreosx.yml = .github\workflows\coreosx.yml
 		.github\workflows\corewindows.yml = .github\workflows\corewindows.yml
 		.github\workflows\docfx.yml = .github\workflows\docfx.yml
-		.github\workflows\coreosx.yml = .github\workflows\coreosx.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebView.Android", "src\BlazorWebView.Android\BlazorWebView.Android.csproj", "{9CD52AD4-1753-4239-A235-5527CDFCD3BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.Android", "src\BlazorWebView.Android\BlazorWebView.Android.csproj", "{9CD52AD4-1753-4239-A235-5527CDFCD3BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Android", "sample\BlazorApp.Android\BlazorApp.Android.csproj", "{6870BD0A-8ECA-4989-B5CA-239A7FB4BF24}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "BlazorWebView.Wpf", "src\BlazorWebView.Wpf\BlazorWebView.Wpf.csproj", "{1C68285B-41B6-4DCC-A120-405DB863E7D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebView.Wpf", "src\BlazorWebView.Wpf\BlazorWebView.Wpf.csproj", "{1C68285B-41B6-4DCC-A120-405DB863E7D4}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "BlazorApp.Wpf", "sample\BlazorApp.Wpf\BlazorApp.Wpf.csproj", "{F35D94BB-F029-4CF5-A49F-48B95CCA56BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp.Wpf", "sample\BlazorApp.Wpf\BlazorApp.Wpf.csproj", "{F35D94BB-F029-4CF5-A49F-48B95CCA56BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
