@@ -218,6 +218,8 @@ namespace BlazorWebView
             serviceCollection.AddSingleton<IJSRuntime>(JSRuntime);
             serviceCollection.AddSingleton<INavigationInterception, NavigationInterception>();
             serviceCollection.AddSingleton(BlazorWebView);
+            serviceCollection.AddSingleton<Dispatcher>(dispatcher);
+            serviceCollection.AddSingleton<SynchronizationContext>(dispatcher.Context);
 
             var startup = new ConventionBasedStartup(Activator.CreateInstance(typeof(TStartup)));
             startup.ConfigureServices(serviceCollection);
