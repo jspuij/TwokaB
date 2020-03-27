@@ -13,7 +13,7 @@ Create a new project using the settings below:
 
 ![New project, page 1](../images/newproject1.png)
 
-# [Create Page 3](#tab/createpage-2)
+# [Create Page 2](#tab/createpage-2)
 
 ![New project, page 2](../images/newproject2.png)
 
