@@ -297,10 +297,11 @@ namespace BlazorWebView
                     state =>
                 {
                     var argsArray = (object[])state;
+
                     DotNetDispatcher.BeginInvokeDotNet(
                         JSRuntime,
                         new DotNetInvocationInfo(
-                            assemblyName: ((JsonElement)argsArray[1]).GetString(),
+                            assemblyName: argsArray[1] != null ? ((JsonElement)argsArray[1]).GetString() : null,
                             methodIdentifier: ((JsonElement)argsArray[2]).GetString(),
                             dotNetObjectId: ((JsonElement)argsArray[3]).GetInt64(),
                             callId: ((JsonElement)argsArray[0]).GetString()),
