@@ -13,6 +13,7 @@
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <RestoreSources>$(RestoreSources);../../packages;https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
-  </PropertyGroup>
+</PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -80,6 +81,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
+    <PackageReference Include="BlazorWebView.iOS" Version="0.2.0-preview1" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -125,7 +127,11 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\wwwroot\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
@@ -149,57 +155,6 @@
       <Project>{196C67E9-3E9E-4D57-B977-11BF00073FC9}</Project>
       <Name>BlazorApp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj">
-      <Project>{581141F6-5522-4B66-8404-4C376F42FB5C}</Project>
-      <Name>BlazorWebView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\BlazorWebView.iOS\BlazorWebView.iOS.csproj">
-      <Project>{C4E356A9-C221-47E1-B566-458D9C6ACB18}</Project>
-      <Name>BlazorWebView.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\BlazorApp\wwwroot\index.html">
-      <Link>Resources\wwwroot\index.html</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\site.css">
-      <Link>Resources\wwwroot\css\site.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\bootstrap\bootstrap.min.css">
-      <Link>Resources\wwwroot\css\bootstrap\bootstrap.min.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\bootstrap\bootstrap.min.css.map">
-      <Link>Resources\wwwroot\css\bootstrap\bootstrap.min.css.map</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\FONT-LICENSE">
-      <Link>Resources\wwwroot\css\open-iconic\FONT-LICENSE</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\ICON-LICENSE">
-      <Link>Resources\wwwroot\css\open-iconic\ICON-LICENSE</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\README.md">
-      <Link>Resources\wwwroot\css\open-iconic\README.md</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css">
-      <Link>Resources\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.svg">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.svg</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.woff">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.woff</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.eot">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.eot</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.otf">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.otf</Link>
-    </BundleResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

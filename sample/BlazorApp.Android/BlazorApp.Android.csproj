@@ -36,6 +36,7 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -55,6 +56,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
+    <RestoreSources>$(RestoreSources);../../packages;https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android.Export" />
@@ -71,7 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\wwwroot.zip" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <AdditionalFiles Include="stylecop.json" />
@@ -119,20 +120,19 @@
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
+    <PackageReference Include="BlazorWebView.Android" Version="0.2.0-preview1" />
+    <PackageReference Include="System.Memory" Version="4.5.4" IncludeAssets="None" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BlazorWebView.Android\BlazorWebView.Android.csproj">
-      <Project>{9CD52AD4-1753-4239-A235-5527CDFCD3BA}</Project>
-      <Name>BlazorWebView.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj">
-      <Project>{581141f6-5522-4b66-8404-4c376f42fb5c}</Project>
-      <Name>BlazorWebView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlazorApp\BlazorApp.csproj">
       <Project>{196c67e9-3e9e-4d57-b977-11bf00073fc9}</Project>
       <Name>BlazorApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -142,7 +142,4 @@
     <Target Name="AfterBuild">
     </Target>
   -->
-  <Target Name="ZipOutputPath" AfterTargets="BeforeBuild">
-    <ZipDirectory SourceDirectory="..\BlazorApp\wwwroot" DestinationFile="assets\wwwroot.zip" Overwrite="true" />
-  </Target>
 </Project>

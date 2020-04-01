@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
         <RazorLangVersion>3.0</RazorLangVersion>
         <OutputType>Library</OutputType>
+    <RestoreSources>$(RestoreSources);../../packages;https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,9 +33,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj" />
-  </ItemGroup>
+      <PackageReference Include="BlazorWebView" Version="0.2.0-preview1">
+    </PackageReference>  
+    </ItemGroup>
+  
 </Project>

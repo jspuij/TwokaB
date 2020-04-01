@@ -12,9 +12,10 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <RestoreSources>$(RestoreSources);../../packages;https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,132 +57,9 @@
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Authorization, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Authorization.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Blazor.HttpClient, Version=3.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Blazor.HttpClient.3.2.0-preview3.20168.3\lib\netstandard2.0\Microsoft.AspNetCore.Blazor.HttpClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Components, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Components.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Components.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Components.Forms, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Components.Forms.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Components.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Components.Web, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Components.Web.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Components.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Components.WebAssembly, Version=3.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Components.WebAssembly.3.2.0-preview3.20168.3\lib\netstandard2.1\Microsoft.AspNetCore.Components.WebAssembly.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Features.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Metadata, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Metadata.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Metadata.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Binder.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.FileExtensions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Json.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.3.1.3\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.FileProviders.Abstractions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.FileProviders.Physical.3.1.3\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.FileSystemGlobbing.3.1.3\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Logging.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Configuration.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Console, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Console.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Logging.Console.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Options.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Options.ConfigurationExtensions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.WebEncoders, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.WebEncoders.3.1.3\lib\netstandard2.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.JSInterop, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.JSInterop.3.1.3\lib\netstandard2.0\Microsoft.JSInterop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.JSInterop.WebAssembly, Version=3.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.JSInterop.WebAssembly.3.2.0-preview3.20168.3\lib\netstandard2.1\Microsoft.JSInterop.WebAssembly.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.Headers.2.2.8\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\netstandard2.0\System.Buffers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Pipelines, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IO.Pipelines.4.7.1\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Mac" />
-    <Reference Include="System.Text.Encodings.Web">
-      <HintPath>..\..\packages\System.Text.Encodings.Web.4.7.0\lib\netstandard2.1\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
-      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Json">
-      <HintPath>..\..\packages\System.Text.Json.4.7.1\lib\netstandard2.0\System.Text.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Http.Extensions">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.StaticFiles">
-      <HintPath>..\..\packages\Microsoft.AspNetCore.StaticFiles.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.StaticFiles.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -198,13 +76,8 @@
     <ImageAsset Include="Assets.xcassets\Contents.json" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <None Include="packages.config" />
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
@@ -223,62 +96,25 @@
       <Project>{196C67E9-3E9E-4D57-B977-11BF00073FC9}</Project>
       <Name>BlazorApp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\BlazorWebView.Mac\BlazorWebView.Mac.csproj">
-      <Project>{BA247A5F-A935-47F7-BEFF-3619512B64F4}</Project>
-      <Name>BlazorWebView.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj">
-      <Project>{581141F6-5522-4B66-8404-4C376F42FB5C}</Project>
-      <Name>BlazorWebView</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\BlazorApp\wwwroot\index.html">
-      <Link>Resources\wwwroot\index.html</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\site.css">
-      <Link>Resources\wwwroot\css\site.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\bootstrap\bootstrap.min.css">
-      <Link>Resources\wwwroot\css\bootstrap\bootstrap.min.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\bootstrap\bootstrap.min.css.map">
-      <Link>Resources\wwwroot\css\bootstrap\bootstrap.min.css.map</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\FONT-LICENSE">
-      <Link>Resources\wwwroot\css\open-iconic\FONT-LICENSE</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\ICON-LICENSE">
-      <Link>Resources\wwwroot\css\open-iconic\ICON-LICENSE</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\README.md">
-      <Link>Resources\wwwroot\css\open-iconic\README.md</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css">
-      <Link>Resources\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.svg">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.svg</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.woff">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.woff</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.eot">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.eot</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.otf">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.otf</Link>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="BlazorWebView.Mac">
+      <Version>0.2.0-preview1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Memory" Version="4.5.4" IncludeAssets="None" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wwwroot\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.AspNetCore.Components.Analyzers.3.1.3\build\netstandard2.0\Microsoft.AspNetCore.Components.Analyzers.targets" Condition="Exists('..\..\packages\Microsoft.AspNetCore.Components.Analyzers.3.1.3\build\netstandard2.0\Microsoft.AspNetCore.Components.Analyzers.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.AspNetCore.Components.Analyzers.3.1.3\build\netstandard2.0\Microsoft.AspNetCore.Components.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.AspNetCore.Components.Analyzers.3.1.3\build\netstandard2.0\Microsoft.AspNetCore.Components.Analyzers.targets'))" />
-  </Target>
 </Project>

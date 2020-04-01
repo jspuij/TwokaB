@@ -44,12 +44,9 @@ jobs:
       run: |
         dotnet restore
         msbuild BlazorWebView.iOS.csproj /t:Build /p:Configuration=Release
-    - name: Push BlazorWebView.Android nuget package
-      working-directory: ./src/BlazorWebView.Android/
-      run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-    - name: Push BlazorWebView.Mac nuget package
-      working-directory: ./src/BlazorWebView.Mac/
-      run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-    - name: Push BlazorWebView.iOS nuget package
-      working-directory: ./src/BlazorWebView.iOS/
-      run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+    - name: Push nuget packages
+      working-directory: ./packages/
+      run: |
+        dotnet nuget push BlazorWebView.Mac.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push BlazorWebView.iOS.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push BlazorWebView.Android.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

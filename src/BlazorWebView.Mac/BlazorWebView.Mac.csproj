@@ -62,4 +62,8 @@
     <None Remove="stylecop.json" />
   </ItemGroup>
   <Import Project="../../build.props" />
+
+  <ItemGroup>
+    <None Include="build\**" Pack="True" PackagePath="build\" />
+  </ItemGroup>
 </Project>

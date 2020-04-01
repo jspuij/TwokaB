@@ -14,3 +14,7 @@
       href: mactutorial.md
     - name: WPF
       href: wpftutorial.md
+- name: Miscellaneous
+  items:
+    - name: Change log
+      href: changelog.md
