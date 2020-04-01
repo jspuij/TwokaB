@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <UseWPF>true</UseWPF>
     <NativeOutputDir64>..\BlazorWebView.Native\build64\$(Configuration)\</NativeOutputDir64>
     <NativeOutputDir32>..\BlazorWebView.Native\build32\$(Configuration)\</NativeOutputDir32>
@@ -23,8 +24,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorWebView\BlazorWebView.csproj" />
-    <ProjectReference Include="..\BlazorWebView.Native\build64\BlazorWebViewNative.vcxproj" />
-    <ProjectReference Include="..\BlazorWebView.Native\build32\BlazorWebViewNative.vcxproj" />
+    <ProjectReference Include="..\BlazorWebView.Native\build64\BlazorWebViewNative.vcxproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\BlazorWebView.Native\build32\BlazorWebViewNative.vcxproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -62,4 +67,7 @@
 
   <Import Project="../../build.props" />
 
+  <ItemGroup>
+    <None Include="build\**" Pack="True" PackagePath="build\" />
+  </ItemGroup>
 </Project>
