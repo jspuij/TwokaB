@@ -14,6 +14,7 @@
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,44 +97,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\site.css">
-      <Link>Resources\wwwroot\css\site.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\bootstrap\bootstrap.min.css">
-      <Link>Resources\wwwroot\css\bootstrap\bootstrap.min.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\bootstrap\bootstrap.min.css.map">
-      <Link>Resources\wwwroot\css\bootstrap\bootstrap.min.css.map</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\FONT-LICENSE">
-      <Link>Resources\wwwroot\css\open-iconic\FONT-LICENSE</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\ICON-LICENSE">
-      <Link>Resources\wwwroot\css\open-iconic\ICON-LICENSE</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\README.md">
-      <Link>Resources\wwwroot\css\open-iconic\README.md</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css">
-      <Link>Resources\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.svg">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.svg</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.woff">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.woff</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.eot">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.eot</Link>
-    </BundleResource>
-    <BundleResource Include="..\BlazorApp\wwwroot\css\open-iconic\font\fonts\open-iconic.otf">
-      <Link>Resources\wwwroot\css\open-iconic\font\fonts\open-iconic.otf</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -142,6 +105,15 @@
     <PackageReference Include="BlazorWebView.Mac">
       <Version>0.2.0-preview1</Version>
     </PackageReference>
+    <PackageReference Include="System.Memory" Version="4.5.4" IncludeAssets="None" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wwwroot\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>
