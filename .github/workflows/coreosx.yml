@@ -18,6 +18,8 @@ jobs:
         dotnet-version: 3.1.201
     - name: Setup nodejs
       uses: actions/setup-node@v1
+    - name: Restore packages
+      run: nuget restore
     - name: Yarn
       working-directory: ./src/BlazorWebView.JS/upstream/aspnetcore/web.js
       run: yarn
@@ -35,7 +37,6 @@ jobs:
     - name: Build BlazorWebView.Mac
       working-directory: ./src/BlazorWebView.Mac/
       run: |
-        nuget restore BlazorWebView.Mac.csproj
         dotnet restore
         msbuild BlazorWebView.Mac.csproj /t:Build /p:Configuration=Release
     - name: Build BlazorWebView.iOS
@@ -45,4 +46,4 @@ jobs:
         msbuild BlazorWebView.iOS.csproj /t:Build /p:Configuration=Release
     - name: Push BlazorWebView nuget packages
       working-directory: ./
-      run: dotnet nuget push packages/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **/packages/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
