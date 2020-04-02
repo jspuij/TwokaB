@@ -32,9 +32,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\BlazorWebView\BlazorWebView.csproj" />
-  </ItemGroup>
+      <PackageReference Include="BlazorWebView" Version="0.2.0-preview1">
+    </PackageReference>  
+    </ItemGroup>
+  
 </Project>
