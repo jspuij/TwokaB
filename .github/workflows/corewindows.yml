@@ -45,5 +45,5 @@ jobs:
     - name: Push BlazorWebView.Wpf nuget packages
       working-directory: ./packages/
       run: |
-         dotnet nuget push BlazorWebView.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-         dotnet nuget push BlazorWebView.Wpf.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+         dotnet nuget push BlazorWebView.0*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+         dotnet nuget push BlazorWebView.Wpf.*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
