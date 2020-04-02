@@ -42,8 +42,6 @@ jobs:
       run: |
          dotnet restore
          MsBuild.exe BlazorWebView.Wpf.csproj /t:Build /p:Configuration=Release
-    - name: Push BlazorWebView.Wpf nuget packages
-      working-directory: ./packages/
-      run: |
-         dotnet nuget push BlazorWebView.0*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-         dotnet nuget push BlazorWebView.Wpf.*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+    - name: Push BlazorWebView nuget packages
+      working-directory: ./
+      run: dotnet nuget push packages/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
