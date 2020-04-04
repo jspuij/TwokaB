@@ -45,7 +45,7 @@ to follow the tutorials for every platform. They are available below:
 
 ### Install the nugets
 
-In general you need to add one of the nuget packages specific for your platform to your project:
+In general you need to add one of the nuget packages specific to your platform to your project:
 
 ```
 PM> Install-Package BlazorWebView.Android
