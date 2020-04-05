@@ -6,5 +6,11 @@
         <StaticWebAssetsEnabled>true</StaticWebAssetsEnabled>
         <EnableDefaultRazorTargetAssemblyInfoAttributes>false</EnableDefaultRazorTargetAssemblyInfoAttributes>
     </PropertyGroup>
+    <ItemGroup>
+      <Reference Include="Mono.Android.Export" />
+    </ItemGroup>
+    <ImportGroup>
+      <PackageReference Include="System.Memory" Version="4.5.4" IncludeAssets="None" />
+    </ImportGroup>
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.Razor"/>
 </Project>

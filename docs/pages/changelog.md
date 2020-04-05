@@ -2,6 +2,10 @@
 
 The following versions have been released:
 
+## 0.2.0-preview2
+
+* Updated build properties for the iOS and Android packages to solve some issues on these platforms.
+
 ## 0.2.0-preview1
 
 * Added support for Static Web Assets on all platforms.
