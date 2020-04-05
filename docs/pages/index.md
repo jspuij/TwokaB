@@ -1,4 +1,4 @@
-# BlazorWebView
+# BlazorWebView.
 
 Blazor traditionally runs on .NET Core for Server-side Blazor and runs the Mono runtime on WebAssembly inside the
 browser for Client-side Blazor. For desktop and mobile applications, this is cumbersome, as it requires a bundled web 
@@ -6,7 +6,7 @@ server and retains the disadvantages of SSB or CSB respectively.
 
 Steve Sanderson from Microsoft first escaped the server- / client-side jail and released a
 [.NET Core sample](https://github.com/SteveSandersonMS/WebWindow) that leverages native
-webviews on Windows / Linux / macOS to show a window on these respective operating systems.
+WebViews on Windows / Linux / macOS to show a window on these respective operating systems.
 Steve made a
 [blog post](https://blog.stevensanderson.com/2019/11/18/2019-11-18-webwindow-a-cross-platform-webview-for-dotnet-core/)
 describing his efforts; an excellent introduction to what this is.
@@ -31,7 +31,7 @@ The advantage of using Xamarin on mobile platforms is that you can use the
 [Xamarin Essentials](https://docs.microsoft.com/en-us/xamarin/essentials/) library to interact with mobile platform
 APIs easily from .NET.
 
-## Get Started
+## Get Started.
 
 The instructions to get started vary depending on which platform you want to create the application for. It's best
 to follow the tutorials for every platform. They are available below:
@@ -41,9 +41,9 @@ to follow the tutorials for every platform. They are available below:
 * [Xamarin Mac](mactutorial.md)
 * [WPF](wpftutorial.md)
 
-[Some guidance](prepare.md) on how to setup a Blazor project to best accomodate targeting multiple platforms is available as well.
+[Some guidance](prepare.md) on how to set up a Blazor project to best accommodate targeting multiple platforms is available as well.
 
-### Install the NuGet packages
+### Install the NuGet Packages.
 
 In general, you need to add one of the NuGet packages specific to your platform to your project:
 
@@ -60,13 +60,13 @@ PM> Install-Package BlazorWebView.Mac -IncludePrerelease
 PM> Install-Package BlazorWebView.Wpf -IncludePrerelease
 ```
 
-### Add BlazorWebView to your Activity/View, ViewController/View, or Window
+### Add BlazorWebView to Your Activity/View, ViewController/View, or Window.
 
 Next add the BlazorWebView (it's named like this in every package) to your Activity / View (for Android),
-ViewController / View (for iOS and Mac), or to your window XAML. Make sure that the BlazorWebView gets an
-identifier so we can reference it in a code behind file.
+ViewController / View (for iOS and Mac), or your window XAML. Make sure that the BlazorWebView gets an
+identifier so we can reference it in a code-behind file.
 
-### Wire up your Blazor project to the BlazorWebView
+### Wire up Your Blazor Project to the BlazorWebView.
 
 First, we need to adapt the URL to the Blazor JavaScript. It will be loaded from the NuGet assembly by
 referencing a dedicated scheme. The URL to the Blazor JavaScript is:
@@ -96,7 +96,7 @@ The rest of the URLs are relative URLs. A complete example index.html file provi
 </html>
 ```
 
-Finally, we initialize the BlazorWebView from codebehind using the BlazorWebViewHost static class like this:
+Finally, we initialize the BlazorWebView from code-behind using the `BlazorWebViewHost` static class like this:
 
 ```csharp
 BlazorWebViewHost.Run<Startup>(this.blazorWebView, "wwwroot/index.html");
