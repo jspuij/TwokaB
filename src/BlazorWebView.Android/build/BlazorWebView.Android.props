@@ -9,8 +9,8 @@
     <ItemGroup>
       <Reference Include="Mono.Android.Export" />
     </ItemGroup>
-    <ImportGroup>
+    <ItemGroup>
       <PackageReference Include="System.Memory" Version="4.5.4" IncludeAssets="None" />
-    </ImportGroup>
+    </ItemGroup>
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.Razor"/>
 </Project>
