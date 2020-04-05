@@ -77,7 +77,7 @@ now if you want to do serialization for HTTP calls and you experience issues.
 
 Lets continue to the next step.
 
-## Copy `wwwroot` Files
+## Copy `wwwroot` Files.
 
 We need a `wwwroot` folder and an `index.html` for this project as well. Let's copy the wwwroot
 folder from the WebAssembly client project to the Android project. Now that we have added
@@ -97,7 +97,7 @@ Android Assets during the build process. It has to be zipped because Android Ass
 very limited in their filename and folder structure. At first start of the application,
 the zipfile is extracted to the personal data folder of the app.
 
-## Change `index.html`
+## Change `index.html`.
 
 We need to change the name and location where the framework script is loaded from.
 BlazorWebView will intercept URLs loaded from the `framework://` scheme and present the
