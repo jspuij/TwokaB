@@ -1,68 +1,68 @@
-﻿# Prepare a Blazor project
+﻿# Prepare a Blazor Project.
 
-We start the preparations by generating a new Blazor Webassembly project from Visual Studio.
-Make sure you have the WebAssembly templates installed by following the [instructions in the
+We start preparations by generating a new Blazor WebAssembly Project from Visual Studio.
+Make sure you have the WebAssembly Templates installed by following the [instructions in the
 documentation](https://docs.microsoft.com/en-us/aspnet/core/blazor/get-started?view=aspnetcore-3.1&tabs=visual-studio).
 
->We will use a WebAssembly project for these preparations, but the steps for Server Side
+>We will use a WebAssembly Project for these preparations, but the steps for Server Side
 Blazor are roughly the same.
 
 Create a new project using the settings below:
 
 # [Create Page 1](#tab/createpage-1)
 
-![New project, page 1](../images/newproject1.png)
+![New Project, Page 1](../images/newproject1.png)
 
 # [Create Page 2](#tab/createpage-2)
 
-![New project, page 2](../images/newproject2.png)
+![New Project, Page 2](../images/newproject2.png)
 
 # [Create Page 3](#tab/createpage-3)
 
-![New project, page 3](../images/newproject3.png)
+![New Project, Page 3](../images/newproject3.png)
 
 ***
 
-## Add a shared RCL project
+## Add a Shared RCL Project.
 
-To prepare a Blazor project for use with a BlazorWebView it is best to move all dynamic
+To prepare a Blazor Project for use with a BlazorWebView it is best to move all dynamic
 Blazor content to a Razor Class Library, and keep only the static content inside the
-WebAssembly project. We do this by adding a new project to the solution first:
+WebAssembly Project. We do this by adding a new project to the solution first:
 
 # [Add Project 1](#tab/addpage-1)
 
-![Add New project, page 1](../images/addnewproject1.png)
+![Add New Project, Page 1](../images/addnewproject1.png)
 
 # [Add Project 2](#tab/addpage-2)
 
-![Add New project, page 2](../images/addnewproject2.png)
+![Add New Project, Page 2](../images/addnewproject2.png)
 
 # [Add Project 3](#tab/addpage-3)
 
-![Add New project, page 3](../images/addnewproject3.png)
+![Add New Project, Page 3](../images/addnewproject3.png)
 
 # [Add Project 4](#tab/addpage-4)
 
-![Add New project, page 4](../images/addnewproject4.png)
+![Add New Project, Page 4](../images/addnewproject4.png)
 
 ***
 
-Do not tick the option to support Pages and Views, as this is for Razor Pages, a server
-side technology that has nothing to do with Blazor.
-We can delete all content that has been generated as an example in the RCL project,
-as we will move over the content from the WebAssembly project shortly. Don't delete
+Do not tick the option to support Pages and Views, as this is for Razor Pages, a 
+server-side technology that has nothing to do with Blazor.
+We can delete all content that has been generated as an example in the RCL Project,
+as we will move over the content from the WebAssembly Project shortly. Don't delete
 the wwwroot folder itself, we will use that later on.
 
-Finally add a reference from the WebAssembly project to the shared project:
+Finally add a reference from the WebAssembly Project to the RCL Project:
 
-  * Right click `Dependencies` node in the solution explorer of the WebAssembly project.
+  * Right-click `Dependencies` node in the solution explorer of the WebAssembly Project.
   * Select `Add reference...`
   * In the dialog that is opened, click `Projects` and `Solution`.
-  * Select your shared RCL project.
+  * Select your shared RCL Project.
 
-## Moving over the neccesary files and folders.
+## Move over the Necessary Files and Folders.
 
-Now move over the following items from the WebAssembly project to the shared project,
+Now move over the following items from the WebAssembly project to the shared RCL Project,
 leaving only the favicon.ico and index.html files in the wwwroot behind:
 
 * Pages
@@ -76,16 +76,16 @@ You'll arrive at the following structure:
 
 ![Final structure](../images/finalstructure.png)
 
-## Clean up the build errors.
+## Clean up the Build Errors.
 
-Now build your solution. You'll get a list of build errors that need to be adressed:
+Now build your solution. You'll get a list of build errors that need to be addressed:
 
 ![build errors](../images/builderrors.png)
 
 We will fix these one by one:
 
-* First we change the namespaces in _Imports.Razor to match the shared library instead of
-  the WebAssembly project:
+* First, we change the namespaces in `_Imports.Razor` to match the shared library instead of
+  the WebAssembly Project:
 
 ```cshtml-razor
 @using System.Net.Http
@@ -97,10 +97,10 @@ We will fix these one by one:
 @using BlazorWebViewTutorial.Shared
 @using BlazorWebViewTutorial.Shared.Shared
 ```
-* Next add a nuget reference to `Microsoft.AspNetCore.Blazor.HttpClient` to the shared project
+* Next, add a NuGet reference to `Microsoft.AspNetCore.Blazor.HttpClient` to the shared project
   as well (It is already in the webassembly project).
-* Now we have to change the App.Razor file in the shard project to point to the right AppAssembly,
-  because Program lives in the WebAssembly project, so change `Program` into `App`:
+* Now we have to change the `App.Razor` file in the shared project to point to the right AppAssembly,
+  because `Program` lives in the WebAssembly project, so change `Program` into `App`:
 
 ```cshtml-razor
 <Router AppAssembly="@typeof(App).Assembly">
@@ -114,7 +114,7 @@ We will fix these one by one:
     </NotFound>
 </Router>
 ```
-* Finally we add a using statement to the Program.cs folder in the webassembly project to
+* Finally, we add a using statement to the `Program.cs` folder in the WebAssembly project to
   resolve the App class at a new location:
 
 ```csharp
@@ -147,14 +147,14 @@ namespace BlazorWebViewTutorial.Client
 
 The project should now build without any errors. Let's move on and try to run it:
 
-## Solving some runtime problems
+## Solve Some Runtime Problems.
 
 Click Debug or press F5 to build and run the project. A browser page will open that looks like this:
 
 ![browser error](../images/browsererror.png)
 
-This is because the files we have moved from the webassembly wwwroot folder to the shared project
-wwwroot folder cannot be loaded from the location where the were before. These items are called
+This is because the files we have moved from the WebAssembly wwwroot folder to the Shared RCL Project
+wwwroot folder cannot be loaded from the location where they were before. These items are called
 [Static Assets](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-3.1&tabs=visual-studio#create-an-rcl-with-static-assets)
 and they are loaded from a special location by Blazor. 
 
@@ -164,8 +164,8 @@ in a path to static content at _content/Razor.Class.Lib/.
 When producing a NuGet package and the assembly name isn't the same as the package ID, use the
 package ID for {LIBRARY NAME}.
 
-This is why blazor webassembly cannot find them. The easiest way to solve this, is by editing the index.html file
-in the webassembly project. Make sure it looks like the listing below:
+This is why Blazor WebAssembly cannot find them. The easiest way to solve this, is by editing
+the index.html file in the WebAssembly project. Make sure it looks like the listing below:
 
 ```html
 <!DOCTYPE html>
@@ -195,9 +195,9 @@ in the webassembly project. Make sure it looks like the listing below:
 </html>
 ```
 
-## Fetch the sample data from the right location.
+## Fetch the Sample Data from the Right Location.
 
-The sample data is in the razor class library too, so we should alter the url where the FetchData.razor page
+The sample data is in the razor class library too, so we should alter the URL where the `FetchData.razor` page
 gets its sample data from. Alter the `OnInitializedAsync` method to read like this:
 
 ```csharp
