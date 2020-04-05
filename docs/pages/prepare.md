@@ -195,6 +195,18 @@ in the webassembly project. Make sure it looks like the listing below:
 </html>
 ```
 
+## Fetch the sample data from the right location.
+
+The sample data is in the razor class library too, so we should alter the url where the FetchData.razor page
+gets its sample data from. Alter the `OnInitializedAsync` method to read like this:
+
+```csharp
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("_content/BlazorWebViewTutorial.Shared/sample-data/weather.json");
+    }
+```
+
 Press F5 again. The project should now build, run and the sample should be in working order.
 Congratulations! You've completed the preparations and are ready to move on to one of the
 tutorials. The source code so far is in this branch:

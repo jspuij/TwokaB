@@ -2,9 +2,10 @@
 
 The following versions have been released:
 
-## 0.2.0-preview2
+## 0.2.0-preview3
 
-* Updated build properties for the iOS and Android packages to solve some issues on these platforms.
+* Updated build properties for the iOS and Android packages to set some project defaults
+  on these platforms to prevent compilation or runtime errors.
 
 ## 0.2.0-preview1
 

@@ -48,16 +48,16 @@ to follow the tutorials for every platform. They are available below:
 In general you need to add one of the nuget packages specific to your platform to your project:
 
 ```
-PM> Install-Package BlazorWebView.Android
+PM> Install-Package BlazorWebView.Android -IncludePrerelease
 
 # OR
-PM> Install-Package BlazorWebView.iOS
+PM> Install-Package BlazorWebView.iOS -IncludePrerelease
 
 # OR
-PM> Install-Package BlazorWebView.Mac
+PM> Install-Package BlazorWebView.Mac -IncludePrerelease
 
 # OR
-PM> Install-Package BlazorWebView.Wpf
+PM> Install-Package BlazorWebView.Wpf -IncludePrerelease
 ```
 
 ### Add BlazorWebView to your Activity/View, ViewController/View, or Window
