@@ -20,6 +20,7 @@ namespace BlazorWebView
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Components;
     using Microsoft.JSInterop;
     using Microsoft.JSInterop.Infrastructure;
 
@@ -45,7 +46,7 @@ namespace BlazorWebView
         /// <param name="ipc">The inter process communication channel to use.</param>
         public PlatformJSRuntime(IPC ipc)
         {
-            JsonSerializerOptions.Converters.Add(new ElementReferenceJsonConverter());
+            this.JsonSerializerOptions.Converters.Add(new ElementReferenceJsonConverter());
             this.ipc = ipc ?? throw new ArgumentNullException(nameof(ipc));
         }
 
