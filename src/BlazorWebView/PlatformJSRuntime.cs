@@ -45,6 +45,7 @@ namespace BlazorWebView
         /// <param name="ipc">The inter process communication channel to use.</param>
         public PlatformJSRuntime(IPC ipc)
         {
+            JsonSerializerOptions.Converters.Add(new ElementReferenceJsonConverter());
             this.ipc = ipc ?? throw new ArgumentNullException(nameof(ipc));
         }
 

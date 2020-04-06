@@ -2,6 +2,10 @@
 
 The following versions have been released:
 
+## 0.2.0-preview4
+
+* Fixed a bug where elemenentreferences were not working.
+
 ## 0.2.0-preview3
 
 * Updated build properties for the iOS and Android packages to set some project defaults
