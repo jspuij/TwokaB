@@ -6,6 +6,11 @@ This way we can share all of the application code between all the native apps we
 creating in these tutorials. The code for the start can be found in
 [this branch](https://github.com/jspuij/BlazorWebViewTutorial/tree/1_prepare).
 
+> Due to the Coronavirus Edge 82 (based on Chrome 82) has not been released. This is
+unfortunate, because this project has been upgraded to the latest Edge SDK in anticipation
+of its release. For now you can use this Control with the Dev / Canary builds of Edge, or
+use it with the old Edge. It will fall back to the old Edge automatically.
+
 ## Add a WPF .NET Core Project.
 
 Let's start by adding a WPF .NET Core Project to the solution. Perform the following
@@ -150,6 +155,10 @@ attribute to the Window tag.
 We have added the Control with the type `blazor:BlazorWebView`, that matches
 its parent in height and width, and we have given it the `BlazorWebView` Name. WPF will automatically
 create a property with that name on the `MainWindow` class.
+
+> The BlazorWebView Control first tries to start the new Edge (Chromium based) Edge. If it's not encountered
+the BlazorWebView Control will fall back to the old Edge control. If this is not desired you can use the
+`BlazorNewEdgeWebView` and `BlazorOldEdgeWebView` Controls respectively.
 
 We have also added two event handlers to the Window class:
 
