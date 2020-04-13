@@ -89,9 +89,9 @@ the properties of these files:
 
 The project should look like this:
 
-![Project and Build Properties](../images/buildproperties.png)
+![Project and Build Properties](../images/androidbuildproperties.png)
 
-> The wwwroot folder from the Android Project will be combined with the Static Sssets of
+> The wwwroot folder from the Android Project will be combined with the Static Assets of
 the Razor Class Libraries into a zipfile called wwwroot.zip. This zipfile is added to the
 Android Assets during the build process. It has to be zipped because Android Assets are
 very limited in their filename and folder structure. At first start of the application,
@@ -367,7 +367,7 @@ Blazor application:
 When you navigate to the `Fetch-Data` Page, you'll notice that the data is no
 longer shown. The data is included inside the Android APK, but the `HttpClient`
 that we have added to the DI container is outside of the Browser and won't be
-intercepted by the BlazorWebView. Let's get it from Github directly
+intercepted by the BlazorWebView. Let's get the data from Github directly
 to solve this issue. Change the `Oninitialized` method inside `FetchData.Razor`
 component in the shared RCL project to read:
 
