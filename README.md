@@ -31,6 +31,12 @@ The advantage of using Xamarin on mobile platforms is that you can use the
 [Xamarin Essentials](https://docs.microsoft.com/en-us/xamarin/essentials/) library to interact with mobile platform
 APIs easily from .NET.
 
+## Edgium Status
+
+Because of the Coronavirus, the latest Edge SDK does not work with the Stable or Beta (81) builds of edge, as the code necessary to support the SDK never made it into 81. 82 is cancelled. The first version that supports the SDK is Edge 83, but unfortunately Microsoft created a bug that will hang the initialization of the browser and also makes fallback fail. Bug is tracked here (https://github.com/MicrosoftEdge/WebViewFeedback/issues/151). So the only Edgium (new edge) build that works, is the Canary channel version, which can be downloaded at:
+
+https://www.microsoftedgeinsider.com/nl-nl/download/
+
 ## Get Started.
 
 The instructions to get started vary depending on which platform you want to create the application for. It's best
