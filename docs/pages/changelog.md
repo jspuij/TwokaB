@@ -2,6 +2,10 @@
 
 The following versions have been released:
 
+## 0.2.0-preview5
+
+* Fixed a bug where DPI awareness was incorrectly forced on windows 7.
+
 ## 0.2.0-preview4
 
 * Fixed a bug where elemenentreferences were not working.

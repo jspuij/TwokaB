@@ -9,6 +9,7 @@
   <PropertyGroup>
     <DocumentationFile>$(ProjectDir)$(OutDir)$(MSBuildProjectName).xml</DocumentationFile>
     <RestoreSources>$(RestoreSources);../../packages;https://api.nuget.org/v3/index.json</RestoreSources>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorWebView.Wpf" Version="0.2.0-preview1" />
+    <PackageReference Include="BlazorWebView.Wpf" Version="0.2.0-preview5" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

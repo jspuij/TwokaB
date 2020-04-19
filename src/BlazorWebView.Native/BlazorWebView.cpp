@@ -22,8 +22,6 @@ void BlazorWebView::Register(HINSTANCE hInstance)
 	wc.hInstance = hInstance;
 	wc.lpszClassName = CLASS_NAME;
 	RegisterClass(&wc);
-
-    SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 }
 
 void BlazorWebView::RefitContent()

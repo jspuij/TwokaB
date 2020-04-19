@@ -33,8 +33,31 @@ Make sure you choose the .NET Core WPF App Template and not the .NET Framework W
 Template for this tutorial. Blazor cannot run on the classic .NET Framework, as it
 is not netstandard 2.1 compatible. Finally, select the "Blank App" Template in the final dialog.
 A new project will be added to the solution. Set the WPF Project as the startup project
-and Press F5 to start the WPF Application and make sure everything works before we start
-adding the Blazor bits to the WPF Project.
+and Press F5 to start the WPF Application and make sure everything works before we add a manifest
+and start adding the Blazor bits to the WPF Project.
+
+## Create an Application Manifest
+
+To support DPI awareness on all supported Windows Versions we need to add an Application Manifest
+file to the project. To add an app.manifest:
+
+* Right click on your project folder, click Add -> New Item
+* Click on General in the left pane, and chose Application Manifest File.
+* Add the following snippet of XML in place of the sample DPI Awareness XML:
+
+```xml
+  <application xmlns="urn:schemas-microsoft-com:asm.v3">
+    <windowsSettings>
+      <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
+      <dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">
+        PerMonitorV2
+      </dpiAwareness>
+    </windowsSettings>
+  </application>
+```
+
+This makes sure that we support System default DPI awareness on Windows 7 and Per Monitor
+DPI awareness on Windows 10. 
 
 ## Add References.
 
