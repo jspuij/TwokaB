@@ -46,7 +46,7 @@ Now that we have references the Shared RCL Project, it's time to install the NuG
 package for the BlazorWebView for iOS. Select the project in the Solution Explorer,
 and subsequently click `Project` in the top menu and then `Manage NuGet Packages...`
 
-Check `Show pre-release packages` and search for `BlazorWebView.iOS'. Add it to the project.
+Check `Show pre-release packages` and search for `BlazorWebView.iOS`. Add it to the project.
 This should install the package. We need an `HttpClient` for this platform, 
 so we install `System.Net.Http` from NuGet as well.
 
@@ -137,7 +137,7 @@ inside the toolbox and drag it to add it to the view:
 The Blazor Web View will appear in the middle of the View. Center align and fill the View
 using the dialog below:
 
-![Center, Resize and Auto Size](../images/iosresize.png)
+![Center, Resize and Auto Size](../images/iosautosize.png)
 
 Make sure you click all the Auto Size edges and inside to make sure that the View sizes with
 its parent. Finally give the Blazor Web View the name "BlazorWebView" using the Properties dialog below:
