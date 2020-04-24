@@ -26,11 +26,11 @@ void BlazorWebView::Register(HINSTANCE hInstance)
 
 void BlazorWebView::RefitContent()
 {
-    if (webviewHost)
+    if (webviewController)
     {
         RECT bounds;
         GetClientRect(window, &bounds);
-        webviewHost->put_Bounds(bounds);
+        webviewController->put_Bounds(bounds);
     }
 }
 
@@ -66,18 +66,18 @@ bool BlazorWebView::Initialize()
 
     // Step 3 - Create a single WebView within the parent window
 // Locate the browser and set up the environment for WebView
-    HRESULT envResult = CreateCoreWebView2EnvironmentWithDetails(nullptr, nullptr, nullptr,
+    HRESULT envResult = CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
         Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
             [&, this](HRESULT result, ICoreWebView2Environment* env) -> HRESULT {
                 if (result != S_OK) { return result; }
                 this->webviewEnvironment = env;
 
-                // Create a CoreWebView2Host and get the associated CoreWebView2 whose parent is the main window hWnd
-                env->CreateCoreWebView2Host(window, Callback<ICoreWebView2CreateCoreWebView2HostCompletedHandler>(
-                    [&, this](HRESULT result, ICoreWebView2Host* host) -> HRESULT {
-                        if (host != nullptr) {
-                            this->webviewHost = host;
-                            webviewHost->get_CoreWebView2(&webviewWindow);
+                // Create a CoreWebView2Controller and get the associated CoreWebView2 whose parent is the main window hWnd
+                env->CreateCoreWebView2Controller(window, Callback<ICoreWebView2CreateCoreWebView2ControllerCompletedHandler>(
+                    [&, this](HRESULT result, ICoreWebView2Controller* controller) -> HRESULT {
+                        if (controller != nullptr) {
+                            this->webviewController = controller;
+                            webviewController->get_CoreWebView2(&webviewWindow);
                         }
 
                         // Add a few settings for the webview
@@ -102,7 +102,7 @@ bool BlazorWebView::Initialize()
 
                         // Register request handlers.
                         EventRegistrationToken webResourceRequestedToken;
-                        webviewWindow->AddWebResourceRequestedFilter(L"*", CORE_WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
+                        webviewWindow->AddWebResourceRequestedFilter(L"*", COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
                         webviewWindow->add_WebResourceRequested(Callback<ICoreWebView2WebResourceRequestedEventHandler>(
                             [this](ICoreWebView2* sender, ICoreWebView2WebResourceRequestedEventArgs* args)
                             {

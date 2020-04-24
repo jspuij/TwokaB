@@ -26,7 +26,7 @@ private:
     static HINSTANCE hInstance;
     HWND window = 0;
     wil::com_ptr<ICoreWebView2Environment> webviewEnvironment;
-    wil::com_ptr<ICoreWebView2Host> webviewHost;
+    wil::com_ptr<ICoreWebView2Controller> webviewController;
     wil::com_ptr<ICoreWebView2> webviewWindow;
     std::map<std::wstring, WebResourceRequestedCallback> schemeToRequestHandler;
     std::list<EventRegistrationToken> webResourceRequestedTokens;
