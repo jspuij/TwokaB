@@ -23,7 +23,7 @@ if (WIN32)
     set_property(TARGET BlazorWebViewNative PROPERTY
         VS_PROJECT_IMPORT
           ../../packages/Microsoft.Windows.ImplementationLibrary.1.0.191107.2/build/native/Microsoft.Windows.ImplementationLibrary.targets
-          ../../packages/Microsoft.Web.WebView2.0.9.430/build/native/Microsoft.Web.WebView2.targets
+          ../../packages/Microsoft.Web.WebView2.0.9.488/build/native/Microsoft.Web.WebView2.targets
       )
     target_link_libraries(BlazorWebViewNative shlwapi)
 endif (WIN32)

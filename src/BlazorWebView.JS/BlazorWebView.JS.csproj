@@ -34,6 +34,18 @@
     <WebpackInputs Include="**\*.ts" Exclude="node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="HowToUpdateUpstreamFiles.md" />
+    <None Include="webpack.config.js" />
+  </ItemGroup>
+
 
   <Target Name="EnsureNpmRestored" Condition="!Exists('node_modules')">
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />

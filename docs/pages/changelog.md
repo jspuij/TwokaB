@@ -2,6 +2,12 @@
 
 The following versions have been released:
 
+## 0.2.0-preview6
+
+* Upgraded to the latest Blazor 3.2.0-preview5
+* Updated to the latest Microsoft.Web.WebView2.0.9.488
+* Upgraded to the latest npms
+
 ## 0.2.0-preview5
 
 * Fixed a bug where DPI awareness was incorrectly forced on windows 7.
