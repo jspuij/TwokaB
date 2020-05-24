@@ -24,6 +24,7 @@ private:
     ErrorOccuredCallback errorOccuredCallback;
 #ifdef _WIN32
     static HINSTANCE hInstance;
+    std::wstring userDataFolder;
     HWND window = 0;
     wil::com_ptr<ICoreWebView2Environment> webviewEnvironment;
     wil::com_ptr<ICoreWebView2Controller> webviewController;
@@ -35,7 +36,7 @@ private:
 
 public:
 #ifdef _WIN32
-    BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback);
+    BlazorWebView(HWND parent, AutoString userDataFolder, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback);
     HWND GetHWND(); 
     static void Register(HINSTANCE hInstance);
     void RefitContent();

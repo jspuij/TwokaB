@@ -183,6 +183,9 @@ create a property with that name on the `MainWindow` class.
 the BlazorWebView Control will fall back to the old Edge control. If this is not desired you can use the
 `BlazorNewEdgeWebView` and `BlazorOldEdgeWebView` Controls respectively.
 
+> The BlazorNewEdgeWebView and BlazorWebView have an optional `UserDataFolder` property that you can set
+to point to a folder where Edgium should store its data. The default folder is `%APPDATA%\Local\<EntryAssemblyName>\WebView2\`.
+
 We have also added two event handlers to the Window class:
 
 * <strong>Windows_ContentRendered:</strong> This event will be used to initialize Blazor. Unfortunately

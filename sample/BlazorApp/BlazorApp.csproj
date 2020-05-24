@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -32,7 +32,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-      <PackageReference Include="BlazorWebView" Version="0.2.0-preview6">
+      <PackageReference Include="BlazorWebView" Version="0.2.0-preview7">
     </PackageReference>
       <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.3.20214.6" />  
     </ItemGroup>

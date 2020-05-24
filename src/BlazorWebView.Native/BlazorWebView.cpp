@@ -34,9 +34,10 @@ void BlazorWebView::RefitContent()
     }
 }
 
-BlazorWebView::BlazorWebView(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback)
+BlazorWebView::BlazorWebView(HWND parent, AutoString userDataFolder, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback)
 {
     rootWindow = parent;
+    this->userDataFolder = userDataFolder;
     this->webMessageReceivedCallback = webMessageReceivedCallback;
     this->errorOccuredCallback = errorOccuredCallback;
 	this->window = CreateWindowEx(
@@ -66,7 +67,7 @@ bool BlazorWebView::Initialize()
 
     // Step 3 - Create a single WebView within the parent window
 // Locate the browser and set up the environment for WebView
-    HRESULT envResult = CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
+    HRESULT envResult = CreateCoreWebView2EnvironmentWithOptions(nullptr, this->userDataFolder.c_str(), nullptr,
         Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
             [&, this](HRESULT result, ICoreWebView2Environment* env) -> HRESULT {
                 if (result != S_OK) { return result; }

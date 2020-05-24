@@ -16,9 +16,9 @@ extern "C"
         BlazorWebView::Register(hInstance);
     }
 
-    EXPORTED BlazorWebView* BlazorWebViewNative_Ctor(HWND parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback)
+    EXPORTED BlazorWebView* BlazorWebViewNative_Ctor(HWND parent, AutoString userDataFolder, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback)
     {
-        return new BlazorWebView(parent, webMessageReceivedCallback, errorOccuredCallback);
+        return new BlazorWebView(parent, userDataFolder, webMessageReceivedCallback, errorOccuredCallback);
     }
 
     EXPORTED HWND BlazorWebViewNative_GetHWND(BlazorWebView* blazorWebView)

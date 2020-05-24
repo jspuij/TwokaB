@@ -9,6 +9,11 @@
             An <see cref="T:BlazorWebView.IBlazorWebView"/> implementation for Wpf.
             </summary>
         </member>
+        <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.UserDataFolderProperty">
+            <summary>
+            The UserDataFolder Dependency Property.
+            </summary>
+        </member>
         <member name="F:BlazorWebView.Wpf.BlazorNewEdgeWebView.DllName">
             <summary>
             The name of the native DLL that is used.
@@ -66,6 +71,11 @@
             Event that is fired when a web message is received from javascript.
             </summary>
         </member>
+        <member name="P:BlazorWebView.Wpf.BlazorNewEdgeWebView.UserDataFolder">
+            <summary>
+            Gets or sets the folder where the WebView userdata is stored.
+            </summary>
+        </member>
         <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.Initialize(System.Action{BlazorWebView.WebViewOptions})">
             <summary>
             Initialize the BlazorWebView.
@@ -116,11 +126,12 @@
             </summary>
             <param name="hInstance">The instance handle for the module.</param>
         </member>
-        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_Ctor(System.IntPtr,BlazorWebView.Wpf.BlazorNewEdgeWebView.WebMessageReceivedCallback,BlazorWebView.Wpf.BlazorNewEdgeWebView.ErrorOccuredCallback)">
+        <member name="M:BlazorWebView.Wpf.BlazorNewEdgeWebView.BlazorWebViewNative_Ctor(System.IntPtr,System.String,BlazorWebView.Wpf.BlazorNewEdgeWebView.WebMessageReceivedCallback,BlazorWebView.Wpf.BlazorNewEdgeWebView.ErrorOccuredCallback)">
             <summary>
             Calls the constructor of the native webview opbject.
             </summary>
             <param name="parent">A handle to the parent window.</param>
+            <param name="userDataFolder">The user data folder for the webview.</param>
             <param name="webMessageReceivedCallback">The callback to use when a message is received from javascript.</param>
             <param name="errorOccuredCallback">The callback to use when an error occured.</param>
             <returns>A pointer to the native webview object.</returns>
@@ -286,6 +297,11 @@
             UserControl that wraps either an NewEdgeWebView or the normal EdgeWebView, depending on what is installed.
             </summary>
         </member>
+        <member name="F:BlazorWebView.Wpf.BlazorWebView.UserDataFolderProperty">
+            <summary>
+            The UserDataFolder Dependency Property.
+            </summary>
+        </member>
         <member name="F:BlazorWebView.Wpf.BlazorWebView.grid">
             <summary>
             The readonly grid.
@@ -295,6 +311,12 @@
             <summary>
             Initializes a new instance of the <see cref="T:BlazorWebView.Wpf.BlazorWebView"/> class.
             </summary>
+        </member>
+        <member name="P:BlazorWebView.Wpf.BlazorWebView.UserDataFolder">
+            <summary>
+            Gets or sets the folder where the WebView userdata is stored.
+            </summary>
+            <remarks>Only useful for edgium, does not work on old edge.</remarks>
         </member>
         <member name="E:BlazorWebView.Wpf.BlazorWebView.OnWebMessageReceived">
             <summary>
@@ -331,6 +353,9 @@
             </summary>
             <param name="title">The title to show.</param>
             <param name="message">The message to show.</param>
+        </member>
+        <member name="M:BlazorWebView.Wpf.BlazorWebView.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <inheritdoc />
         </member>
     </members>
 </doc>

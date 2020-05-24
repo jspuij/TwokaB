@@ -19,6 +19,7 @@ namespace BlazorWebView.Wpf
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Runtime.Serialization;
     using System.Text;
@@ -32,6 +33,19 @@ namespace BlazorWebView.Wpf
     /// </summary>
     public sealed class BlazorNewEdgeWebView : HwndHost, IBlazorWebView
     {
+        /// <summary>
+        /// The UserDataFolder Dependency Property.
+        /// </summary>
+        public static readonly DependencyProperty UserDataFolderProperty = DependencyProperty.Register(
+          "UserDataFolder",
+          typeof(string),
+          typeof(BlazorNewEdgeWebView),
+          new PropertyMetadata(
+              Path.Combine(
+                  Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                  Assembly.GetEntryAssembly().GetName().Name,
+                  "WebView2")));
+
         /// <summary>
         /// The name of the native DLL that is used.
         /// </summary>
@@ -95,6 +109,15 @@ namespace BlazorWebView.Wpf
         /// Event that is fired when a web message is received from javascript.
         /// </summary>
         public event EventHandler<string> OnWebMessageReceived;
+
+        /// <summary>
+        /// Gets or sets the folder where the WebView userdata is stored.
+        /// </summary>
+        public string UserDataFolder
+        {
+            get { return (string)this.GetValue(UserDataFolderProperty); }
+            set { this.SetValue(UserDataFolderProperty, value); }
+        }
 
         /// <summary>
         /// Initialize the BlazorWebView.
@@ -179,7 +202,7 @@ namespace BlazorWebView.Wpf
             var onErrorMessageDelegate = (ErrorOccuredCallback)this.ReceiveErrorMessage;
             this.gcHandlesToFree.Add(GCHandle.Alloc(onErrorMessageDelegate));
 
-            this.blazorWebView = BlazorWebViewNative_Ctor(hwndParent.Handle, onWebMessageReceivedDelegate, onErrorMessageDelegate);
+            this.blazorWebView = BlazorWebViewNative_Ctor(hwndParent.Handle, this.UserDataFolder, onWebMessageReceivedDelegate, onErrorMessageDelegate);
             var hwnd = BlazorWebViewNative_GetHWND(this.blazorWebView);
             return new HandleRef(this, hwnd);
         }
@@ -210,11 +233,12 @@ namespace BlazorWebView.Wpf
         /// Calls the constructor of the native webview opbject.
         /// </summary>
         /// <param name="parent">A handle to the parent window.</param>
+        /// <param name="userDataFolder">The user data folder for the webview.</param>
         /// <param name="webMessageReceivedCallback">The callback to use when a message is received from javascript.</param>
         /// <param name="errorOccuredCallback">The callback to use when an error occured.</param>
         /// <returns>A pointer to the native webview object.</returns>
-        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr BlazorWebViewNative_Ctor(IntPtr parent, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback);
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Auto)]
+        private static extern IntPtr BlazorWebViewNative_Ctor(IntPtr parent, string userDataFolder, WebMessageReceivedCallback webMessageReceivedCallback, ErrorOccuredCallback errorOccuredCallback);
 
         /// <summary>
         /// Gets the window handle of the native webview object.

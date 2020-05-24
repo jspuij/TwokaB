@@ -18,6 +18,7 @@ namespace BlazorWebView.Wpf
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
@@ -35,6 +36,19 @@ namespace BlazorWebView.Wpf
     public partial class BlazorWebView : UserControl, IBlazorWebView
     {
         /// <summary>
+        /// The UserDataFolder Dependency Property.
+        /// </summary>
+        public static readonly DependencyProperty UserDataFolderProperty = DependencyProperty.Register(
+          "UserDataFolder",
+          typeof(string),
+          typeof(BlazorWebView),
+          new PropertyMetadata(
+              System.IO.Path.Combine(
+                  Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                  Assembly.GetEntryAssembly().GetName().Name,
+                  "WebView2")));
+
+        /// <summary>
         /// The readonly grid.
         /// </summary>
         private readonly Grid grid;
@@ -50,6 +64,23 @@ namespace BlazorWebView.Wpf
             this.grid = new Grid();
             this.grid.Children.Add((BlazorNewEdgeWebView)this.innerBlazorWebView);
             this.Content = this.grid;
+        }
+
+        /// <summary>
+        /// Gets or sets the folder where the WebView userdata is stored.
+        /// </summary>
+        /// <remarks>Only useful for edgium, does not work on old edge.</remarks>
+        public string UserDataFolder
+        {
+            get
+            {
+                return (string)this.GetValue(UserDataFolderProperty);
+            }
+
+            set
+            {
+                this.SetValue(UserDataFolderProperty, value);
+            }
         }
 
         /// <summary>
@@ -125,6 +156,20 @@ namespace BlazorWebView.Wpf
         public void ShowMessage(string title, string message)
         {
             this.innerBlazorWebView.ShowMessage(title, message);
+        }
+
+        /// <inheritdoc />
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            if (e.Property == UserDataFolderProperty)
+            {
+                if (this.innerBlazorWebView is BlazorNewEdgeWebView newEdgeWebView)
+                {
+                    newEdgeWebView.UserDataFolder = (string)e.NewValue;
+                }
+            }
         }
     }
 }

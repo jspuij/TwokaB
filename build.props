@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId Condition="'$(PackageId)' == ''">$(MSBuildProjectName)</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.2.0-preview6</Version>
+    <Version>0.2.0-preview7</Version>
     <Authors>Jan-Willem Spuij</Authors>
     <Company />
     <Description>
