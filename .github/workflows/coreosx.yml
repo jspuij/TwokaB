@@ -45,6 +45,6 @@ jobs:
     - name: Push BlazorWebView nuget packages
       working-directory: ./
       run: |
-        dotnet nuget push src/BlazorWebView.Android/packages/BlazorWebView.Android.*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        dotnet nuget push src/BlazorWebView.Mac/packages/BlazorWebView.Mac.*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        dotnet nuget push src/BlazorWebView.iOS/packages/BlazorWebView.iOS.*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push src/BlazorWebView.Android/packages/BlazorWebView.Android*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push src/BlazorWebView.Mac/packages/BlazorWebView.Mac*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push src/BlazorWebView.iOS/packages/BlazorWebView.iOS*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
