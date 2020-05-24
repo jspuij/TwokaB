@@ -2,12 +2,16 @@
 
 The following versions have been released:
 
-## 0.2.0-preview7
+## 0.2.0-preview8
 
 * Upgrade to the final Blazor 3.2.0 WebAssembly version.
 * Added UserDataFolder to the BlazorNewEdgeWebView and BlazorWebView variants
   for WPF to set the WebView2 userdata folder.
   Fixes: https://github.com/jspuij/BlazorWebView/issues/15
+
+## 0.2.0-preview7
+
+* Retracted because of Nuget.org problems.
 
 ## 0.2.0-preview6
 
