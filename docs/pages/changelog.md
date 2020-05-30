@@ -2,6 +2,11 @@
 
 The following versions have been released:
 
+## 0.2.0-preview9
+
+* Fixed a bug where the WebJS project was tracking the 5.0.0 beta Blazor JavaScript sources.
+  Thanks @roceh for pointing this out.
+
 ## 0.2.0-preview8
 
 * Upgrade to the final Blazor 3.2.0 WebAssembly version.

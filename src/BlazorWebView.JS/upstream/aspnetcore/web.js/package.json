@@ -14,22 +14,22 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@microsoft/dotnet-js-interop": "https://dotnet.myget.org/F/aspnetcore-dev/npm/@microsoft/dotnet-js-interop/-/@microsoft/dotnet-js-interop-5.0.0-alpha1.19572.2.tgz",
-    "@microsoft/signalr": "link:../../SignalR/clients/ts/signalr",
-    "@microsoft/signalr-protocol-msgpack": "link:../../SignalR/clients/ts/signalr-protocol-msgpack",
-    "@types/emscripten": "1.39.3",
-    "@types/jest": "^25.2.1",
-    "@types/jsdom": "16.2.1",
-    "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.29.0",
-    "eslint": "^6.8.0",
-    "jest": "^25.4.0",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^25.4.0",
-    "ts-loader": "^7.0.1",
-    "typescript": "^3.8.3",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "@aspnet/signalr": "link:../../SignalR/clients/ts/signalr",
+    "@aspnet/signalr-protocol-msgpack": "link:../../SignalR/clients/ts/signalr-protocol-msgpack",
+    "@dotnet/jsinterop": "https://dotnet.myget.org/F/aspnetcore-dev/npm/@dotnet/jsinterop/-/@dotnet/jsinterop-3.0.0-preview9.19415.3.tgz",
+    "@types/emscripten": "0.0.31",
+    "@types/jest": "^24.0.6",
+    "@types/jsdom": "11.0.6",
+    "@typescript-eslint/eslint-plugin": "^1.5.0",
+    "@typescript-eslint/parser": "^1.5.0",
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^24.0.0",
+    "ts-loader": "^4.4.1",
+    "typescript": "^3.5.3",
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6"
   },
   "resolutions": {
     "**/set-value": "^2.0.1"
