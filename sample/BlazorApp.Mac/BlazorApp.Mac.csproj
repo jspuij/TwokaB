@@ -104,7 +104,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="BlazorWebView.Mac">
-      <Version>0.2.0-preview7</Version>
+      <Version>0.2.0-preview8</Version>
     </PackageReference>
     <PackageReference Include="System.Memory" Version="4.5.4" IncludeAssets="None" />
   </ItemGroup>
