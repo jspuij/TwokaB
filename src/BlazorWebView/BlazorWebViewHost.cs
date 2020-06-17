@@ -215,8 +215,7 @@ namespace BlazorWebView
         private static async Task RunAsync<TStartup>(IPC ipc, CancellationToken appLifetime, ManualResetEventSlim completed)
         {
             JSRuntime = new PlatformJSRuntime(ipc);
-            completed.Set();
-            await PerformHandshakeAsync(ipc);
+            await PerformHandshakeAsync(ipc, completed);
             var dispatcher = new PlatformDispatcher(appLifetime);
 
             AttachJsInterop(ipc, appLifetime, dispatcher.Context);
@@ -282,7 +281,7 @@ namespace BlazorWebView
         /// </summary>
         /// <param name="ipc">The IPC channel to communicate between blazor and javascript.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        private static async Task PerformHandshakeAsync(IPC ipc)
+        private static async Task PerformHandshakeAsync(IPC ipc, ManualResetEventSlim completed)
         {
             var tcs = new TaskCompletionSource<object>();
             ipc.Once("components:init", args =>
@@ -294,6 +293,7 @@ namespace BlazorWebView
                 tcs.SetResult(null);
             });
 
+            completed.Set();
             await tcs.Task;
         }
 

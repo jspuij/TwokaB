@@ -70,7 +70,7 @@ package for the BlazorWebView for WPF. Enter the following lines into the Packag
 Console:
 
 ```
-PM> Install-Package BlazorWebView.Wpf -IncludePrerelease
+PM> Install-Package BlazorWebView.Wpf
 ```
 
 This should install the package. We need an `HttpClient` for this platform, 

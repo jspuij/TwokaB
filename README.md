@@ -33,7 +33,11 @@ APIs easily from .NET.
 
 ## Edgium Status
 
-Because of the Coronavirus, the latest Edge SDK does not work with the Stable or Beta (81) builds of edge, as the code necessary to support the SDK never made it into 81. 82 is cancelled. The first version that supports the SDK is Edge 83, but unfortunately Microsoft created a bug that will hang the initialization of the browser and also makes fallback fail. Bug is tracked here (https://github.com/MicrosoftEdge/WebViewFeedback/issues/151). So the only Edgium (new edge) build that works, is the Canary channel version, which can be downloaded at:
+Because of the Coronavirus, the latest Edge SDK does not work with the Stable or Beta (81) builds of edge, as the code necessary
+to support the SDK never made it into 81. 82 is cancelled. The first version that supports the SDK is Edge 83, but unfortunately
+Microsoft created a bug that will hang the initialization of the browser and also makes fallback fail.
+Bug is tracked here (https://github.com/MicrosoftEdge/WebViewFeedback/issues/151). So the only Edgium (new edge) build
+that works, is the Canary channel version, which can be downloaded at:
 
 https://www.microsoftedgeinsider.com/nl-nl/download/
 
@@ -54,16 +58,16 @@ to follow the tutorials for every platform. They are available below:
 In general, you need to add one of the NuGet packages specific to your platform to your project:
 
 ```
-PM> Install-Package BlazorWebView.Android -IncludePrerelease
+PM> Install-Package BlazorWebView.Android
 
 # OR
-PM> Install-Package BlazorWebView.iOS -IncludePrerelease
+PM> Install-Package BlazorWebView.iOS
 
 # OR
-PM> Install-Package BlazorWebView.Mac -IncludePrerelease
+PM> Install-Package BlazorWebView.Mac
 
 # OR
-PM> Install-Package BlazorWebView.Wpf -IncludePrerelease
+PM> Install-Package BlazorWebView.Wpf
 ```
 
 ### Add BlazorWebView to Your Activity/View, ViewController/View, or Window.

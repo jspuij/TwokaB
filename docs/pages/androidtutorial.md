@@ -53,7 +53,7 @@ package for the BlazorWebView for Android. Enter the following lines into the Pa
 Console:
 
 ```
-PM> Install-Package BlazorWebView.Android -IncludePrerelease
+PM> Install-Package BlazorWebView.Android
 ```
 
 This should install the package. We need an `HttpClient` for this platform, 
