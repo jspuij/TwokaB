@@ -139,13 +139,16 @@ namespace BlazorWebView
                 });
             });
 
+            var completed = new ManualResetEventSlim();
+
             CancellationTokenSource appLifetimeCts = new CancellationTokenSource();
+
             Task.Factory.StartNew(async () =>
             {
                 try
                 {
                     var ipc = new IPC(BlazorWebView);
-                    await RunAsync<TStartup>(ipc, appLifetimeCts.Token);
+                    await RunAsync<TStartup>(ipc, appLifetimeCts.Token, completed);
                 }
                 catch (Exception ex)
                 {
@@ -156,6 +159,7 @@ namespace BlazorWebView
 
             try
             {
+                completed.Wait();
                 BlazorWebView.NavigateToUrl(BlazorAppScheme + "://app/");
             }
             catch
@@ -206,18 +210,20 @@ namespace BlazorWebView
         /// <typeparam name="TStartup">The type of the startup class.</typeparam>
         /// <param name="ipc">The IPC channel to communicate between blazor and javascript.</param>
         /// <param name="appLifetime">A cancellation token representing the application lifetime.</param>
+        /// <param name="completed">A ManualResetEvent that is set when initialization of the ipc and JSRuntime is completed. Signals the webbrowser to continue to start and load the URL.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        private static async Task RunAsync<TStartup>(IPC ipc, CancellationToken appLifetime)
+        private static async Task RunAsync<TStartup>(IPC ipc, CancellationToken appLifetime, ManualResetEventSlim completed)
         {
-            var configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true);
-
             JSRuntime = new PlatformJSRuntime(ipc);
+            completed.Set();
             await PerformHandshakeAsync(ipc);
             var dispatcher = new PlatformDispatcher(appLifetime);
 
             AttachJsInterop(ipc, appLifetime, dispatcher.Context);
+
+            var configurationBuilder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true);
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<IConfiguration>(configurationBuilder.Build());

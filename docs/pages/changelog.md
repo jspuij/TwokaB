@@ -2,6 +2,12 @@
 
 The following versions have been released:
 
+## 0.2.0
+
+* Fixed a possible race condition where initialization of the IPC and Runtime would take more time that the load and execution
+  of the web page. So we delay the load of the web page until IPC is ready.
+* Dropped preview designation as Blazor (webassembly) is now out of preview.
+
 ## 0.2.0-preview9
 
 * Fixed a bug where the WebJS project was tracking the 5.0.0 beta Blazor JavaScript sources.
