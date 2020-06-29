@@ -2,7 +2,7 @@
 
 # TwokaB
 
-### The Webview originally Known As BlazorWebView.
+### The Webview Originally Known as BlazorWebView.
 
 Update: I'll be working with MS to get TwokaB merged into the new BlazorWebView that will be part of the [Mobile Blazor Bindings](https://github.com/xamarin/MobileBlazorBindings). Stay tuned for updates. 
 
