@@ -4,7 +4,10 @@
 
 ### The Webview Originally Known as BlazorWebView.
 
-Update: I'll be working with MS to get TwokaB merged into the new BlazorWebView that will be part of the [Mobile Blazor Bindings](https://github.com/xamarin/MobileBlazorBindings). Stay tuned for updates. 
+**Update:** I'll be working with Eilon Lipton from MS to get TwokaB merged into the new BlazorWebView that will be part of the [Mobile Blazor Bindings](https://github.com/xamarin/MobileBlazorBindings).
+Preview4 has been released with most of the functionality of this BlazorWebView: https://devblogs.microsoft.com/aspnet/hybrid-blazor-mobile-blazor-bindings-july-update/
+We are working to get Static Assets with RCL support in MobileBlazorBindings next. Stay tuned for updates.
+
 
 Blazor traditionally runs on .NET Core for Server-side Blazor and runs the Mono runtime on WebAssembly inside the
 browser for Client-side Blazor. For desktop and mobile applications, this is cumbersome, as it requires a bundled web 
